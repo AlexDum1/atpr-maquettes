@@ -10,10 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,340..560;1,9..144,340..560&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Bandeau de navigation inter-pistes (assemblage — style volontairement neutre) */
+    .pistes-nav { background: #F1F0EE; color: #3F3F46; border-bottom: 1px solid #DCDAD5; font: 500 0.78rem/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: 0.01em; }
+    .pistes-nav p { margin: 0 auto; max-width: 1200px; padding: 7px 16px; display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; }
+    .pistes-nav a { color: #3F3F46; text-decoration: underline; text-underline-offset: 2px; }
+    .pistes-nav a:hover, .pistes-nav a:focus-visible { color: #17171A; }
+    @media (max-width: 480px) { .pistes-nav p { padding: 6px 12px; } .pistes-nav .pistes-nav-nom { display: none; } }
+  </style>
 </head>
 <body>
 
   <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <nav class="pistes-nav" aria-label="Navigation entre les trois pistes">
+    <p><strong>Piste 3/3<span class="pistes-nav-nom"> — Carte blanche</span></strong><span aria-hidden="true">·</span><a href="../index.html">← Voir les autres pistes</a></p>
+  </nav>
+
 
   <p class="bandeau-piste">Piste créative — proposition d’évolution de l’identité</p>
 
