@@ -32,8 +32,8 @@
 ## Manquant / à faire cette session
 
 - [x] Dépôt git (inexistant → initialisé cette session)
-- [ ] Bandeau de navigation inter-pistes « Piste X/3 » dans les 21 pages
-- [ ] Test local complet
+- [x] Bandeau de navigation inter-pistes « Piste X/3 » dans les 21 pages
+- [x] Test local complet (QA 3×7 pages PASS, parcours index↔maquettes PASS, 375 px OK, zéro erreur console)
 - [ ] Publication GitHub Pages (après validation d'Alexis)
 
 **Rien de bloquant. Aucune correction de maquette nécessaire.**
