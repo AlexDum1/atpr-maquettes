@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Annuaire des thérapeutes en psychosomatique relationnelle</title>
+  <meta name="description" content="Trouver un thérapeute formé à la psychosomatique relationnelle&nbsp;: l’annuaire des membres de l’A.T.P.R., en cabinet ou en visioconférence.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ============ Styles propres à la page « Annuaire » ============
+       (le socle styles.css n'est pas modifié — contrat STYLE-GUIDE §0) */
+
+    /* Filet ondulé sous les titres de section (même dessin que psr.html) */
+    .titre-vague::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 10px;
+      margin-top: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='10' viewBox='0 0 64 10'%3E%3Cpath d='M1 5 C7 1 13 1 19 5 C25 9 31 9 37 5 C43 1 49 1 55 5 C58 7 61 7 63 6' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    /* Badges « À fournir » : coins doux, emphase réduite (pas de capitales criardes) */
+    main .badge-fournir {
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+
+    /* Variantes du filet ondulé (tracés/couleurs alternés d'une section à l'autre) */
+    .titre-vague--violet::after {
+      width: 84px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='10' viewBox='0 0 84 10'%3E%3Cpath d='M1 5 C9 9 17 1 25 5 C33 9 41 1 49 5 C57 9 65 1 73 5 C78 8 81 8 83 5' fill='none' stroke='%23A295C1' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+    .titre-vague--ample::after {
+      width: 56px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='10' viewBox='0 0 56 10'%3E%3Cpath d='M1 6 C8 0 15 10 22 5 C29 0 36 10 43 5 C48 2 52 3 55 6' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    .petales-ponctuation--gauche {
+      justify-content: flex-start;
+      margin-top: var(--e-3);
+      padding-block: 0;
+    }
+
+    /* ---- En-tête de page ---- */
+    .entete-annuaire {
+      position: relative;
+      overflow: visible;
+      padding-block: var(--e-5) var(--e-4);
+    }
+    .entete-annuaire__lavis {
+      position: absolute;
+      top: -40px;
+      right: -110px;
+      width: clamp(340px, 40vw, 600px);
+      height: auto;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @media (max-width: 639px) {
+      .entete-annuaire__lavis { top: -20px; right: -60px; }
+    }
+    .entete-annuaire__fleur { display: none; }
+    @media (min-width: 1024px) {
+      .entete-annuaire__fleur {
+        display: block;
+        position: absolute;
+        top: clamp(60px, 10vw, 125px);
+        right: clamp(56px, 10vw, 160px);
+        width: clamp(190px, 21vw, 280px);
+        height: auto;
+        color: var(--c-violet);
+        transform: rotate(8deg);
+        z-index: -1;
+        pointer-events: none;
+      }
+    }
+    .entete-annuaire h1 { max-width: 16em; }
+    .entete-annuaire__chapeau {
+      font-size: var(--t-lede);
+      line-height: 1.6;
+      max-width: 38rem;
+      margin-block: var(--e-3) 0;
+    }
+    .entete-annuaire__chapeau + .entete-annuaire__chapeau { margin-top: var(--e-2); }
+
+    /* ---- 1. Comprendre les mentions : titre à gauche, liste de définitions
+            sur une colonne de lecture à droite (grille 5/7, tops alignés) ---- */
+    .section-mentions { padding-block: var(--e-4) var(--e-5); }
+    .section-mentions__grille { display: grid; gap: var(--e-4); }
+    @media (min-width: 1024px) {
+      .section-mentions__grille {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        column-gap: clamp(36px, 5vw, 80px);
+        align-items: start;
+      }
+      .section-mentions__grille h2 { margin-bottom: 0; }
+    }
+    .definitions {
+      display: grid;
+      gap: var(--e-3);
+      margin: 0;
+      max-width: var(--largeur-prose);
+    }
+    .definition {
+      margin: 0;
+      padding-left: var(--e-3);
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='44' viewBox='0 0 10 44'%3E%3Cpath d='M5 0 C8.5 7 1.5 15 5 22 C8.5 29 1.5 37 5 44' fill='none' stroke='%23A295C1' stroke-width='2'/%3E%3C/svg%3E") repeat-y left top;
+    }
+    .definition:nth-child(2) {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='44' viewBox='0 0 10 44'%3E%3Cpath d='M5 0 C8.5 7 1.5 15 5 22 C8.5 29 1.5 37 5 44' fill='none' stroke='%2374BFA8' stroke-width='2'/%3E%3C/svg%3E");
+    }
+    .definition dt {
+      font-family: var(--f-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--c-violet-fonce);
+      margin-bottom: var(--e-1);
+    }
+    .definition dd { margin: 0; max-width: 52ch; }
+
+    /* ---- 2. Les fiches (bande verte) : entêtes de région pleine largeur,
+            fiches compactées dessous, alternance et léger quinconce ---- */
+    .section-fiches {
+      background: var(--c-vert-voile);
+      padding-block: var(--e-5) var(--e-5);
+    }
+    .section-fiches .annuaire-region:last-child { margin-bottom: 0; }
+    .section-fiches .annuaire-region { margin-bottom: var(--e-4); }
+    .section-fiches .annuaire-region__nom {
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-bottom: var(--e-2);
+      display: flex;
+      align-items: center;
+      gap: var(--e-2);
+    }
+    /* La région en séparateur : ondulation courte puis filet jusqu'au bord */
+    .section-fiches .annuaire-region__nom::after {
+      content: "";
+      flex: 1;
+      height: 10px;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='10' viewBox='0 0 48 10'%3E%3Cpath d='M1 5 C6 1 11 1 16 5 C21 9 26 9 31 5 C36 1 41 1 46 5' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") left center no-repeat,
+        linear-gradient(to bottom, transparent calc(50% - 1px), var(--c-filet) calc(50% - 1px), var(--c-filet) calc(50% + 0px), transparent calc(50% + 0px)) 56px center / calc(100% - 56px) 100% no-repeat;
+    }
+    /* Alternance de fond et de radius d'une fiche à l'autre */
+    .fiche-therapeute--alt {
+      background: #FFFFFF;
+      border-radius: 6px 22px 6px 22px;
+    }
+    @media (min-width: 640px) {
+      /* Quinconce discret dans chaque rangée */
+      .section-fiches .annuaire-region__fiches .fiche-therapeute:nth-child(even) {
+        margin-top: var(--e-2);
+      }
+    }
+    /* Hiérarchie interne des fiches : l'action (contact) reprend le dessus */
+    .section-fiches .fiche-therapeute__publics {
+      font-size: var(--t-micro);
+      letter-spacing: 0.04em;
+      color: var(--c-violet-fonce);
+    }
+    .section-fiches .fiche-therapeute__contact {
+      word-break: normal;
+      overflow-wrap: anywhere;
+    }
+    .section-fiches .fiche-therapeute__contact a { font-weight: 700; }
+    .section-fiches .fiche-therapeute .badge-exemple {
+      font-size: 0.6rem;
+      padding: 2px 8px;
+    }
+
+    /* ---- 3. Données personnelles + note de maquette (tops alignés) ---- */
+    .section-rgpd { padding-block: var(--e-5) var(--e-5); }
+    .section-rgpd h2 { margin-bottom: var(--e-3); }
+    .section-rgpd .prose { max-width: var(--largeur-prose); }
+    .section-rgpd .prose p:last-child { margin-bottom: 0; }
+    .encart-note {
+      position: relative;
+      max-width: 31rem;
+      margin-top: var(--e-4);
+      padding: var(--e-3) clamp(24px, 5vw, 36px);
+      background: #FCF4DC;
+      border-radius: 48px 20px 48px 20px;
+      transform: rotate(1.2deg);
+      box-shadow: 0 24px 40px -32px rgba(138, 100, 16, 0.35);
+    }
+    .encart-note > * { transform: rotate(-1.2deg); }
+    .encart-note__titre {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--c-ocre-texte);
+      margin: 0 0 var(--e-1);
+    }
+    .encart-note p:last-child { margin: 0; }
+    @media (min-width: 1024px) {
+      .section-rgpd__grille {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        column-gap: clamp(28px, 4vw, 56px);
+        align-items: start;
+      }
+      .encart-note { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="site-header__inner enveloppe">
+      <a class="site-header__logo" href="index.html">
+        <img src="../assets/logos/logo-maison-alpha-560.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R., retour à l’accueil" width="560" height="198">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle__icone" aria-hidden="true"><span></span><span></span><span></span></span>
+        Menu
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html" aria-current="page">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============ EN-TÊTE DE PAGE ============ -->
+    <section class="entete-annuaire" aria-labelledby="titre-page">
+      <svg class="entete-annuaire__lavis" viewBox="0 0 600 520" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="lavis-annuaire-violet" cx="46%" cy="42%" r="62%">
+            <stop offset="0%" stop-color="#CAA4F9" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#CAA4F9" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lavis-annuaire-vert" cx="52%" cy="48%" r="64%">
+            <stop offset="0%" stop-color="#74BFA8" stop-opacity="0.44"/>
+            <stop offset="100%" stop-color="#74BFA8" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="lavis-annuaire-flou" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="24"/>
+          </filter>
+        </defs>
+        <g filter="url(#lavis-annuaire-flou)">
+          <path d="M300 40 C412 22 516 96 532 204 C548 314 464 392 352 404 C240 416 148 348 138 244 C128 140 188 58 300 40 Z" fill="url(#lavis-annuaire-violet)" opacity="0.9"/>
+          <path d="M214 190 C318 160 428 212 448 300 C468 390 388 458 280 468 C172 478 82 414 74 322 C66 230 110 220 214 190 Z" fill="url(#lavis-annuaire-vert)" opacity="0.85"/>
+        </g>
+      </svg>
+      <svg class="entete-annuaire__fleur" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(60 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(120 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(180 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(240 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(300 100 100)"/>
+          <circle cx="100" cy="100" r="5.5"/>
+        </g>
+      </svg>
+      <div class="enveloppe">
+        <span class="eyebrow">Annuaire</span>
+        <h1 id="titre-page">Trouver un <em>thérapeute</em></h1>
+        <p class="entete-annuaire__chapeau">Vous cherchez un thérapeute formé à la psychosomatique relationnelle (PSR)&nbsp;? Cet annuaire présente les thérapeutes membres de l’A.T.P.R. (Association de Thérapeutes en Psychosomatique&nbsp;Relationnelle).</p>
+        <p class="entete-annuaire__chapeau">Chaque fiche indique la ville d’exercice, les modalités de consultation et un moyen de contact. Vous pouvez contacter directement le thérapeute de votre&nbsp;choix.</p>
+        <div class="petales-ponctuation petales-ponctuation--gauche" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(24 12 12)"/></svg>
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-14 12 12)"/></svg>
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(36 12 12)"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 1. Comprendre les mentions ============ -->
+    <section class="section-mentions" aria-labelledby="titre-mentions">
+      <div class="enveloppe">
+        <div class="section-mentions__grille">
+          <h2 id="titre-mentions" class="titre-vague">Comprendre les <em>mentions</em></h2>
+          <dl class="definitions" data-reveal>
+            <div class="definition">
+              <dt>Présentiel</dt>
+              <dd>Le thérapeute reçoit à son cabinet, dans la ville indiquée.</dd>
+            </div>
+            <div class="definition">
+              <dt>Visio</dt>
+              <dd>Le thérapeute propose des consultations à distance, en visioconférence, quel que soit votre lieu de résidence.</dd>
+            </div>
+            <div class="definition">
+              <dt>Les deux</dt>
+              <dd>Certains thérapeutes proposent les deux modalités&nbsp;: à vous de choisir celle qui vous convient.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. Les fiches (bande verte) ============ -->
+    <div class="vague vague--verte" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 44 C220 16 460 60 720 36 C980 12 1220 62 1440 30 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+    <section class="section-fiches" aria-labelledby="titre-fiches">
+      <div class="enveloppe">
+        <h2 id="titre-fiches" class="titre-vague titre-vague--violet">Les thérapeutes de <em>l’association</em></h2>
+        <div id="annuaire-liste">
+          <noscript><p>L’annuaire nécessite JavaScript. Les thérapeutes membres de l’association sont présentés ici&nbsp;; contactez l’association pour recevoir leurs coordonnées.</p></noscript>
+        </div>
+      </div>
+    </section>
+    <div class="vague vague--fond" aria-hidden="true" style="background: var(--c-vert-voile);">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 36 C260 62 520 10 760 38 C1000 66 1240 20 1440 44 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+
+    <!-- ============ 3. Vos données, leurs données ============ -->
+    <section class="section-rgpd" aria-labelledby="titre-rgpd">
+      <div class="enveloppe">
+        <h2 id="titre-rgpd" class="titre-vague titre-vague--ample"><em>Vos</em> données, leurs données</h2>
+        <div class="section-rgpd__grille">
+          <div class="prose">
+            <p>Les thérapeutes présentés dans cet annuaire sont membres de l’association et ont donné leur accord explicite pour la publication de leurs nom, ville et coordonnées professionnelles, conformément au Règlement général sur la protection des données (RGPD). Chaque membre peut demander à tout moment la modification ou le retrait de sa fiche.</p>
+          </div>
+          <aside class="encart-note" aria-labelledby="titre-note-annuaire" data-reveal>
+            <p class="encart-note__titre" id="titre-note-annuaire">Note de maquette</p>
+            <p>Les fiches affichées sur cette page sont des données 100&nbsp;% fictives, marquées «&nbsp;Exemple&nbsp;».</p>
+            <p><span class="badge-fournir">À fournir par l’asso&nbsp;: liste réelle des thérapeutes — nom, ville, modalités, contact — avec l’accord RGPD écrit de chacun</span></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="vague vague--footer" aria-hidden="true">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 40 C240 14 480 64 720 38 C960 12 1200 60 1440 32 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+  </div>
+  <footer class="site-footer">
+    <div class="enveloppe">
+      <div class="footer__grille">
+        <div class="footer__identite">
+          <p>Maison de la Psychosomatique Relationnelle</p>
+          <p class="footer__asso">Site porté par l’A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navigation secondaire">
+          <h2>Explorer le site</h2>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="psr.html">La PSR</a></li>
+            <li><a href="cote-pro.html">Côté Pro</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="annuaire.html">Annuaire</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__mentions">
+        <p>La psychosomatique relationnelle est reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse).</p>
+        <p>Mentions légales — <span class="badge-fournir">À fournir par l’asso&nbsp;: responsable de publication, siège social, hébergeur</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

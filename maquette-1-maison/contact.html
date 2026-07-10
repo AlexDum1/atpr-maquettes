@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Maison de la Psychosomatique Relationnelle</title>
+  <meta name="description" content="Une question sur la psychosomatique relationnelle ou sur l'association&nbsp;? Écrivez à l'A.T.P.R. via le formulaire de contact.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="conteneur site-header-inner">
+      <a class="logo" href="index.html">
+        <img src="../assets/logos/logo-maison-alpha-560.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R." width="560" height="198">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle-barres" aria-hidden="true"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ===== Tête de page ===== -->
+    <section class="section entete-page" aria-labelledby="titre-page">
+      <div class="conteneur">
+        <div class="entete-grille">
+          <div>
+            <p class="eyebrow">
+              <svg class="chevron" width="14" height="9" viewBox="0 0 14 9" aria-hidden="true" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Contact</span>
+            </p>
+            <h1 id="titre-page">Écrivez-nous, <span class="h1-contrepoint">la porte est ouverte</span></h1>
+            <p class="chapeau">Une question sur la psychosomatique relationnelle (PSR)&nbsp;? Une demande d'information sur l'association, l'adhésion ou l'annuaire&nbsp;?</p>
+            <p class="chapeau">Écrivez-nous via ce formulaire&nbsp;: nous vous répondrons dans les meilleurs délais. Si vous cherchez un thérapeute, <a class="lien-anime" href="annuaire.html">l'annuaire</a> vous permet de contacter directement le praticien de votre choix.</p>
+          </div>
+          <div class="entete-visuel" aria-hidden="true">
+            <!-- La porte de la maison, entrouverte -->
+            <svg class="duo-svg" viewBox="0 0 280 250" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="trame-contact-entete" width="15" height="15" patternUnits="userSpaceOnUse">
+                  <circle cx="2.5" cy="2.5" r="2.2" fill="#F5BD46" fill-opacity="0.35"/>
+                </pattern>
+              </defs>
+              <rect x="160" y="6" width="118" height="90" fill="url(#trame-contact-entete)"/>
+              <path class="trait-anime trait-anime--2" pathLength="1" d="M28 130 140 34 252 130" stroke="#74BFA8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="trait-anime trait-anime--3" pathLength="1" d="M60 128 V228 H220 V128" stroke="#A295C1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="trait-anime trait-anime--4" pathLength="1" d="M118 228 V172 Q140 158 162 172 V228" stroke="#A295C1" stroke-width="2" stroke-linecap="round"/>
+              <path d="M36 228 H244" stroke="#D8D2E4" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 1. Le formulaire + coordonnées ===== -->
+    <section class="section section--fil section--fil-debut section--fil-fin section--basse" aria-labelledby="titre-formulaire">
+      <div class="conteneur">
+        <div class="section-tete">
+          <span class="fil-chevron" aria-hidden="true"><svg class="chevron" width="16" height="10" viewBox="0 0 14 9" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h2 id="titre-formulaire">Votre message</h2>
+        </div>
+        <div class="fondements-grille">
+        <form class="formulaire" action="#" method="post">
+          <div class="champ">
+            <label for="champ-nom">Nom <span class="champ-obligatoire">(obligatoire)</span></label>
+            <input type="text" id="champ-nom" name="nom" autocomplete="name" required>
+          </div>
+          <div class="champ">
+            <label for="champ-email">Adresse e-mail <span class="champ-obligatoire">(obligatoire)</span></label>
+            <input type="email" id="champ-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="champ">
+            <label for="champ-objet">Objet</label>
+            <select id="champ-objet" name="objet">
+              <option>Question sur la PSR</option>
+              <option>Adhésion à l'association</option>
+              <option>Annuaire</option>
+              <option>Autre demande</option>
+            </select>
+          </div>
+          <div class="champ">
+            <label for="champ-message">Message <span class="champ-obligatoire">(obligatoire)</span></label>
+            <textarea id="champ-message" name="message" rows="7" required></textarea>
+          </div>
+          <div class="champ champ--case">
+            <input type="checkbox" id="champ-consentement" name="consentement" required>
+            <label for="champ-consentement">J'accepte que les informations saisies dans ce formulaire soient utilisées uniquement pour traiter ma demande et y répondre. Elles ne seront transmises à aucun tiers. <span class="champ-obligatoire">(obligatoire)</span></label>
+          </div>
+          <p class="form-mention">Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: adresse e-mail du responsable de traitement</span></p>
+          <button class="btn btn--jaune" type="submit" aria-disabled="true" aria-describedby="mention-demo">Envoyer</button>
+          <p class="form-demo-note" id="mention-demo">Formulaire de démonstration — envoi désactivé.</p>
+        </form>
+        <aside class="encart-saviez encart-saviez--haut" aria-labelledby="titre-coordonnees">
+          <span class="pignon" aria-hidden="true"><svg class="chevron" width="34" height="21" viewBox="0 0 14 9" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p class="encart-titre" id="titre-coordonnees">Nous joindre autrement</p>
+          <ul class="coordonnees">
+            <li><strong>Adresse</strong> — <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: adresse postale du siège social</span></li>
+            <li><strong>E-mail</strong> — <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: adresse e-mail de contact</span></li>
+            <li><strong>Téléphone</strong> — <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: numéro de téléphone, le cas échéant</span></li>
+          </ul>
+          <p>Vous cherchez un thérapeute&nbsp;? <a class="lien-anime" href="annuaire.html">L'annuaire</a> vous permet de contacter directement le praticien de votre choix.</p>
+        </aside>
+        </div>
+        <svg class="coin-trame coin-trame--haut" aria-hidden="true" focusable="false" viewBox="0 0 208 128" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="trame-coin-contact" width="16" height="16" patternUnits="userSpaceOnUse">
+              <circle cx="2.5" cy="2.5" r="2" fill="currentColor" fill-opacity="0.35"/>
+            </pattern>
+          </defs>
+          <rect width="208" height="128" fill="url(#trame-coin-contact)"/>
+        </svg>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur footer-grille">
+      <div class="footer-identite">
+        <svg class="footer-maison" width="44" height="42" viewBox="0 0 44 42" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 18 V38 H36 V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 20 22 4 40 20" stroke="#74BFA8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 38 V30 Q22 27 26 30 V38" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <p class="footer-nom">Maison de la Psychosomatique Relationnelle</p>
+        <p class="footer-asso">Site porté par l'A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Navigation secondaire">
+        <p class="footer-nav-titre">Explorer</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-mentions">
+        <p>La psychosomatique relationnelle est une discipline reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse).</p>
+        <p>Mentions légales — <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: responsable de publication, siège social, hébergeur</span></p>
+      </div>
+    </div>
+    <div class="conteneur">
+      <p class="footer-basline">Maquette de démonstration — les contenus marqués «&nbsp;Exemple&nbsp;» sont fictifs.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1015 @@
+/* ============================================================
+   Maquette 2 — « Aquarelle »
+   Maison de la Psychosomatique Relationnelle (A.T.P.R.)
+   Système : lavis très doux, formes organiques, rythme lent.
+   Typo : Lora (display) + Mulish (corps). Mobile-first, 640/1024.
+   ============================================================ */
+
+/* ---------- 1. Custom properties ---------- */
+:root {
+  /* Couleurs de marque (décor uniquement — jamais pour le texte) */
+  --c-vert: #74BFA8;
+  --c-vert-lavis: #C5EBD6;
+  --c-violet: #A295C1;
+  --c-violet-lavis: #CAA4F9;
+  --c-jaune-pale: #FDE9AC;
+
+  /* Dérivés foncés accessibles (texte) — cf. ANALYSE.md */
+  --c-encre: #423C52;        /* 10.1:1 — texte courant */
+  --c-violet-fonce: #57506B; /*  7.3:1 — titres */
+  --c-vert-sombre: #38715F;  /*  5.5:1 sur fond, 5.1:1 sur lavande-voile — liens, accents (AA sur tous les fonds teintés) */
+  --c-ocre-texte: #855F0E;   /*  4.8:1 sur jaune pâle #FDE9AC, 5.3:1 sur #FCF4DC — badges [EXEMPLE] (AA partout) */
+
+  /* Neutres */
+  --c-fond: #FDFCFA;
+  --c-lavande-voile: #F5F1FA; /* lavis lavande très pâle (fond de panneau) */
+  --c-vert-voile: #EEF7F1;    /* lavis vert très pâle */
+  --c-filet: #E3DEEC;         /* hairlines */
+  --c-footer: #423C52;
+  --c-footer-texte: #EAE6F0;
+
+  /* Typographie */
+  --f-display: "Lora", Georgia, serif;
+  --f-corps: "Mulish", "Segoe UI", sans-serif;
+  --t-hero: clamp(2.1rem, 1.1rem + 3.4vw, 3.3rem);
+  --t-2: clamp(1.6rem, 1.15rem + 1.7vw, 2.25rem);
+  --t-3: clamp(1.22rem, 1.08rem + 0.5vw, 1.42rem);
+  --t-lede: clamp(1.08rem, 1rem + 0.35vw, 1.2rem);
+  --t-corps: 1.0625rem;
+  --t-petit: 0.92rem;
+  --t-micro: 0.8rem;
+
+  /* Échelle d'espacement */
+  --e-1: 8px;
+  --e-2: 16px;
+  --e-3: 24px;
+  --e-4: 40px;
+  --e-5: 64px;
+  --e-6: 96px;
+
+  /* Divers */
+  --largeur-page: 74rem;
+  --largeur-prose: 38rem;
+  --transition: 200ms ease;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* Les lavis décoratifs débordent volontairement à droite (right négatif) :
+     clip empêche tout défilement horizontal résiduel (gestes, script),
+     là où overflow hidden sur body laissait la page scrollable. */
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--c-fond);
+  color: var(--c-encre);
+  font-family: var(--f-corps);
+  font-size: var(--t-corps);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: clip;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+svg { display: block; }
+
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--c-violet-fonce);
+  margin: 0 0 var(--e-3);
+}
+
+h1 { font-size: var(--t-hero); letter-spacing: -0.012em; }
+h2 { font-size: var(--t-2); letter-spacing: -0.008em; }
+h3 { font-size: var(--t-3); line-height: 1.25; }
+
+/* Un mot-clé italique par grand titre (signature typographique) */
+h1 em, h2 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--c-vert-sombre);
+}
+
+p { margin: 0 0 var(--e-2); }
+
+a {
+  color: var(--c-vert-sombre);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--transition);
+}
+a:hover { color: var(--c-violet-fonce); }
+
+:focus-visible {
+  outline: 2px solid var(--c-vert-sombre);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection { background: var(--c-vert-lavis); color: var(--c-encre); }
+
+/* ---------- 3. Utilitaires ---------- */
+.enveloppe {
+  width: min(100% - 2 * var(--e-3), var(--largeur-page));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--f-corps);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-vert-sombre);
+  margin-bottom: var(--e-2);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--e-2);
+  z-index: 100;
+  background: var(--c-violet-fonce);
+  color: #fff;
+  padding: var(--e-1) var(--e-2);
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--t-petit);
+  transition: top var(--transition);
+}
+.skip-link:focus { top: 0; }
+
+/* ---------- 4. Boutons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-family: var(--f-corps);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1.3;
+  min-height: 44px;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.btn svg { flex: none; }
+
+.btn--plein {
+  background: var(--c-vert);
+  color: var(--c-encre); /* 4.9:1 sur #74BFA8 */
+  border: 1px solid var(--c-vert);
+}
+.btn--plein:hover {
+  background: #83CBB5;
+  border-color: #83CBB5;
+  color: var(--c-encre);
+}
+
+.btn--contour {
+  background: transparent;
+  color: var(--c-violet-fonce);
+  border: 1px solid var(--c-violet);
+}
+.btn--contour:hover {
+  background: var(--c-lavande-voile);
+  color: var(--c-violet-fonce);
+}
+
+/* ---------- 5. Badges placeholders ---------- */
+.badge-exemple,
+.badge-fournir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-corps);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.badge-exemple {
+  background: var(--c-jaune-pale);
+  color: var(--c-ocre-texte); /* 4.8:1 */
+}
+.badge-fournir {
+  background: transparent;
+  border: 1px dashed var(--c-violet);
+  color: var(--c-violet-fonce);
+  white-space: normal;
+  text-align: left;
+  line-height: 1.5;
+}
+
+/* ---------- 6. Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--c-fond);
+  border-bottom: 1px solid var(--c-filet);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding-block: 10px;
+}
+
+.site-header__logo {
+  display: inline-flex;
+  border-radius: 6px;
+}
+.site-header__logo img {
+  width: auto;
+  height: 46px;
+}
+@media (min-width: 640px) {
+  .site-header__logo img { height: 58px; }
+}
+
+/* Bouton menu mobile */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: 1px solid var(--c-filet);
+  border-radius: 999px;
+  padding: 9px 16px;
+  min-height: 44px;
+  font-family: var(--f-corps);
+  font-size: var(--t-petit);
+  font-weight: 700;
+  color: var(--c-violet-fonce);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+.nav-toggle:hover { background: var(--c-lavande-voile); }
+
+.nav-toggle__icone {
+  position: relative;
+  width: 18px;
+  height: 12px;
+  flex: none;
+}
+.nav-toggle__icone span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-violet-fonce);
+  transition: transform var(--transition), opacity var(--transition);
+}
+.nav-toggle__icone span:nth-child(1) { top: 0; }
+.nav-toggle__icone span:nth-child(2) { top: 5px; }
+.nav-toggle__icone span:nth-child(3) { top: 10px; }
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+/* Navigation */
+.nav-principale ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-principale a {
+  display: block;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--c-encre);
+  text-decoration: none;
+  padding: 10px 4px;
+  border-radius: 4px;
+}
+.nav-principale a:hover { color: var(--c-vert-sombre); }
+.nav-principale a[aria-current="page"] {
+  color: var(--c-vert-sombre);
+  text-decoration: underline wavy var(--c-vert) 1.5px;
+  text-underline-offset: 7px;
+}
+
+/* Mobile : panneau replié */
+@media (max-width: 1023.98px) {
+  .nav-principale {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--c-fond);
+    border-bottom: 1px solid var(--c-filet);
+    box-shadow: 0 18px 30px -20px rgba(66, 60, 82, 0.25);
+    display: none;
+  }
+  .nav-principale.est-ouverte { display: block; }
+  .nav-principale ul {
+    padding: var(--e-2) var(--e-3) var(--e-3);
+  }
+  .nav-principale li + li { border-top: 1px solid var(--c-filet); }
+  .nav-principale a { padding: 13px 4px; }
+}
+
+@media (min-width: 1024px) {
+  .nav-toggle { display: none; }
+  .nav-principale ul {
+    display: flex;
+    gap: clamp(8px, 1.4vw, 26px);
+    align-items: center;
+  }
+}
+
+/* ---------- 7. Vagues de section ---------- */
+.vague {
+  line-height: 0;
+  margin-top: -1px; /* évite les filets de rendu */
+}
+.vague svg {
+  width: 100%;
+  height: clamp(36px, 6vw, 72px);
+}
+.vague--lavande { color: var(--c-lavande-voile); }
+.vague--verte { color: var(--c-vert-voile); }
+.vague--fond { color: var(--c-fond); }
+.vague--footer { color: var(--c-footer); }
+
+/* ---------- 8. Lettrine aquarelle (signature) ---------- */
+/* La boîte de flux ne fait que la largeur du glyphe (le mot reste entier :
+   « La », pas « L    a ») ; le lavis est un décor absolu centré sur la
+   capitale, libre de déborder sans pousser le texte. Hauteur = 2 lignes
+   exactes du corps (line-height 1.65). */
+.lettrine {
+  position: relative;
+  float: left;
+  display: flex;
+  align-items: center;
+  height: 3.3em;
+  padding: 0 0.06em;
+  margin-right: 0.12em;
+}
+.lettrine__lavis {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+@media (max-width: 639px) {
+  /* Évite que le débord du lavis soit tranché par le bord du viewport */
+  .lettrine__lavis {
+    width: 3.1em;
+    height: 3.1em;
+  }
+}
+.lettrine__char {
+  position: relative;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: 2.35em;
+  line-height: 1;
+  color: var(--c-violet-fonce);
+}
+
+/* ---------- 9. Listes à pétales ---------- */
+.liste-petales {
+  list-style: none;
+  margin: 0 0 var(--e-2);
+  padding: 0;
+}
+.liste-petales li {
+  position: relative;
+  padding-left: 34px;
+  margin-bottom: var(--e-2);
+}
+.liste-petales li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  width: 20px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3.2C15.4 6.7 16.8 10 16.8 13.4A4.8 4.8 0 0 1 7.2 13.4C7.2 10 8.6 6.7 12 3.2Z' fill='none' stroke='%2338715F' stroke-width='1.5' transform='rotate(24 12 12)'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Trio de pétales sous un titre de section (ponctuation) —
+   arc descendant, contour + lavis léger pour lire « aquarelle » */
+.petales-ponctuation {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: var(--e-4);
+  color: var(--c-violet);
+}
+.petales-ponctuation svg path {
+  fill: currentColor;
+  fill-opacity: 0.16;
+}
+.petales-ponctuation svg { width: 54px; height: 54px; transform: rotate(-16deg); }
+.petales-ponctuation svg:nth-child(2) { width: 42px; height: 42px; color: var(--c-vert); transform: translateY(-9px) rotate(6deg); }
+.petales-ponctuation svg:nth-child(3) { width: 30px; height: 30px; transform: translateY(-4px) rotate(24deg); }
+
+/* Pétale décoratif isolé (respiration entre blocs) */
+.petale-respiration {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding-block: var(--e-4);
+  color: var(--c-violet);
+}
+.petale-respiration svg { width: 22px; height: 22px; }
+.petale-respiration svg:nth-child(2) { transform: rotate(30deg); color: var(--c-vert); }
+.petale-respiration svg:nth-child(3) { transform: rotate(-24deg); }
+
+/* ---------- 10. Panneaux organiques ---------- */
+.panneau-petale {
+  border-radius: 40px 12px 40px 12px;
+}
+.panneau-petale--inverse {
+  border-radius: 12px 40px 12px 40px;
+}
+
+/* ---------- 11. Hero ---------- */
+.hero {
+  position: relative;
+  overflow: visible;
+  padding-block: var(--e-5) var(--e-6);
+}
+
+.hero__lavis {
+  position: absolute;
+  top: -160px;
+  right: -180px;
+  width: clamp(420px, 55vw, 760px);
+  height: auto;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  gap: var(--e-4);
+}
+
+.hero__texte { max-width: none; }
+.hero__texte h1 { max-width: 22em; }
+
+.hero__bienvenue {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: var(--t-lede);
+  color: var(--c-vert-sombre);
+  margin-bottom: var(--e-3);
+}
+
+.hero__soustitre {
+  font-size: var(--t-lede);
+  line-height: 1.6;
+  color: var(--c-encre);
+  max-width: 36rem;
+  margin-block: var(--e-3) var(--e-4);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+}
+
+.hero__fleur {
+  display: none;
+  color: var(--c-violet);
+}
+
+@media (min-width: 1024px) {
+  .hero { padding-block: var(--e-6) var(--e-5); }
+  .hero__inner {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 3fr);
+    align-items: start;
+  }
+  .hero__fleur {
+    display: block;
+    justify-self: end;
+    align-self: start;
+    width: clamp(210px, 20vw, 280px);
+    margin-top: 8px;
+    margin-right: -20px;
+    transform: rotate(-8deg);
+  }
+}
+
+/* ---------- 12. Sections de la page d'accueil ---------- */
+
+/* La PSR en trois phrases */
+.section-trois-phrases {
+  background: var(--c-lavande-voile);
+  padding-block: var(--e-5);
+}
+.trois-phrases__grille {
+  display: grid;
+  gap: var(--e-4);
+}
+.trois-phrases__titre h2 { max-width: 14ch; }
+.trois-phrases__texte { max-width: var(--largeur-prose); }
+.trois-phrases__texte p + p { margin-top: var(--e-3); }
+
+@media (min-width: 1024px) {
+  .trois-phrases__grille {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--e-5);
+  }
+  .trois-phrases__titre { padding-top: var(--e-1); }
+}
+
+/* Pour qui ? — quinconce, jamais une rangée de cartes */
+.section-pour-qui {
+  padding-block: var(--e-6) var(--e-5);
+  position: relative;
+}
+.pour-qui__entete {
+  max-width: 46ch;
+  margin-bottom: var(--e-4);
+}
+.pour-qui__grille {
+  display: grid;
+  gap: var(--e-3);
+}
+.bloc-public {
+  padding: var(--e-4) var(--e-3);
+}
+.bloc-public h3 {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: var(--e-2);
+}
+.bloc-public h3 svg {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: 0.14em;
+  color: var(--c-vert-sombre);
+}
+.bloc-public p { margin: 0; max-width: 46ch; }
+
+.bloc-public--lavis-vert {
+  background: var(--c-vert-voile);
+}
+.bloc-public--lavis-lavande {
+  background: var(--c-lavande-voile);
+}
+.bloc-public--nu {
+  border-top: 1px solid var(--c-filet);
+  padding: var(--e-3) 4px var(--e-3);
+}
+.bloc-public--nu h3 svg { color: var(--c-violet); }
+
+@media (min-width: 640px) {
+  .pour-qui__grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--e-3) var(--e-4);
+    align-items: start;
+  }
+  .bloc-public:nth-child(even) { margin-top: var(--e-4); }
+  .bloc-public { padding: var(--e-4); }
+  .bloc-public--nu { padding: var(--e-3) var(--e-1) var(--e-3); }
+}
+@media (min-width: 1024px) {
+  .pour-qui__grille { gap: var(--e-3) var(--e-5); }
+  .bloc-public:nth-child(even) { margin-top: var(--e-5); }
+  /* le 3e bloc remonte dans le creux laissé par la carte 1 : quinconce imbriqué, pas troué */
+  .bloc-public:nth-child(3) { margin-top: calc(-1 * var(--e-3)); }
+}
+
+/* Bande reconnaissance FF2P — pleine largeur, sans radius (variation voulue),
+   grand lavis débordant à droite (écho du hero, chevauche la frontière de section) */
+.section-reconnaissance {
+  position: relative;
+  background: var(--c-vert-voile);
+  padding-block: var(--e-5);
+}
+.reconnaissance__lavis {
+  position: absolute;
+  right: -140px;
+  bottom: -36px;
+  width: clamp(300px, 36vw, 520px);
+  height: auto;
+  pointer-events: none;
+}
+.reconnaissance__inner {
+  position: relative;
+  display: grid;
+  gap: var(--e-3);
+  align-items: center;
+}
+.reconnaissance__fleur {
+  color: var(--c-vert-sombre);
+  width: 108px;
+  height: 108px;
+  transform: rotate(14deg);
+}
+.reconnaissance__texte { max-width: 58ch; }
+.reconnaissance__texte p:last-child { margin-bottom: 0; }
+
+@media (min-width: 640px) {
+  .reconnaissance__inner {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--e-5);
+  }
+}
+@media (min-width: 1024px) {
+  .reconnaissance__inner {
+    padding-inline: 8% 0;
+  }
+  .reconnaissance__fleur {
+    width: 158px;
+    height: 158px;
+  }
+}
+
+/* Chemins (appels à l'action bas de page) — rangées d'index, pas de cartes */
+.section-chemins {
+  background: var(--c-fond); /* opaque : bloque le lavis de la bande précédente (pas de trace résiduelle) */
+  padding-block: var(--e-6);
+}
+.section-chemins .eyebrow { margin-bottom: var(--e-1); }
+.section-chemins h2 { margin-bottom: var(--e-4); }
+
+.chemins { border-top: 1px solid var(--c-filet); }
+
+.chemin {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid var(--c-filet);
+  padding: var(--e-3) var(--e-1);
+  transition: background-color var(--transition), padding-left var(--transition);
+}
+.chemin:hover {
+  background: var(--c-lavande-voile);
+  color: inherit;
+  padding-left: var(--e-2);
+}
+
+.chemin__inner {
+  display: grid;
+  gap: 6px;
+}
+.chemin__titre {
+  font-family: var(--f-display);
+  font-size: var(--t-3);
+  font-weight: 500;
+  color: var(--c-violet-fonce);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.chemin__desc { margin: 0; color: var(--c-encre); max-width: 58ch; }
+.chemin__fleche {
+  flex: none;
+  color: var(--c-vert-sombre);
+  transition: transform var(--transition);
+}
+.chemin:hover .chemin__fleche { transform: translateX(6px); }
+
+@media (min-width: 1024px) {
+  .chemin__inner {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: baseline;
+    gap: var(--e-3);
+  }
+  .chemin { padding: var(--e-4) var(--e-2); }
+}
+
+/* ---------- 13. Footer ---------- */
+.site-footer {
+  background: var(--c-footer);
+  color: var(--c-footer-texte);
+  padding-block: var(--e-5) var(--e-4);
+}
+.site-footer a {
+  color: #B9E3D3; /* 6.9:1 sur #423C52 */
+}
+.site-footer a:hover { color: #fff; }
+
+.footer__grille {
+  display: grid;
+  gap: var(--e-4);
+  padding-bottom: var(--e-4);
+  border-bottom: 1px solid rgba(234, 230, 240, 0.2);
+}
+
+.footer__identite p {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  margin-bottom: var(--e-1);
+  color: #fff;
+}
+.footer__identite .footer__asso {
+  font-family: var(--f-corps);
+  font-size: var(--t-petit);
+  color: var(--c-footer-texte);
+  max-width: 38ch;
+}
+
+.footer__nav h2 {
+  font-family: var(--f-corps);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C8C2D6;
+  margin-bottom: var(--e-2);
+}
+.footer__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: var(--e-4);
+}
+.footer__nav li { margin-bottom: 0; }
+.footer__nav a {
+  display: inline-block;
+  padding-block: 10px; /* cible tactile ≥ 44px (24px de ligne + 20px) */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--t-petit);
+}
+.footer__nav a:hover { text-decoration: underline; }
+
+.footer__mentions {
+  padding-top: var(--e-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+  font-size: var(--t-petit);
+  color: #C8C2D6;
+}
+.footer__mentions p { margin: 0; max-width: 70ch; }
+.footer__mentions .badge-fournir {
+  border-color: #8D84A6;
+  color: #D9D4E4;
+}
+
+@media (min-width: 640px) {
+  .footer__grille {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--e-5);
+  }
+}
+@media (min-width: 1024px) {
+  .footer__mentions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--e-4);
+  }
+}
+
+/* ---------- 14. Sommaire « La PSR » (contrat pour psr.html) ---------- */
+.sommaire-psr { margin-bottom: var(--e-4); }
+.sommaire-psr summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--c-violet-fonce);
+  padding: var(--e-2);
+  background: var(--c-lavande-voile);
+  border-radius: 14px;
+  list-style: none;
+}
+.sommaire-psr summary::-webkit-details-marker { display: none; }
+.sommaire-psr[open] summary { border-radius: 14px 14px 0 0; }
+.sommaire-psr ol {
+  list-style: none;
+  margin: 0;
+  padding: var(--e-2) var(--e-3) var(--e-3);
+  background: var(--c-lavande-voile);
+  border-radius: 0 0 14px 14px;
+}
+.sommaire-psr li { margin-bottom: 0; }
+.sommaire-psr a {
+  display: inline-block;
+  padding-block: 6px; /* cible tactile élargie sans changer le rythme visuel */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--t-petit);
+}
+.sommaire-psr a:hover { text-decoration: underline; }
+
+@media (min-width: 1024px) {
+  .sommaire-psr--lateral {
+    position: sticky;
+    top: 96px;
+    margin: 0;
+  }
+  .sommaire-psr--lateral summary { display: none; }
+  .sommaire-psr--lateral ol {
+    background: none;
+    border-left: 2px solid var(--c-vert-lavis);
+    border-radius: 0;
+    padding: 0 0 0 var(--e-3);
+  }
+  .sommaire-psr--lateral a { color: var(--c-encre); }
+  .sommaire-psr--lateral a[aria-current="true"],
+  .sommaire-psr--lateral a.est-active {
+    color: var(--c-vert-sombre);
+  }
+}
+
+/* ---------- 15. Agenda (rendu JS) ---------- */
+.etat-chargement {
+  font-style: italic;
+  color: var(--c-violet-fonce);
+  padding-block: var(--e-3);
+}
+
+.agenda-groupe { margin-bottom: var(--e-5); }
+.agenda-groupe__mois {
+  font-family: var(--f-display);
+  font-size: var(--t-3);
+  color: var(--c-vert-sombre);
+  border-bottom: 1px solid var(--c-filet);
+  padding-bottom: var(--e-1);
+  margin-bottom: var(--e-3);
+}
+
+.agenda-item {
+  display: grid;
+  gap: var(--e-1);
+  padding: var(--e-3) 0;
+  border-bottom: 1px solid var(--c-filet);
+}
+.agenda-item__date {
+  font-weight: 700;
+  color: var(--c-violet-fonce);
+  font-size: var(--t-petit);
+}
+.agenda-item__heure {
+  display: block;
+  margin-top: 2px;
+  font-weight: 400;
+  color: var(--c-encre);
+}
+.agenda-item__titre {
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--c-violet-fonce);
+  margin: 0;
+}
+.agenda-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-1);
+  align-items: center;
+  font-size: var(--t-petit);
+}
+.agenda-item__desc { margin: 0; max-width: 62ch; }
+
+@media (min-width: 640px) {
+  .agenda-item {
+    grid-template-columns: 140px minmax(0, 1fr);
+    column-gap: var(--e-4);
+  }
+  .agenda-item__date { grid-row: span 3; padding-top: 4px; }
+}
+
+/* Badges type / modalité */
+.badge-type,
+.badge-modalite {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 11px;
+  border-radius: 999px;
+}
+.badge-type--supervision { background: var(--c-vert-voile); color: var(--c-vert-sombre); }
+.badge-type--intervision { background: var(--c-lavande-voile); color: var(--c-violet-fonce); }
+.badge-type--evenement { background: var(--c-jaune-pale); color: var(--c-ocre-texte); }
+.badge-modalite {
+  border: 1px solid var(--c-filet);
+  color: var(--c-encre);
+  background: transparent;
+}
+
+/* ---------- 16. Annuaire (rendu JS) ---------- */
+.annuaire-region { margin-bottom: var(--e-5); }
+.annuaire-region__nom {
+  font-family: var(--f-display);
+  font-size: var(--t-3);
+  color: var(--c-vert-sombre);
+  border-bottom: 1px solid var(--c-filet);
+  padding-bottom: var(--e-1);
+  margin-bottom: var(--e-3);
+}
+.annuaire-region__fiches {
+  display: grid;
+  gap: var(--e-3);
+}
+@media (min-width: 640px) {
+  .annuaire-region__fiches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .annuaire-region__fiches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.fiche-therapeute {
+  background: var(--c-fond);
+  border: 1px solid var(--c-filet);
+  border-radius: 22px 6px 22px 6px;
+  padding: var(--e-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-1);
+}
+.fiche-therapeute__nom {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--c-violet-fonce);
+  margin: 0;
+}
+.fiche-therapeute__ville {
+  font-weight: 700;
+  font-size: var(--t-petit);
+  color: var(--c-vert-sombre);
+}
+.fiche-therapeute__publics {
+  font-size: var(--t-petit);
+  margin: 0;
+}
+.fiche-therapeute__modalites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.fiche-therapeute__contact {
+  margin-top: auto;
+  font-size: var(--t-petit);
+  word-break: break-all;
+}
+
+/* ---------- 17. Apparitions au scroll (progressives, JS ajoute .reveal) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+.reveal.est-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- 18. prefers-reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

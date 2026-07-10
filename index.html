@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maquettes — Maison de la Psychosomatique Relationnelle</title>
+  <meta name="description" content="Trois directions artistiques pour le site vitrine de l'A.T.P.R. — même contenu, trois écritures visuelles. Maquettes interactives à parcourir.">
+  <link rel="icon" href="./assets/logos/favicon-64.png" type="image/png">
+  <style>
+    :root {
+      --encre: #423C52;
+      --encre-douce: #57506B;
+      --ivoire: #FBFAF7;
+      --violet: #A295C1;
+      --vert: #74BFA8;
+      --jaune: #F5BD46;
+      --filet: #E4E1EB;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--ivoire);
+      color: var(--encre);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1060px, 92vw);
+      margin: 0 auto;
+      flex: 1;
+    }
+    header.intro {
+      padding: clamp(48px, 8vh, 88px) 0 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: end;
+    }
+    .intro-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--encre-douce);
+      margin-bottom: 18px;
+    }
+    .intro-eyebrow::after {
+      content: "";
+      display: block;
+      width: 56px;
+      height: 2px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, var(--violet), var(--vert));
+    }
+    h1 {
+      font-size: clamp(28px, 4.2vw, 44px);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--encre-douce);
+      text-wrap: balance;
+    }
+    h1 .sous-titre {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.62em;
+      font-weight: 400;
+      color: #6A6280;
+      letter-spacing: 0;
+    }
+    h1 .sous-titre::before {
+      content: "";
+      display: inline-block;
+      width: 26px;
+      height: 1px;
+      background: #6A6280;
+      vertical-align: middle;
+      margin-right: 12px;
+      opacity: 0.6;
+    }
+    .intro-note {
+      font-size: 15.5px;
+      color: var(--encre);
+      max-width: 44ch;
+      padding-bottom: 6px;
+    }
+    .intro-note strong { color: var(--encre-douce); }
+    main { padding-bottom: 24px; }
+    .cartes {
+      list-style: none;
+      display: grid;
+      gap: 22px;
+      padding: 8px 0 30px;
+    }
+    @media (min-width: 900px) {
+      .cartes { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+    }
+    .carte a {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      height: 100%;
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid var(--filet);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+    .carte a:hover, .carte a:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--carte-accent, var(--violet));
+      box-shadow: 0 14px 30px -18px rgba(66, 60, 82, 0.35);
+    }
+    .carte a:focus-visible { outline: 3px solid var(--carte-accent, var(--violet)); outline-offset: 2px; }
+    .vignette {
+      height: 116px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .carte-1 .vignette {
+      background: #FBFAF7;
+      color: #57506B;
+      font-weight: 300;
+    }
+    .carte-1 .vignette svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .carte-2 .vignette {
+      background:
+        radial-gradient(90px 70px at 78% 22%, rgba(202, 164, 249, 0.35), transparent 70%),
+        radial-gradient(120px 90px at 22% 80%, rgba(197, 235, 214, 0.6), transparent 72%),
+        #FDFCFA;
+      color: #3E7E6B;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 500;
+    }
+    .carte-3 .vignette {
+      background: #423A5A;
+      color: #F6F4EE;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+    }
+    .carte-3 .vignette::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 18px;
+      height: 1px;
+      background: #C99937;
+      opacity: 0.8;
+    }
+    .carte-corps {
+      padding: 22px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .carte h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--encre-douce);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .carte h2 .num {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--carte-accent, var(--violet));
+      letter-spacing: 0.08em;
+    }
+    .carte p {
+      font-size: 14.5px;
+      color: var(--encre);
+      flex: 1;
+    }
+    .badge-piste {
+      align-self: flex-start;
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6B5A20;
+      background: rgba(245, 189, 70, 0.18);
+      border: 1px solid rgba(201, 153, 55, 0.45);
+      border-radius: 999px;
+      padding: 3px 10px;
+    }
+    .pastilles {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      padding-top: 4px;
+    }
+    .pastilles span {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 1px solid rgba(66, 60, 82, 0.18);
+      display: inline-block;
+    }
+    .pastilles .typo {
+      width: auto;
+      height: auto;
+      border: none;
+      border-radius: 0;
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--encre-douce);
+      opacity: 0.85;
+    }
+    .carte-1 { --carte-accent: #A295C1; }
+    .carte-2 { --carte-accent: #74BFA8; }
+    .carte-3 { --carte-accent: #423A5A; }
+    .note-basse {
+      border-top: 1px solid var(--filet);
+      padding: 18px 0 8px;
+      font-size: 13.5px;
+      color: var(--encre-douce);
+      max-width: 78ch;
+    }
+    footer {
+      padding: 18px 0 30px;
+    }
+    footer .page-foot {
+      width: min(1060px, 92vw);
+      margin: 0 auto;
+      font-size: 12.5px;
+      color: var(--encre-douce);
+      opacity: 0.85;
+    }
+    @media (max-width: 760px) {
+      header.intro { grid-template-columns: 1fr; gap: 18px; padding-top: 44px; }
+      .intro-note { padding-bottom: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .carte a { transition: none; }
+      .carte a:hover, .carte a:focus-visible { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="intro">
+      <div>
+        <p class="intro-eyebrow">A.T.P.R. — Site vitrine · Phase 1 · Maquettes</p>
+        <h1>Maison de la Psychosomatique Relationnelle <span class="sous-titre">trois directions artistiques</span></h1>
+      </div>
+      <p class="intro-note"><strong>Même site, trois écritures visuelles.</strong> Les trois maquettes partagent les mêmes 7 pages et les mêmes textes — seule la direction artistique change. Chacune est navigable, sur ordinateur comme sur téléphone.</p>
+    </header>
+
+    <main>
+      <ul class="cartes">
+        <li class="carte carte-1">
+          <a href="./maquette-1-maison/index.html">
+            <div class="vignette" aria-hidden="true">
+              <svg viewBox="0 0 320 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 96 H96 V52 L146 22 L196 52 V96 H292" stroke="#A295C1" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M118 42 L146 25 L174 42" stroke="#74BFA8" stroke-width="2.2" stroke-linecap="round"/>
+                <g fill="#F5BD46" opacity="0.85">
+                  <circle cx="106" cy="88" r="1.8"/><circle cx="114" cy="88" r="1.5"/><circle cx="122" cy="88" r="1.2"/>
+                  <circle cx="106" cy="80" r="1.5"/><circle cx="114" cy="80" r="1.2"/><circle cx="122" cy="80" r="1"/>
+                  <circle cx="106" cy="72" r="1.2"/><circle cx="114" cy="72" r="1"/>
+                </g>
+              </svg>
+            </div>
+            <div class="carte-corps">
+              <h2><span class="num">01</span> La Maison</h2>
+              <p>Le trait fin du logo devient la charpente du site : silhouette dessinée, chevrons de toit, filets et trame de points ocre. Violet dominant, vert d'eau en accent, jaune réservé aux boutons.</p>
+              <div class="pastilles" aria-hidden="true">
+                <span style="background:#A295C1"></span>
+                <span style="background:#74BFA8"></span>
+                <span style="background:#F5BD46"></span>
+                <span style="background:#FBFAF7"></span>
+                <em class="typo">Poppins · Nunito Sans</em>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="carte carte-2">
+          <a href="./maquette-2-aquarelle/index.html">
+            <div class="vignette" aria-hidden="true">Aa</div>
+            <div class="carte-corps">
+              <h2><span class="num">02</span> Aquarelle</h2>
+              <p>La douceur du cercle aquarelle : lavis organiques en fond de sections, lettrines peintes, vagues et pétales. Vert d'eau dominant, violet en accent, rythme lent et enveloppant.</p>
+              <div class="pastilles" aria-hidden="true">
+                <span style="background:#74BFA8"></span>
+                <span style="background:#C5EBD6"></span>
+                <span style="background:#CAA4F9"></span>
+                <span style="background:#FDE9AC"></span>
+                <em class="typo">Lora · Mulish</em>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="carte carte-3">
+          <a href="./maquette-3-carte-blanche/index.html">
+            <div class="vignette" aria-hidden="true">Maison</div>
+            <div class="carte-corps">
+              <h2><span class="num">03</span> Carte blanche</h2>
+              <p>Une identité éditoriale repensée autour d'un pictogramme original, la « maison habitée » : aubergine profond, vert sauge, ivoire et filets ocre. La piste la plus audacieuse des trois.</p>
+              <span class="badge-piste">Piste créative</span>
+              <div class="pastilles" aria-hidden="true">
+                <span style="background:#423A5A"></span>
+                <span style="background:#8FAE9B"></span>
+                <span style="background:#F6F4EE"></span>
+                <span style="background:#C99937"></span>
+                <em class="typo">Fraunces · Albert Sans</em>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <p class="note-basse">Maquettes de travail : les événements de l'agenda et les fiches de l'annuaire sont des données fictives marquées « [EXEMPLE] » ; les informations manquantes sont signalées « [À FOURNIR PAR L'ASSO] ». Les textes de présentation de la PSR sont issus des documents fournis par l'association.</p>
+    </main>
+  </div>
+  <footer>
+    <p class="page-foot">A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle · Maquettes non contractuelles, phase 1.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,1362 @@
+/* ==========================================================================
+   Maquette 1 — « La Maison »
+   Système : le trait fin qui construit un abri.
+   Palette : ivoire / violet dominant / vert d'eau accent / jaune CTA only.
+   Typo    : Poppins (display) + Nunito Sans (corps). Échelle ~1.25.
+   ========================================================================== */
+
+/* ---------- 1. Custom properties ---------- */
+:root {
+  /* Couleurs de marque (décor uniquement — jamais pour du texte) */
+  --violet: #A295C1;
+  --vert: #74BFA8;
+  --jaune: #F5BD46;
+  --lavande: #CAA4F9;
+
+  /* Dérivés accessibles (texte) — cf. ANALYSE.md */
+  --encre: #423C52;        /* 10.1:1 sur ivoire */
+  --violet-fonce: #57506B; /*  7.3:1 — titres  */
+  --vert-sombre: #37705F;  /*  5.5:1 ivoire, 5.2:1 lavande — liens */
+  --ocre-texte: #8A6410;   /*  5.1:1 — badges  */
+
+  /* Neutres & fonds */
+  --ivoire: #FBFAF7;
+  --blanc: #FFFFFF;
+  --lavande-pale: #F4F1F9;   /* bande de section */
+  --gris-doux: #EFEDF3;
+  --trait: #D8D2E4;          /* le trait, 1 px violet clair */
+  --trait-fort: #B9AED2;
+  --jaune-pale: #FDF3DC;
+
+  /* Typo */
+  --f-display: "Poppins", "Trebuchet MS", sans-serif;
+  --f-corps: "Nunito Sans", "Gill Sans", sans-serif;
+  --t-13: 0.8125rem;
+  --t-16: 1rem;
+  --t-20: 1.25rem;
+  --t-25: 1.5625rem;
+  --t-31: 1.9375rem;
+  --t-39: 2.4375rem;
+  --t-49: 3.0625rem;
+  --t-61: 3.8125rem;
+
+  /* Espacement 8/16/24/40/64/96 */
+  --s-1: 0.5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2.5rem;
+  --s-5: 4rem;
+  --s-6: 6rem;
+
+  --largeur: 71.25rem;       /* 1140px */
+  --decale-fil: 3.5rem;      /* espace réservé au fil vertical (desktop) */
+  --duree: 200ms;
+  --courbe: cubic-bezier(.33, .7, .35, 1);
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ivoire);
+  color: var(--encre);
+  font-family: var(--f-corps);
+  font-size: var(--t-16);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  color: var(--violet-fonce);
+  line-height: 1.15;
+  margin: 0 0 var(--s-2);
+}
+
+h1 {
+  font-size: clamp(var(--t-31), 1.9rem + 1.9vw, 3.3rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(var(--t-25), 1.35rem + 1vw, var(--t-39));
+  font-weight: 500;
+  letter-spacing: -0.008em;
+}
+
+h3 {
+  font-size: var(--t-20);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+p { margin: 0 0 var(--s-2); }
+p:last-child { margin-bottom: 0; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: var(--vert-sombre);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+::selection { background: var(--lavande); color: var(--encre); }
+
+:focus-visible {
+  outline: 2px solid var(--violet-fonce);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- 3. Utilitaires ---------- */
+.conteneur {
+  position: relative;
+  max-width: var(--largeur);
+  margin-inline: auto;
+  padding-inline: var(--s-3);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--s-2);
+  top: -4rem;
+  z-index: 100;
+  padding: var(--s-1) var(--s-2);
+  background: var(--violet-fonce);
+  color: var(--ivoire);
+  font-family: var(--f-display);
+  font-size: var(--t-13);
+  border-radius: 0 0 8px 8px;
+  transition: top var(--duree) var(--courbe);
+}
+.skip-link:focus { top: 0; }
+
+.visuallyhidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Eyebrow : petit surtitre au chevron */
+.eyebrow {
+  display: inline-flex;
+  align-items: flex-start; /* le chevron reste calé sur la 1re ligne si ça replie */
+  gap: 0.625rem;
+  margin: 0 0 var(--s-2);
+  font-family: var(--f-display);
+  font-size: var(--t-13);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet-fonce);
+}
+.eyebrow .chevron { color: var(--vert-sombre); flex: none; margin-top: 0.42em; }
+.eyebrow span { text-wrap: balance; }
+
+.chevron { display: inline-block; vertical-align: baseline; }
+
+/* Badge de maquette — placeholders [EXEMPLE] / [À FOURNIR PAR L'ASSO] */
+.badge-maquette {
+  display: inline-block;
+  padding: 0.1rem 0.55rem 0.15rem;
+  border: 1px dashed color-mix(in srgb, var(--ocre-texte) 55%, transparent);
+  border-radius: 999px;
+  background: var(--jaune-pale);
+  color: var(--ocre-texte);
+  font-family: var(--f-corps);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.badge-maquette--long { white-space: normal; line-height: 1.4; }
+
+/* Lien animé : soulignement qui se dessine de gauche à droite */
+.lien-anime {
+  position: relative;
+  color: var(--vert-sombre);
+  font-weight: 700;
+  text-decoration: none;
+}
+.lien-anime::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duree) var(--courbe);
+}
+.lien-anime:hover::after,
+.lien-anime:focus-visible::after { transform: scaleX(1); }
+
+/* ---------- 4. Boutons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.8rem 1.6rem 0.85rem;
+  font-family: var(--f-display);
+  font-size: var(--t-16);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duree) var(--courbe),
+              border-color var(--duree) var(--courbe),
+              transform var(--duree) var(--courbe);
+}
+
+/* Jaune : STRICTEMENT réservé aux CTA. Radius asymétrique = pente de toit. */
+.btn--jaune {
+  background: var(--jaune);
+  color: var(--encre); /* 6.1:1 */
+  border: 1px solid transparent;
+  border-radius: 2px 16px 2px 16px;
+}
+.btn--jaune:hover { background: #EFB335; transform: translateY(-1px); }
+.btn--jaune .chevron { color: var(--encre); }
+
+.btn--fantome {
+  background: transparent;
+  color: var(--violet-fonce);
+  border: 1px solid var(--trait-fort);
+  border-radius: 16px 2px 16px 2px;
+}
+.btn--fantome:hover {
+  background: rgba(162, 149, 193, 0.09);
+  border-color: var(--vert);
+}
+
+/* ---------- 5. Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--ivoire) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--trait);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: 4.5rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+.logo img { width: auto; height: 3.5rem; }
+
+/* Bouton menu mobile */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--trait-fort);
+  border-radius: 2px 12px 2px 12px;
+  color: var(--violet-fonce);
+  font-family: var(--f-display);
+  font-size: var(--t-13);
+  font-weight: 500;
+  cursor: pointer;
+}
+.nav-toggle-barres {
+  position: relative;
+  display: inline-block;
+  width: 1.05rem;
+  height: 2px;
+  background: currentColor;
+  transition: background var(--duree) var(--courbe);
+}
+.nav-toggle-barres::before,
+.nav-toggle-barres::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--duree) var(--courbe);
+}
+.nav-toggle-barres::before { top: -5px; }
+.nav-toggle-barres::after { top: 5px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-barres { background: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-barres::before { transform: translateY(5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-barres::after { transform: translateY(-5px) rotate(-45deg); }
+
+/* Nav — mobile : panneau replié sous le header */
+.nav-principale {
+  display: none;
+  position: absolute;
+  left: 0; right: 0;
+  top: 100%;
+  background: var(--ivoire);
+  border-bottom: 1px solid var(--trait);
+  box-shadow: 0 18px 30px -24px rgba(66, 60, 82, 0.35);
+}
+.site-header.est-ouvert .nav-principale { display: block; }
+
+.nav-principale ul {
+  padding: var(--s-1) var(--s-3) var(--s-2);
+}
+.nav-principale a {
+  display: block;
+  padding: 0.7rem 0.25rem;
+  border-bottom: 1px solid var(--gris-doux);
+  color: var(--violet-fonce);
+  font-family: var(--f-display);
+  font-size: var(--t-16);
+  font-weight: 500;
+  text-decoration: none;
+}
+.nav-principale li:last-child a { border-bottom: none; }
+.nav-principale a[aria-current="page"] {
+  color: var(--vert-sombre);
+  font-weight: 600;
+}
+
+@media (min-width: 64rem) {
+  .nav-toggle { display: none; }
+  .nav-principale {
+    display: block;
+    position: static;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .nav-principale ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.9rem, 2vw, 1.75rem);
+    padding: 0;
+  }
+  .nav-principale a {
+    position: relative;
+    padding: 0.35rem 0;
+    border: none;
+    font-size: var(--t-13);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .nav-principale a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    background: var(--vert);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--duree) var(--courbe);
+  }
+  .nav-principale a:hover::after,
+  .nav-principale a:focus-visible::after,
+  .nav-principale a[aria-current="page"]::after { transform: scaleX(1); }
+}
+
+/* ---------- 6. Sections & fil vertical ---------- */
+.section { position: relative; }
+.section--bande { background: var(--lavande-pale); }
+.section--bande + .section--bande { border-top: 1px solid var(--trait); }
+
+/* Le padding vertical vit sur le conteneur : le fil reste ainsi continu. */
+.section > .conteneur { padding-block: var(--s-5); }
+.section--haute > .conteneur { padding-block: var(--s-6) var(--s-5); }
+.section--basse > .conteneur { padding-block: var(--s-5) var(--s-6); }
+
+/* Le fil : trait 1 px qui court le long des sections (desktop) */
+@media (min-width: 64rem) {
+  .section--fil > .conteneur {
+    padding-left: calc(var(--s-3) + var(--decale-fil));
+  }
+  .section--fil > .conteneur::before {
+    content: "";
+    position: absolute;
+    left: var(--s-3);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--trait-fort);
+  }
+  /* Départ et fin du fil */
+  .section--fil-debut > .conteneur::before { top: var(--s-4); }
+  .section--fil-fin > .conteneur::before {
+    bottom: var(--s-5);
+    background: linear-gradient(to bottom, var(--trait-fort) 80%, transparent);
+  }
+}
+
+/* Tête de section : chevron de toit posé sur le fil + eyebrow + titre */
+.section-tete { position: relative; margin-bottom: var(--s-4); }
+.section-tete h2 { max-width: 24ch; }
+
+/* Mobile : le chevron devient un marqueur posé au-dessus du titre */
+.fil-chevron {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--vert-sombre);
+  line-height: 0;
+}
+@media (min-width: 64rem) {
+  .fil-chevron {
+    display: block;
+    position: absolute;
+    left: calc(-1 * var(--decale-fil) - 8px);
+    top: 0.4rem;
+    padding: 4px 1px;
+    background: inherit;
+  }
+  .section--bande .fil-chevron { background: var(--lavande-pale); }
+  .section:not(.section--bande) .fil-chevron { background: var(--ivoire); }
+}
+
+/* ---------- 7. Hero ---------- */
+.hero { overflow: hidden; }
+.hero > .conteneur { padding-block: var(--s-4) var(--s-6); }
+
+.hero-grille {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.hero-texte { max-width: 34rem; }
+
+.hero-lede {
+  font-size: var(--t-20);
+  line-height: 1.55;
+  color: var(--violet-fonce);
+  max-width: 32rem;
+  margin-bottom: var(--s-4);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.hero-visuel {
+  position: relative;
+  margin-inline: auto;
+  width: min(21rem, 82vw);
+}
+
+@media (min-width: 40rem) {
+  .hero-visuel { width: min(24rem, 70vw); }
+}
+
+@media (min-width: 64rem) {
+  .hero > .conteneur { padding-block: var(--s-5) var(--s-5); }
+  .hero-grille {
+    grid-template-columns: minmax(0, 13fr) minmax(0, 11fr);
+    align-items: end; /* la maison se pose sur sa ligne de sol, au niveau des CTA */
+    gap: var(--s-4);
+  }
+  .hero-texte { max-width: 38.5rem; padding-right: var(--s-2); padding-bottom: var(--s-1); }
+  .hero-visuel {
+    /* margin-left:0 est indispensable : un margin auto sur un item de grille
+       le réduirait à fit-content (le SVG retomberait sur ses 300 px par défaut) */
+    width: 100%;
+    max-width: 33rem;
+    justify-self: end;
+    margin-left: 0;
+    margin-right: -4.5rem; /* débordement intentionnel vers la droite */
+    margin-bottom: -0.4rem;
+  }
+}
+
+.maison-svg { width: 100%; height: auto; display: block; }
+
+/* Le trait qui construit : dessin au chargement */
+.trait-anime {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dessiner 1.1s var(--courbe) forwards;
+}
+.trait-anime--1 { animation-delay: 0.1s; animation-duration: 0.6s; }
+.trait-anime--2 { animation-delay: 0.35s; animation-duration: 0.65s; }
+.trait-anime--3 { animation-delay: 0.75s; animation-duration: 0.55s; }
+.trait-anime--4 { animation-delay: 1.05s; animation-duration: 0.45s; }
+
+@keyframes dessiner {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- 8. La PSR en trois phrases (bande lavande) ---------- */
+.phrases {
+  display: grid;
+  gap: var(--s-3);
+  max-width: 46rem;
+}
+
+.phrase {
+  position: relative;
+  padding-left: 2rem;
+  font-size: var(--t-16);
+}
+.phrase .chevron {
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  color: var(--vert-sombre);
+}
+.phrase strong { color: var(--violet-fonce); }
+
+/* L'entonnoir : chaque phrase descend d'un cran et traverse la bande (desktop) */
+@media (min-width: 64rem) {
+  .phrases { max-width: none; gap: var(--s-4); }
+  .phrase { max-width: 37rem; font-size: var(--t-20); line-height: 1.6; }
+  .phrase:nth-child(2) { margin-left: 11rem; }
+  .phrase:nth-child(3) { margin-left: 22rem; }
+}
+
+/* ---------- 9. Pour qui ? — rangées en quinconce reliées au fil ---------- */
+.quinconce {
+  display: grid;
+  gap: var(--s-4);
+  padding-top: 0.8rem; /* laisse dépasser le numéro du premier jalon */
+}
+
+.carte-trait {
+  position: relative;
+  padding: var(--s-3) var(--s-3) var(--s-3);
+  border: 1px solid var(--trait-fort);
+  background: transparent; /* carte « au trait » : le fond n'arrive qu'au hover */
+  transition: background-color var(--duree) var(--courbe),
+              border-color var(--duree) var(--courbe);
+}
+.carte-trait:nth-child(odd) { border-radius: 2px 22px 2px 22px; }
+.carte-trait:nth-child(even) { border-radius: 22px 2px 22px 2px; }
+.carte-trait:hover {
+  background: rgba(162, 149, 193, 0.08);
+  border-color: var(--vert);
+}
+.carte-trait h3 { margin-bottom: var(--s-1); }
+.carte-trait p { color: var(--encre); font-size: var(--t-16); }
+
+/* Numéro posé sur le trait supérieur, comme le pignon du bloc FF2P */
+.jalon-num {
+  position: absolute;
+  top: -0.72em;
+  left: var(--s-3);
+  padding-inline: 0.5rem;
+  background: var(--ivoire);
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: var(--t-25);
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  color: var(--violet-fonce);
+}
+
+@media (min-width: 64rem) {
+  .quinconce { gap: var(--s-4); padding-top: 1rem; }
+  .jalon { width: min(100%, 36rem); }
+  .jalon:nth-child(even) { margin-left: 18rem; }
+  /* Connecteur : petit trait horizontal qui raccroche chaque rangée au fil */
+  .jalon::before {
+    content: "";
+    position: absolute;
+    top: 2.2rem;
+    right: 100%;
+    height: 1px;
+    background: var(--trait-fort);
+  }
+  .jalon:nth-child(odd)::before { width: var(--decale-fil); }
+  .jalon:nth-child(even)::before { width: calc(var(--decale-fil) + 18rem); }
+}
+
+/* ---------- 10. Bande citation ---------- */
+.section--citation {
+  background: var(--blanc);
+  border-block: 1px solid var(--trait);
+}
+.citation {
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.citation > .chevron { color: var(--vert-sombre); margin-bottom: var(--s-2); }
+.citation blockquote { margin: 0; }
+.citation blockquote p {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(var(--t-25), 1.2rem + 1.6vw, var(--t-39));
+  line-height: 1.32;
+  letter-spacing: -0.008em;
+  color: var(--violet-fonce);
+  text-wrap: balance;
+}
+.citation figcaption {
+  margin-top: var(--s-3);
+  font-size: var(--t-13);
+  color: var(--encre);
+}
+
+/* ---------- 10bis. Bloc reconnaissance FF2P (au trait) ---------- */
+.bloc-ff2p {
+  position: relative;
+  z-index: 1;
+  max-width: 56rem;
+  padding: var(--s-4) var(--s-3);
+  border: 1px solid var(--trait-fort);
+  border-radius: 2px 26px 2px 26px;
+  background: var(--blanc);
+}
+/* Pignon : chevron de toit posé sur le bord supérieur */
+.bloc-ff2p .pignon {
+  position: absolute;
+  top: -11px;
+  left: var(--s-4);
+  padding: 0 8px 2px;
+  /* moitié haute = bande lavande, moitié basse = carte blanche :
+     le pignon interrompt le trait sans laisser de pavé visible */
+  background: linear-gradient(to bottom, var(--lavande-pale) 50%, var(--blanc) 50%);
+  color: var(--vert-sombre);
+  line-height: 0;
+}
+.bloc-ff2p .ff2p-phrase {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: var(--t-20);
+  line-height: 1.5;
+  color: var(--violet-fonce);
+  margin-bottom: var(--s-2);
+}
+@media (min-width: 64rem) {
+  .bloc-ff2p { padding: var(--s-4) var(--s-5) var(--s-4) var(--s-4); }
+  .bloc-ff2p .ff2p-phrase { font-size: var(--t-25); }
+}
+
+/* Variante compacte : note discrète en fin de section (fond ivoire) */
+.bloc-ff2p--note {
+  max-width: 46rem;
+  margin-top: var(--s-4);
+  padding: var(--s-3);
+}
+.bloc-ff2p--note .pignon {
+  background: linear-gradient(to bottom, var(--ivoire) 50%, var(--blanc) 50%);
+}
+.bloc-ff2p--note .eyebrow { margin-bottom: var(--s-1); }
+.bloc-ff2p--note p:last-child { margin-bottom: 0; font-size: var(--t-16); }
+@media (min-width: 64rem) {
+  .bloc-ff2p--note { padding: var(--s-3) var(--s-4); }
+}
+
+/* Trame de points ocre en coin de section */
+.coin-trame {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 9rem;
+  height: 6rem;
+  pointer-events: none;
+  color: var(--jaune);
+}
+@media (min-width: 64rem) {
+  .coin-trame { width: 13rem; height: 8rem; }
+}
+
+/* Variante : trame posée en haut à droite de la section */
+.coin-trame--haut {
+  top: 0;
+  bottom: auto;
+}
+@media (max-width: 39.9375rem) {
+  .coin-trame--haut { display: none; } /* mobile : la bande est déjà dense */
+}
+
+/* ---------- 11. Rangées d'appel à l'action ---------- */
+.rangees-cta { border-top: 1px solid var(--trait); }
+
+.rangee-cta {
+  display: block;
+  position: relative;
+  padding: var(--s-3) var(--s-5) var(--s-3) 0;
+  border-bottom: 1px solid var(--trait);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--duree) var(--courbe),
+              padding-left var(--duree) var(--courbe);
+}
+.rangee-cta:hover,
+.rangee-cta:focus-visible {
+  background: rgba(162, 149, 193, 0.07);
+  padding-left: var(--s-2);
+}
+.rangee-cta h3 {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: var(--t-20);
+  transition: color var(--duree) var(--courbe);
+}
+.rangee-cta h3 .badge-maquette { margin-left: 0.35rem; }
+.rangee-cta:hover h3 { color: var(--vert-sombre); }
+.rangee-cta p {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--encre);
+}
+/* Flèche : chevron de toit tourné vers la droite */
+.rangee-cta .fleche {
+  position: absolute;
+  right: var(--s-1);
+  top: 50%;
+  color: var(--trait-fort);
+  transform: translateY(-50%) rotate(90deg);
+  transition: transform var(--duree) var(--courbe), color var(--duree) var(--courbe);
+}
+.rangee-cta:hover .fleche,
+.rangee-cta:focus-visible .fleche {
+  color: var(--vert-sombre);
+  transform: translateY(-50%) translateX(6px) rotate(90deg);
+}
+
+@media (min-width: 64rem) {
+  .rangee-cta { padding: var(--s-4) var(--s-6) var(--s-4) 0; }
+  .rangee-cta:hover, .rangee-cta:focus-visible { padding-left: var(--s-3); }
+}
+
+/* ---------- 12. Sommaire PSR (barre sticky sous le header) ---------- */
+.sommaire-psr {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 40;
+  background: color-mix(in srgb, var(--ivoire) 94%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--trait);
+}
+.sommaire-psr ul {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-block: 0.6rem;
+  scrollbar-width: thin;
+}
+.sommaire-psr a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.7rem;
+  border: 1px solid var(--trait);
+  border-radius: 999px;
+  color: var(--violet-fonce);
+  font-family: var(--f-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color var(--duree) var(--courbe),
+              background-color var(--duree) var(--courbe);
+}
+.sommaire-psr a .chevron { color: var(--vert-sombre); }
+.sommaire-psr a:hover { background: rgba(162, 149, 193, 0.09); }
+.sommaire-psr a.est-actif {
+  border-color: var(--vert);
+  box-shadow: inset 0 -2px 0 var(--vert);
+}
+
+/* ---------- 13. Agenda (rendu JS) ---------- */
+.etat-chargement {
+  color: var(--violet-fonce);
+  font-style: italic;
+  padding-block: var(--s-3);
+}
+
+.agenda-mois { margin-bottom: var(--s-4); }
+.agenda-mois-titre {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-25);
+  font-weight: 500;
+  color: var(--violet-fonce);
+}
+.agenda-mois-titre::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--trait);
+}
+
+.evenement {
+  display: grid;
+  gap: 0.4rem var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--gris-doux);
+}
+.evenement:last-child { border-bottom: none; }
+.evenement-date {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: var(--t-16);
+  color: var(--violet-fonce);
+}
+.evenement-date { margin-bottom: 0.15rem; }
+.evenement-heure { color: var(--vert-sombre); font-weight: 700; font-size: var(--t-13); }
+.evenement h4 { font-size: var(--t-20); margin-bottom: 0.2rem; }
+.evenement-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  margin: 0.15rem 0 0.5rem;
+}
+.evenement-lieu { font-size: 0.875rem; color: var(--violet-fonce); }
+.evenement-desc { font-size: var(--t-16); margin: 0; }
+
+@media (min-width: 40rem) {
+  .evenement { grid-template-columns: 9.5rem minmax(0, 1fr); }
+}
+
+/* Badges type / modalité */
+.badge {
+  display: inline-block;
+  padding: 0.12rem 0.6rem 0.18rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge--supervision { background: var(--lavande-pale); color: var(--violet-fonce); border: 1px solid var(--trait-fort); }
+.badge--intervision { background: #E6F3EE; color: var(--vert-sombre); border: 1px solid #B5DECF; }
+.badge--evenement { background: var(--jaune-pale); color: var(--ocre-texte); border: 1px solid #EBD9A8; }
+.badge--modalite { background: transparent; color: var(--encre); border: 1px solid var(--trait-fort); }
+
+/* ---------- 14. Annuaire (rendu JS) ---------- */
+.annuaire-region { margin-bottom: var(--s-4); }
+.annuaire-region-titre {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-20);
+  color: var(--violet-fonce);
+}
+.annuaire-region-titre::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--trait);
+}
+
+.annuaire-grille {
+  display: grid;
+  gap: var(--s-3);
+}
+@media (min-width: 40rem) {
+  .annuaire-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Desktop : layout éditorial — la région vit dans la marge gauche,
+   les fiches occupent le reste de la largeur (2 colonnes). */
+@media (min-width: 64rem) {
+  .annuaire-region {
+    display: grid;
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: var(--s-3) var(--s-4);
+    align-items: start;
+  }
+  .annuaire-region-titre {
+    display: block;
+    padding-top: 0.45rem;
+    border-top: 2px solid var(--trait-fort);
+  }
+  .annuaire-region-titre::after { content: none; }
+  .annuaire-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3) var(--s-4); }
+  /* Région à fiche unique : la carte s'élargit (1,4 colonne) et alterne
+     son ancrage gauche/droite pour rythmer la colonne. */
+  .annuaire-grille .fiche-therapeute:only-child {
+    grid-column: 1 / -1;
+    width: 70%;
+  }
+  .annuaire-region:nth-of-type(even) .annuaire-grille .fiche-therapeute:only-child {
+    margin-left: auto;
+  }
+}
+
+.fiche-therapeute h4 { font-size: var(--t-20); margin-bottom: 0.15rem; }
+.fiche-ville {
+  font-family: var(--f-display);
+  font-size: var(--t-13);
+  font-weight: 500;
+  color: var(--vert-sombre);
+  margin-bottom: var(--s-1);
+}
+.fiche-publics { font-size: var(--t-13); color: var(--encre); margin-bottom: var(--s-1); }
+.fiche-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: var(--s-2); }
+
+/* ---------- 15. Footer ---------- */
+/* Pas de margin-top : c'est la dernière section de chaque page qui gère
+   la respiration avant le footer (padding-bottom --s-6). */
+.site-footer {
+  background: var(--encre);
+  color: var(--ivoire);
+}
+
+.footer-grille {
+  display: grid;
+  gap: var(--s-4);
+  padding-block: var(--s-5) var(--s-4);
+}
+@media (min-width: 64rem) {
+  .footer-grille { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr); gap: var(--s-5); }
+}
+
+.footer-nom {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: var(--t-20);
+  color: var(--blanc);
+  margin: var(--s-2) 0 var(--s-1);
+}
+.footer-asso { font-size: var(--t-13); color: #C9C3D6; max-width: 30rem; }
+
+.footer-maison { color: #A79CC4; }
+
+.footer-nav-titre {
+  font-family: var(--f-display);
+  font-size: var(--t-13);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #B9AED2; /* 5.0:1 sur encre */
+  margin-bottom: var(--s-2);
+}
+.footer-nav a {
+  display: inline-block;
+  padding: 0.22rem 0;
+  color: var(--ivoire);
+  font-size: var(--t-13);
+  text-decoration: none;
+}
+.footer-nav a:hover, .footer-nav a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+
+.footer-mentions { font-size: var(--t-13); color: #C9C3D6; }
+.footer-mentions p { margin-bottom: var(--s-2); }
+.site-footer .badge-maquette { background: transparent; border-color: #8A7F5B; color: #E8CD8A; }
+
+.footer-basline {
+  margin: 0;
+  padding-block: var(--s-3);
+  border-top: 1px solid #5A5370;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: #B9AED2; /* 5.0:1 sur encre */
+}
+
+/* ---------- 17. Page « La PSR » — long format ---------- */
+
+/* Ancres : dégager la cible sous le header + le sommaire sticky */
+main [id] { scroll-margin-top: 8.5rem; }
+.ancre-alias { position: absolute; }
+
+/* Fond blanc bordé (variation de rythme entre ivoire et bande lavande) */
+.section--blanche {
+  background: var(--blanc);
+  border-block: 1px solid var(--trait);
+}
+@media (min-width: 64rem) {
+  .section--blanche .fil-chevron { background: var(--blanc); }
+}
+
+/* Tête de page : les deux questions */
+.entete-page > .conteneur { padding-block: var(--s-4) var(--s-5); }
+.entete-grille { display: grid; gap: var(--s-4); }
+.entete-page h1 { max-width: 19ch; }
+.h1-contrepoint { color: var(--vert-sombre); }
+.insecable { white-space: nowrap; }
+.chapeau {
+  font-size: var(--t-20);
+  line-height: 1.6;
+  color: var(--violet-fonce);
+  max-width: 34rem;
+  margin: var(--s-3) 0 0;
+}
+.entete-visuel { display: none; }
+.duo-svg { width: 100%; height: auto; display: block; }
+@media (min-width: 64rem) {
+  .entete-page > .conteneur { padding-block: var(--s-5); }
+  .entete-grille {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    align-items: center;
+  }
+  .entete-visuel {
+    display: block;
+    width: 100%;
+    max-width: 19rem;
+    justify-self: end;
+    margin-right: -1.5rem; /* débordement discret vers la droite */
+  }
+}
+
+/* Colonne de lecture : mesure 62ch, paragraphes espacés */
+.prose { max-width: 62ch; }
+.prose p { margin-bottom: var(--s-3); }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--violet-fonce); }
+.lede {
+  font-size: var(--t-20);
+  line-height: 1.6;
+  color: var(--violet-fonce);
+}
+
+/* « Ce que ce n'est pas » : trois mises au point en escalier,
+   chevron inversé (le toit retourné) + filet supérieur */
+.negations { display: grid; gap: var(--s-4); }
+.negation {
+  max-width: 38rem;
+  border-top: 1px solid var(--trait-fort);
+  padding-top: var(--s-3);
+}
+.negation h3 {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 30ch;
+  margin-bottom: var(--s-1);
+}
+.negation h3 .chevron {
+  flex: none;
+  margin-top: 0.45em;
+  transform: rotate(180deg);
+  color: var(--vert-sombre);
+}
+.negation p { margin: 0; }
+@media (min-width: 64rem) {
+  .negation:nth-child(2) { margin-left: 8rem; }
+  .negation:nth-child(3) { margin-left: 16rem; }
+}
+
+/* La séance : deux colonnes de lecture décalées */
+.seance-grille { display: grid; gap: 0; max-width: 62ch; }
+.seance-col p { margin-bottom: var(--s-3); }
+.seance-col:last-child p:last-child { margin-bottom: 0; }
+@media (min-width: 64rem) {
+  .seance-grille {
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-5);
+  }
+  .seance-col--2 {
+    margin-top: var(--s-5);
+    padding-left: var(--s-4);
+    border-left: 1px solid var(--trait);
+  }
+}
+
+/* Respiration display au milieu de « Pour qui ? » */
+.phrase-display {
+  max-width: 26ch;
+  margin: var(--s-4) 0;
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(var(--t-25), 1.2rem + 1.4vw, var(--t-39));
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  color: var(--violet-fonce);
+  text-wrap: balance;
+}
+@media (min-width: 64rem) {
+  .phrase-display { margin: var(--s-5) 0 var(--s-5) 8rem; }
+}
+
+/* Liste à puces chevron */
+.liste-chevrons {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+}
+.liste-chevrons li { position: relative; padding-left: 2rem; }
+.liste-chevrons .chevron {
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  color: var(--vert-sombre);
+}
+
+/* Indications : trois jalons numérotés en escalier */
+.indications { max-width: 46rem; }
+.indication {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s-3);
+  align-items: baseline;
+  border-top: 1px solid var(--trait-fort);
+  padding-block: var(--s-3);
+}
+.indication:last-child { padding-bottom: 0; }
+.indication-num {
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: var(--t-31);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--violet-fonce);
+}
+.indication p { margin: 0; max-width: 52ch; }
+@media (min-width: 64rem) {
+  .indication:nth-child(2) { margin-left: 5rem; }
+  .indication:nth-child(3) { margin-left: 10rem; }
+}
+
+/* Fondements : prose + encart « Le saviez-vous ? » calé en bas à droite */
+.fondements-grille { display: grid; gap: var(--s-4); }
+@media (min-width: 64rem) {
+  .fondements-grille {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-5);
+  }
+  .encart-saviez { align-self: end; }
+  .encart-saviez--haut { align-self: start; }
+}
+
+.encart-saviez {
+  position: relative;
+  max-width: 34rem;
+  padding: var(--s-4) var(--s-3) var(--s-3);
+  border: 1px solid var(--trait-fort);
+  border-radius: 26px 2px 26px 2px;
+  background: var(--blanc);
+}
+.encart-saviez .pignon {
+  position: absolute;
+  top: -11px;
+  left: var(--s-4);
+  padding: 0 8px 2px;
+  /* moitié haute = fond ivoire de la section, moitié basse = encart blanc */
+  background: linear-gradient(to bottom, var(--ivoire) 50%, var(--blanc) 50%);
+  color: var(--vert-sombre);
+  line-height: 0;
+}
+.encart-titre {
+  margin-bottom: var(--s-1);
+  font-family: var(--f-display);
+  font-size: var(--t-13);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vert-sombre);
+}
+.encart-saviez > p:last-child { margin-bottom: 0; }
+
+/* Renvoi croisé vers un article */
+.renvoi {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 62ch;
+  margin: var(--s-4) 0 0;
+  padding: var(--s-3);
+  border: 1px solid var(--trait-fort);
+  border-radius: 2px 18px 2px 18px;
+  background: var(--blanc);
+}
+.renvoi-fleche {
+  flex: none;
+  margin-top: 0.4em;
+  color: var(--vert-sombre);
+  line-height: 0;
+  transform: rotate(90deg);
+}
+
+/* Mot de la fin : reconnaissance FF2P en grand corps léger */
+.reconnaissance-display {
+  max-width: 24em;
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(var(--t-25), 1.3rem + 1.4vw, var(--t-39));
+  line-height: 1.35;
+  letter-spacing: -0.008em;
+  color: var(--violet-fonce);
+  text-wrap: balance;
+}
+
+/* Sous-titres dans les colonnes (Côté Pro) */
+.seance-col h3 {
+  font-size: var(--t-20);
+  font-weight: 500;
+  margin-bottom: var(--s-2);
+}
+.prose + .seance-grille { margin-top: var(--s-4); }
+
+/* ---------- 15bis. Articles ---------- */
+.prose h3 {
+  font-size: var(--t-20);
+  font-weight: 500;
+  margin-top: var(--s-4);
+  margin-bottom: var(--s-2);
+  max-width: 34ch;
+}
+.article-meta {
+  font-size: var(--t-13);
+  color: var(--violet-fonce);
+  margin: calc(-1 * var(--s-2)) 0 var(--s-4);
+  max-width: 62ch;
+}
+/* Colonne de lecture décalée vers le centre (style revue) :
+   les têtes de section restent sur le fil, le corps respire à droite. */
+.article-editorial .prose,
+.article-editorial .article-meta { max-width: 68ch; }
+@media (min-width: 64rem) {
+  .article-editorial .prose,
+  .article-editorial .article-meta { margin-left: 16%; }
+}
+.fin-article {
+  margin-top: var(--s-4);
+  font-size: var(--t-16);
+}
+.fin-article .chevron { color: var(--vert-sombre); margin-right: 0.45rem; }
+@media (min-width: 64rem) {
+  .article-editorial .fin-article { margin-left: 16%; }
+}
+
+/* Rangées CTA resserrées (la flèche reste liée au texte) */
+.rangees-cta--etroit { max-width: 46rem; }
+
+/* Définitions en ligne, séparées par des filets (annuaire) */
+.definitions {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+}
+.definition {
+  border-top: 1px solid var(--trait);
+  padding-top: var(--s-2);
+}
+.definition dt {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--f-display);
+  font-weight: 600;
+  color: var(--violet-fonce);
+  margin-bottom: 0.35rem;
+}
+.definition dt .chevron { color: var(--vert-sombre); flex: none; }
+.definition dd { margin: 0; font-size: var(--t-16); color: var(--encre); }
+@media (min-width: 64rem) {
+  .definitions { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
+  .definition {
+    border-top: none;
+    border-left: 1px solid var(--trait);
+    padding: 0.2rem 0 0.2rem var(--s-3);
+  }
+  .definition:first-child { border-left: none; padding-left: 0; }
+}
+
+/* Prose pleine largeur qui suit une grille deux colonnes */
+.prose--suite { margin-top: var(--s-4); }
+
+/* ---------- 15ter. Formulaire (contact) ---------- */
+.formulaire { max-width: 40rem; }
+.champ { margin-bottom: var(--s-3); }
+.champ label {
+  display: block;
+  font-weight: 700;
+  color: var(--violet-fonce);
+  margin-bottom: var(--s-1);
+}
+.champ-obligatoire {
+  font-weight: 400;
+  font-size: var(--t-13);
+  color: var(--violet-fonce);
+}
+.champ input[type="text"],
+.champ input[type="email"],
+.champ select,
+.champ textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--encre);
+  background: var(--blanc);
+  border: 1px solid #8B7FA8; /* 3.7:1 sur blanc (WCAG 1.4.11) */
+  border-radius: 2px 10px 2px 10px;
+  padding: 0.65rem 0.85rem;
+  transition: border-color var(--duree) var(--courbe), box-shadow var(--duree) var(--courbe);
+}
+.champ textarea { resize: vertical; min-height: 9rem; }
+.champ input:hover, .champ select:hover, .champ textarea:hover { border-color: var(--violet); }
+.champ input:focus-visible, .champ select:focus-visible, .champ textarea:focus-visible {
+  outline: 2px solid var(--vert-sombre);
+  outline-offset: 1px;
+  border-color: var(--vert-sombre);
+}
+.champ--case {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+}
+.champ--case input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.2rem;
+  accent-color: var(--vert-sombre);
+}
+.champ--case label { font-weight: 400; color: var(--encre); margin-bottom: 0; }
+.form-mention {
+  font-size: 0.875rem;
+  color: var(--encre);
+  margin-bottom: var(--s-3);
+  max-width: 52ch;
+}
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+.btn--jaune[disabled]:hover,
+.btn--jaune[aria-disabled="true"]:hover { background: var(--jaune); transform: none; }
+.form-demo-note {
+  font-size: var(--t-13);
+  color: var(--violet-fonce);
+  margin-top: var(--s-1);
+}
+.coordonnees {
+  list-style: none;
+  margin: 0 0 var(--s-3);
+  padding: 0;
+}
+.coordonnees li { margin-bottom: var(--s-2); }
+
+/* ---------- 16. Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .trait-anime {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

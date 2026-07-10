@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda — supervisions, intervisions, événements</title>
+  <meta name="description" content="Dates de supervision et d'intervision, événements de l'association&nbsp;: l'agenda de la Maison de la Psychosomatique Relationnelle.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="conteneur site-header-inner">
+      <a class="logo" href="index.html">
+        <img src="../assets/logos/logo-maison-alpha-560.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R." width="560" height="198">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle-barres" aria-hidden="true"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html" aria-current="page">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ===== Tête de page ===== -->
+    <section class="section entete-page" aria-labelledby="titre-page">
+      <div class="conteneur">
+        <div class="entete-grille">
+          <div>
+            <p class="eyebrow">
+              <svg class="chevron" width="14" height="9" viewBox="0 0 14 9" aria-hidden="true" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Agenda</span>
+            </p>
+            <h1 id="titre-page">Les prochains <span class="h1-contrepoint">rendez-vous</span></h1>
+            <p class="chapeau">Retrouvez ici les dates de supervision et d'intervision de l'association, ainsi que ses événements&nbsp;: rencontres, conférences, temps de formation.</p>
+            <p class="chapeau">Les membres de l'A.T.P.R. (Association de Thérapeutes en Psychosomatique Relationnelle) y trouveront les prochains rendez-vous professionnels&nbsp;; le public, les événements ouverts à tous.</p>
+          </div>
+          <div class="entete-visuel" aria-hidden="true">
+            <!-- Le toit posé sur une ligne de jalons : les dates sur le fil -->
+            <svg class="duo-svg" viewBox="0 0 280 250" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="trame-agenda-entete" width="15" height="15" patternUnits="userSpaceOnUse">
+                  <circle cx="2.5" cy="2.5" r="2.2" fill="#F5BD46" fill-opacity="0.35"/>
+                </pattern>
+              </defs>
+              <rect x="160" y="6" width="118" height="90" fill="url(#trame-agenda-entete)"/>
+              <path class="trait-anime trait-anime--2" pathLength="1" d="M50 130 140 52 230 130" stroke="#74BFA8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 192 H260" stroke="#D8D2E4" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M52 192 62 183 72 192" fill="none" stroke="#A295C1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M130 192 140 183 150 192" fill="none" stroke="#A295C1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M208 192 218 183 228 192" fill="none" stroke="#A295C1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 1. Les dates (rendu JS depuis ../data/agenda.json) ===== -->
+    <section class="section section--fil section--fil-debut section--fil-fin section--basse" aria-labelledby="titre-dates">
+      <div class="conteneur">
+        <div class="section-tete">
+          <span class="fil-chevron" aria-hidden="true"><svg class="chevron" width="16" height="10" viewBox="0 0 14 9" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h2 id="titre-dates">Les dates à venir</h2>
+        </div>
+        <div id="agenda-liste">
+          <noscript><p>L'agenda nécessite JavaScript. Les dates de supervision, d'intervision et d'événements sont publiées ici&nbsp;; contactez l'association pour les recevoir par e-mail.</p></noscript>
+        </div>
+        <div class="bloc-ff2p bloc-ff2p--note">
+          <span class="pignon" aria-hidden="true"><svg class="chevron" width="34" height="21" viewBox="0 0 14 9" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p class="eyebrow"><svg class="chevron" width="14" height="9" viewBox="0 0 14 9" aria-hidden="true" focusable="false"><path d="M1 8 7 2l6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Note de maquette</span></p>
+          <p>Les événements affichés sur cette page sont des données d'exemple, marquées «&nbsp;Exemple&nbsp;». Le calendrier réel sera alimenté par l'association. <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: dates réelles de supervision, d'intervision et d'événements</span></p>
+        </div>
+        <svg class="coin-trame" aria-hidden="true" focusable="false" viewBox="0 0 208 128" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="trame-coin-agenda" width="16" height="16" patternUnits="userSpaceOnUse">
+              <circle cx="2.5" cy="2.5" r="2" fill="currentColor" fill-opacity="0.35"/>
+            </pattern>
+          </defs>
+          <rect width="208" height="128" fill="url(#trame-coin-agenda)"/>
+        </svg>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur footer-grille">
+      <div class="footer-identite">
+        <svg class="footer-maison" width="44" height="42" viewBox="0 0 44 42" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 18 V38 H36 V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 20 22 4 40 20" stroke="#74BFA8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 38 V30 Q22 27 26 30 V38" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <p class="footer-nom">Maison de la Psychosomatique Relationnelle</p>
+        <p class="footer-asso">Site porté par l'A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Navigation secondaire">
+        <p class="footer-nav-titre">Explorer</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-mentions">
+        <p>La psychosomatique relationnelle est une discipline reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse).</p>
+        <p>Mentions légales — <span class="badge-maquette badge-maquette--long">À fournir par l'asso&nbsp;: responsable de publication, siège social, hébergeur</span></p>
+      </div>
+    </div>
+    <div class="conteneur">
+      <p class="footer-basline">Maquette de démonstration — les contenus marqués «&nbsp;Exemple&nbsp;» sont fictifs.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

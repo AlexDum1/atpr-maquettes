@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles — comprendre la psychosomatique relationnelle</title>
+  <meta name="description" content="Le corps parlant et parlé, la différence avec la psychanalyse, le déroulement d’une séance&nbsp;: des articles pour comprendre la PSR.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ============ Styles propres à la page « Articles » ============
+       (le socle styles.css n'est pas modifié — contrat STYLE-GUIDE §0) */
+
+    /* Filet ondulé sous les titres de section (même dessin que psr.html) */
+    .titre-vague::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 10px;
+      margin-top: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='10' viewBox='0 0 64 10'%3E%3Cpath d='M1 5 C7 1 13 1 19 5 C25 9 31 9 37 5 C43 1 49 1 55 5 C58 7 61 7 63 6' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    /* Badges « À fournir » : coins doux, emphase réduite (pas de capitales criardes) */
+    main .badge-fournir {
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+
+    /* Variantes du filet ondulé (tracés/couleurs alternés d'une section à l'autre) */
+    .titre-vague--violet::after {
+      width: 84px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='10' viewBox='0 0 84 10'%3E%3Cpath d='M1 5 C9 9 17 1 25 5 C33 9 41 1 49 5 C57 9 65 1 73 5 C78 8 81 8 83 5' fill='none' stroke='%23A295C1' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+    .titre-vague--ample::after {
+      width: 56px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='10' viewBox='0 0 56 10'%3E%3Cpath d='M1 6 C8 0 15 10 22 5 C29 0 36 10 43 5 C48 2 52 3 55 6' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    /* Lettrine : marge minimale en mobile pour que le lavis ne soit pas rogné
+       par le bord du viewport (composant identique à l'accueil par ailleurs) */
+    @media (max-width: 639px) {
+      .lettrine { margin-left: 8px; }
+    }
+
+    /* ---- En-tête de page ---- */
+    .entete-articles {
+      position: relative;
+      overflow: visible;
+      padding-block: var(--e-5) var(--e-4);
+    }
+    .entete-articles__lavis {
+      position: absolute;
+      top: -40px;
+      right: -110px;
+      width: clamp(340px, 40vw, 600px);
+      height: auto;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @media (max-width: 639px) {
+      .entete-articles__lavis { top: -20px; right: -60px; }
+    }
+    .entete-articles__fleur { display: none; }
+    @media (min-width: 1024px) {
+      .entete-articles__fleur {
+        display: block;
+        position: absolute;
+        top: clamp(56px, 10vw, 120px);
+        right: clamp(56px, 10vw, 160px);
+        width: clamp(190px, 21vw, 280px);
+        height: auto;
+        color: var(--c-vert);
+        transform: rotate(17deg);
+        z-index: -1;
+        pointer-events: none;
+      }
+    }
+    .entete-articles h1 { max-width: 17em; }
+    .entete-articles__chapeau {
+      font-size: var(--t-lede);
+      line-height: 1.6;
+      max-width: 38rem;
+      margin-block: var(--e-3) 0;
+    }
+
+    /* ---- Sommaire : liste d'index .chemin ----
+       Le filet ne traverse plus le vide (largeur = contenu), la flèche pointe
+       vers le bas (les articles sont sur cette page) et reste ancrée à droite
+       de la rangée, sans passer sous le titre en mobile. */
+    .section-sommaire { padding-block: var(--e-3) var(--e-6); }
+    .section-sommaire .chemins { max-width: 52rem; margin-top: var(--e-4); }
+    .section-sommaire .chemin__inner { align-items: start; }
+    .chemin__titre {
+      text-wrap: balance;
+      display: block;
+      position: relative;
+      padding-right: 38px;
+      margin: 0;
+    }
+    .chemin__titre .badge-exemple { margin-left: 4px; vertical-align: 0.14em; }
+    .chemin__titre .chemin__fleche {
+      position: absolute;
+      right: 6px;
+      top: 0.3em;
+      transform: rotate(90deg); /* la lecture se poursuit plus bas */
+    }
+    .chemin:hover .chemin__fleche { transform: rotate(90deg) translateX(5px); }
+    .chemin__lire {
+      display: block;
+      margin-top: 4px;
+      font-size: var(--t-micro);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-vert-sombre);
+    }
+
+    /* ---- Articles ---- */
+    .article-editorial { max-width: var(--largeur-prose); }
+    .article-editorial .eyebrow { margin-bottom: var(--e-1); }
+    .article-meta {
+      font-size: var(--t-petit);
+      color: var(--c-violet-fonce);
+      margin-block: var(--e-2) var(--e-4);
+    }
+    .article-lede {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 1.28rem;
+      line-height: 1.55;
+      color: var(--c-violet-fonce);
+      margin-bottom: var(--e-3);
+      padding-left: var(--e-3);
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='44' viewBox='0 0 10 44'%3E%3Cpath d='M5 0 C8.5 7 1.5 15 5 22 C8.5 29 1.5 37 5 44' fill='none' stroke='%23A295C1' stroke-width='2'/%3E%3C/svg%3E") repeat-y left top;
+    }
+    .article-editorial h3 {
+      margin-top: var(--e-4);
+      margin-bottom: var(--e-2);
+    }
+    .fin-article {
+      margin-top: var(--e-4);
+      font-size: var(--t-petit);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fin-article svg { flex: none; color: var(--c-vert-sombre); }
+    .fin-article a { color: var(--c-vert-sombre); font-weight: 600; }
+
+    .section-article {
+      position: relative;
+      overflow: hidden;
+      padding-block: var(--e-6);
+      scroll-margin-top: 96px;
+    }
+    .section-article--lavande { background: var(--c-lavande-voile); }
+
+    /* Composition desktop : la colonne de lecture change d'ancrage d'un
+       article à l'autre ; la marge libre est habitée (fleur au trait en haut,
+       chute de pétales plus bas) au lieu de rester une demi-page vide. */
+    .article-motif,
+    .article-marge-petales { display: none; }
+    @media (min-width: 1024px) {
+      #psychanalyse-difference .article-editorial { margin-left: auto; }
+      .article-motif {
+        display: block;
+        position: absolute;
+        width: clamp(180px, 18vw, 260px);
+        height: auto;
+        pointer-events: none;
+        opacity: 0.9;
+      }
+      .article-motif--droite { right: clamp(40px, 8vw, 140px); top: 16%; }
+      .article-motif--gauche { left: clamp(40px, 8vw, 140px); top: 20%; }
+      .article-motif--v1 { color: var(--c-violet); transform: rotate(-12deg); }
+      .article-motif--v2 { color: var(--c-vert); transform: rotate(19deg); }
+      .article-motif--v3 { color: var(--c-violet); transform: rotate(7deg); }
+      .article-marge-petales {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        position: absolute;
+        pointer-events: none;
+        color: var(--c-violet);
+      }
+      .article-marge-petales svg { width: 26px; height: 26px; }
+      .article-marge-petales svg:nth-child(2) { transform: rotate(30deg); color: var(--c-vert); margin-left: 22px; }
+      .article-marge-petales svg:nth-child(3) { transform: rotate(-24deg); margin-left: 6px; }
+      .article-marge-petales--droite { right: clamp(90px, 11vw, 200px); top: 56%; }
+      .article-marge-petales--gauche { left: clamp(90px, 11vw, 200px); top: 60%; }
+    }
+
+    /* ---- Renvoi final ---- */
+    .renvoi {
+      max-width: var(--largeur-prose);
+      margin: var(--e-5) 0 0;
+      padding-left: var(--e-3);
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='44' viewBox='0 0 10 44'%3E%3Cpath d='M5 0 C8.5 7 1.5 15 5 22 C8.5 29 1.5 37 5 44' fill='none' stroke='%2374BFA8' stroke-width='2'/%3E%3C/svg%3E") repeat-y left top;
+    }
+    .renvoi a { color: var(--c-vert-sombre); }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="site-header__inner enveloppe">
+      <a class="site-header__logo" href="index.html">
+        <img src="../assets/logos/logo-maison-alpha-560.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R., retour à l’accueil" width="560" height="198">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle__icone" aria-hidden="true"><span></span><span></span><span></span></span>
+        Menu
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html" aria-current="page">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============ EN-TÊTE DE PAGE ============ -->
+    <section class="entete-articles" aria-labelledby="titre-page">
+      <svg class="entete-articles__lavis" viewBox="0 0 600 520" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="lavis-articles-vert" cx="46%" cy="42%" r="62%">
+            <stop offset="0%" stop-color="#74BFA8" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#74BFA8" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lavis-articles-violet" cx="52%" cy="48%" r="64%">
+            <stop offset="0%" stop-color="#CAA4F9" stop-opacity="0.44"/>
+            <stop offset="100%" stop-color="#CAA4F9" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="lavis-articles-flou" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="24"/>
+          </filter>
+        </defs>
+        <g filter="url(#lavis-articles-flou)">
+          <path d="M300 40 C412 22 516 96 532 204 C548 314 464 392 352 404 C240 416 148 348 138 244 C128 140 188 58 300 40 Z" fill="url(#lavis-articles-violet)" opacity="0.9"/>
+          <path d="M214 190 C318 160 428 212 448 300 C468 390 388 458 280 468 C172 478 82 414 74 322 C66 230 110 220 214 190 Z" fill="url(#lavis-articles-vert)" opacity="0.85"/>
+        </g>
+      </svg>
+      <div class="enveloppe">
+        <span class="eyebrow">Articles</span>
+        <h1 id="titre-page">Comprendre la PSR, article après <em>article</em></h1>
+        <p class="entete-articles__chapeau">Comprendre la psychosomatique relationnelle (PSR) demande parfois un peu plus que quelques lignes de présentation. Ces articles approfondissent l’approche, ses fondements et sa pratique, dans un langage accessible à&nbsp;tous.</p>
+      </div>
+    </section>
+
+    <!-- ============ SOMMAIRE DES TROIS ARTICLES ============ -->
+    <section class="section-sommaire" aria-labelledby="titre-sommaire">
+      <div class="enveloppe">
+        <h2 id="titre-sommaire" class="titre-vague">Trois articles à <em>lire</em></h2>
+        <div class="chemins" data-reveal>
+          <a class="chemin" href="#corps-parlant">
+            <span class="chemin__inner">
+              <h3 class="chemin__titre">Le corps parlant et parlé <span class="badge-exemple">Exemple</span>
+                <svg class="chemin__fleche" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M0 6 H20 M15 1 L20 6 L15 11"/></svg>
+              </h3>
+              <span class="chemin__desc">Quand nous nous coupons de notre souffrance pour survivre, c’est parfois le corps qui prend le relais. Comprendre ce qu’il exprime, et comment la thérapie l’écoute. <em>Lecture&nbsp;: 4&nbsp;min.</em><span class="chemin__lire">Lire ci-dessous</span></span>
+            </span>
+          </a>
+          <a class="chemin" href="#psychanalyse-difference">
+            <span class="chemin__inner">
+              <h3 class="chemin__titre">Psychanalyse et psychosomatique&nbsp;: quelle différence&nbsp;? <span class="badge-exemple">Exemple</span>
+                <svg class="chemin__fleche" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M0 6 H20 M15 1 L20 6 L15 11"/></svg>
+              </h3>
+              <span class="chemin__desc">Deux approches issues du même référentiel théorique, complémentaires mais distinctes. Ce qui les rapproche, ce qui les sépare. <em>Lecture&nbsp;: 3&nbsp;min.</em><span class="chemin__lire">Lire ci-dessous</span></span>
+            </span>
+          </a>
+          <a class="chemin" href="#seance-psr">
+            <span class="chemin__inner">
+              <h3 class="chemin__titre">Comment se passe une séance de psychosomatique relationnelle&nbsp;? <span class="badge-exemple">Exemple</span>
+                <svg class="chemin__fleche" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M0 6 H20 M15 1 L20 6 L15 11"/></svg>
+              </h3>
+              <span class="chemin__desc">Une rencontre d’humain à humain, fondée sur la parole et sur le corps. Le déroulement concret d’un accompagnement. <em>Lecture&nbsp;: 3&nbsp;min.</em><span class="chemin__lire">Lire ci-dessous</span></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ARTICLE 1 — Le corps parlant et parlé (bande lavande) ============ -->
+    <div class="vague vague--lavande" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 42 C240 12 480 66 720 40 C960 14 1200 58 1440 34 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+    <section class="section-article section-article--lavande" id="corps-parlant" aria-labelledby="titre-article-1">
+      <svg class="article-motif article-motif--droite article-motif--v1" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(60 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(120 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(180 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(240 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(300 100 100)"/>
+          <circle cx="100" cy="100" r="5.5"/>
+        </g>
+      </svg>
+      <div class="article-marge-petales article-marge-petales--droite" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <div class="enveloppe">
+        <article class="article-editorial">
+          <span class="eyebrow">Article 1</span>
+          <h2 id="titre-article-1" class="titre-vague titre-vague--violet">Le corps parlant et <em>parlé</em></h2>
+          <p class="article-meta">Par l’équipe de l’A.T.P.R. — Lecture&nbsp;: 4&nbsp;min <span class="badge-fournir">Auteur et date à confirmer — Exemple</span></p>
+          <p class="article-lede">Quand la souffrance ne peut pas se dire, elle ne disparaît pas pour autant. C’est parfois le corps qui la prend en charge — et c’est par le corps que la thérapie peut la&nbsp;rejoindre.</p>
+          <p><span class="lettrine"><svg class="lettrine__lavis" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><radialGradient id="lavis-lettrine-articles-1" cx="38%" cy="35%" r="72%"><stop offset="0%" stop-color="#CAA4F9" stop-opacity="0.66"/><stop offset="60%" stop-color="#C5EBD6" stop-opacity="0.8"/><stop offset="100%" stop-color="#C5EBD6" stop-opacity="0"/></radialGradient></defs><path d="M50 4 C74 6 96 24 95 50 C94 78 72 97 47 95 C22 93 4 74 5 48 C6 22 26 2 50 4 Z" fill="url(#lavis-lettrine-articles-1)" transform="rotate(22 50 50)"/></svg><span class="lettrine__char">P</span></span>arfois, nous ne savons rien de notre propre détresse. Pour nous protéger de la souffrance, nous nous coupons de nous-mêmes.</p>
+          <p>Ce faisant, sans nous en rendre compte, nous nous privons des dimensions émotionnelles et imaginaires de la vie. Elles deviennent moins présentes, moins accessibles.</p>
+          <h3>Des protections devenues obstacles</h3>
+          <p>Ces mécanismes de défense portent des noms&nbsp;: hyper-adaptation, déni, dissociation, clivage. Ils ont une utilité réelle — ils permettent de survivre à une situation douloureuse du passé.</p>
+          <p>Mais tôt ou tard, ces mécanismes deviennent des obstacles. Ils entravent le déploiement subjectif de la personne — sa capacité à se vivre comme sujet de sa propre histoire — et l’empêchent d’accéder à ses ressources, en particulier relationnelles et affectives.</p>
+          <h3>Ce que le corps prend en charge</h3>
+          <p>Dans ce contexte, c’est le corps, parlant et parlé, qui va prendre en charge ce que le psychisme n’a pas pu élaborer.</p>
+          <p>Le corps manifeste alors soit un trouble dit «&nbsp;fonctionnel&nbsp;» — un symptôme physique sans lésion identifiée&nbsp;: insomnies, migraines, douleurs digestives, problèmes de peau —, soit une pathologie dite «&nbsp;organique&nbsp;», avec lésion — comme dans le cas, par exemple, des maladies auto-immunes.</p>
+          <p>Dans d’autres cas, une addiction ou une douleur chronique peut masquer une dépression ancienne, qui n’a pas pu être pleinement ressentie et reste en attente d’être vécue.</p>
+          <p>Parfois enfin, c’est un accident, un burn-out, ou une situation d’emprise ou de harcèlement qui vient faire apparaître un trauma ancien.</p>
+          <h3>Rendre le corps présent en séance</h3>
+          <p>Dans ces situations, le travail thérapeutique consiste à rendre le corps présent dans les séances.</p>
+          <p>Plusieurs voies existent pour cela&nbsp;: des médiations corporelles — des exercices qui mobilisent le corps, comme la visualisation ou la dynamisation tonique ou sensorielle —, un travail sur le rêve, ou des médiations par l’art (dessin, collage, etc.).</p>
+          <p>Il s’agit de devenir attentif et sensible à ce qui se passe dans le corps, afin de faire émerger des ressentis et des éprouvés, ainsi que tout un imaginaire corporel.</p>
+          <h3>Relier ce qui était séparé</h3>
+          <p>À partir de ces matériaux, la personne peut se réapproprier son vécu.</p>
+          <p>Elle peut reconstruire des liens entre émotion et représentation, passé et présent, mémoire et actualité, soma et psyché — le corps et l’esprit.</p>
+          <p>C’est ce travail de liaison, patient et progressif, qui est au cœur de la psychosomatique relationnelle (PSR)&nbsp;: non pas faire taire le corps, mais l’écouter enfin, pour que la personne retrouve un équilibre et réinvestisse sa vie.</p>
+          <p class="fin-article"><a href="#titre-sommaire">Retour à la liste des articles</a></p>
+        </article>
+      </div>
+    </section>
+    <div class="vague vague--fond" aria-hidden="true" style="background: var(--c-lavande-voile);">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 36 C260 62 520 10 760 38 C1000 66 1240 20 1440 44 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+
+    <!-- ============ ARTICLE 2 — Psychanalyse et psychosomatique (fond page) ============ -->
+    <section class="section-article" id="psychanalyse-difference" aria-labelledby="titre-article-2">
+      <svg class="article-motif article-motif--gauche article-motif--v2" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(60 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(120 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(180 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(240 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(300 100 100)"/>
+          <circle cx="100" cy="100" r="5.5"/>
+        </g>
+      </svg>
+      <div class="article-marge-petales article-marge-petales--gauche" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <div class="enveloppe">
+        <article class="article-editorial">
+          <span class="eyebrow">Article 2</span>
+          <h2 id="titre-article-2" class="titre-vague titre-vague--ample">Psychanalyse et psychosomatique&nbsp;: quelle <em>différence</em>&nbsp;?</h2>
+          <p class="article-meta">Par l’équipe de l’A.T.P.R. — Lecture&nbsp;: 3&nbsp;min <span class="badge-fournir">Auteur et date à confirmer — Exemple</span></p>
+          <p class="article-lede">Psychanalyse et psychosomatique relationnelle partagent le même référentiel théorique, et sont souvent complémentaires. Elles se distinguent pourtant sur un point essentiel&nbsp;: la manière d’aborder ce que le corps&nbsp;exprime.</p>
+          <p><span class="lettrine"><svg class="lettrine__lavis" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><radialGradient id="lavis-lettrine-articles-2" cx="42%" cy="38%" r="72%"><stop offset="0%" stop-color="#C5EBD6" stop-opacity="0.8"/><stop offset="60%" stop-color="#CAA4F9" stop-opacity="0.5"/><stop offset="100%" stop-color="#CAA4F9" stop-opacity="0"/></radialGradient></defs><path d="M50 4 C74 6 96 24 95 50 C94 78 72 97 47 95 C22 93 4 74 5 48 C6 22 26 2 50 4 Z" fill="url(#lavis-lettrine-articles-2)" transform="rotate(-28 50 50)"/></svg><span class="lettrine__char">L</span></span>a question revient souvent&nbsp;: la psychosomatique relationnelle (PSR), est-ce de la psychanalyse&nbsp;? La réponse tient en deux temps&nbsp;: un socle commun, et une différence de fond.</p>
+          <h3>Un référentiel commun</h3>
+          <p>Psychanalyse et psychosomatique sont issues du même référentiel théorique. Elles sont, à bien des égards, complémentaires dans l’accompagnement des personnes.</p>
+          <p>Il ne s’agit donc pas d’opposer les deux approches, mais de comprendre ce que chacune permet de penser.</p>
+          <h3>Ce que la psychanalyse dit des troubles fonctionnels</h3>
+          <p>Avec la psychanalyse, on pourra parler de somatisation — on dit aussi «&nbsp;conversions&nbsp;» ou «&nbsp;symptômes conversifs&nbsp;» — au sujet des troubles fonctionnels&nbsp;: des symptômes physiques sans lésion, et donc réversibles.</p>
+          <p>Dans cette lecture, la maladie aurait valeur de langage. Elle demanderait à être interprétée, comme on interprète un rêve ou un lapsus.</p>
+          <h3>Le cas particulier de la pathologie organique</h3>
+          <p>Il en va toutefois autrement dans le cas de la pathologie organique — lorsque le corps biologique est touché par des lésions.</p>
+          <p>L’atteinte du corps réel ne peut pas être abordée comme une expression métaphorique. Une maladie qui lèse le corps n’est pas un symbole à décoder&nbsp;: la traiter comme tel serait une impasse, et pourrait faire violence à la personne qui la vit.</p>
+          <h3>Une causalité circulaire, pas linéaire</h3>
+          <p>C’est ici que la psychosomatique relationnelle pose son postulat central&nbsp;: il n’existe pas de causalité linéaire entre un fonctionnement psychique et une pathologie.</p>
+          <p>Il existe plutôt un rapport circulaire complexe, propre à chaque personne. C’est le triptyque psychosomatique&nbsp;: il met en facteur, de manière dynamique, la pathologie de la personne, son fonctionnement psychique et les situations relationnelles qu’elle traverse.</p>
+          <h3>Des approches complémentaires</h3>
+          <p>En pratique, ces deux lectures peuvent s’articuler dans un même parcours. Ce qui change, c’est la posture&nbsp;: la PSR ne cherche pas d’abord à interpréter, mais à relancer les processus de liaison entre sensations, émotions et représentations, pour que la personne modifie le rapport qu’elle entretient avec son trouble.</p>
+          <p class="fin-article"><a href="#titre-sommaire">Retour à la liste des articles</a></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ARTICLE 3 — Comment se passe une séance (bande verte) ============ -->
+    <div class="vague vague--verte" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 44 C220 16 460 60 720 36 C980 12 1220 62 1440 30 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+    <section class="section-article" id="seance-psr" aria-labelledby="titre-article-3" style="background: var(--c-vert-voile);">
+      <svg class="article-motif article-motif--droite article-motif--v3" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(60 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(120 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(180 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(240 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(300 100 100)"/>
+          <circle cx="100" cy="100" r="5.5"/>
+        </g>
+      </svg>
+      <div class="article-marge-petales article-marge-petales--droite" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <div class="enveloppe">
+        <article class="article-editorial">
+          <span class="eyebrow">Article 3</span>
+          <h2 id="titre-article-3" class="titre-vague titre-vague--violet">Comment se passe une séance de psychosomatique <em>relationnelle</em>&nbsp;?</h2>
+          <p class="article-meta">Par l’équipe de l’A.T.P.R. — Lecture&nbsp;: 3&nbsp;min <span class="badge-fournir">Auteur et date à confirmer — Exemple</span></p>
+          <p class="article-lede">Avant de pousser la porte d’un cabinet, on aime savoir ce qui nous attend. Voici, concrètement, comment se déroule un accompagnement en psychosomatique&nbsp;relationnelle.</p>
+          <p><span class="lettrine"><svg class="lettrine__lavis" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><radialGradient id="lavis-lettrine-articles-3" cx="36%" cy="34%" r="72%"><stop offset="0%" stop-color="#CAA4F9" stop-opacity="0.66"/><stop offset="60%" stop-color="#C5EBD6" stop-opacity="0.8"/><stop offset="100%" stop-color="#C5EBD6" stop-opacity="0"/></radialGradient></defs><path d="M50 4 C74 6 96 24 95 50 C94 78 72 97 47 95 C22 93 4 74 5 48 C6 22 26 2 50 4 Z" fill="url(#lavis-lettrine-articles-3)" transform="rotate(12 50 50)"/></svg><span class="lettrine__char">L</span></span>a psychosomatique relationnelle (PSR) est une thérapie relationnelle à médiation corporelle&nbsp;: la relation est au cœur du soin, et le corps y a toute sa place. Voici comment cela se traduit en séance.</p>
+          <h3>Une rencontre d’humain à humain</h3>
+          <p>Les séances sont avant tout une rencontre d’humain à humain. Le thérapeute se positionne dans une relation authentique avec la personne qu’il accompagne.</p>
+          <p>Ici, pas de recette magique ni de protocole standardisé. Le thérapeute est à l’écoute des besoins, des envies et de l’histoire de chacun. Il cherche à comprendre réellement ce qui se passe pour la personne, les enjeux de ses expériences et de son vécu, afin de l’accompagner sur son propre chemin.</p>
+          <h3>Une thérapie fondée sur la parole</h3>
+          <p>La thérapie est basée sur la parole&nbsp;: les séances prennent la forme de discussions et d’échanges.</p>
+          <p>Mais la parole ne s’arrête pas aux mots. Le travail thérapeutique s’effectue aussi à partir du corps, dans le repérage des zones investies, des zones «&nbsp;vides&nbsp;», des zones tendues, douloureuses ou malades.</p>
+          <h3>Le corps, présent en séance</h3>
+          <p>Pour rendre le corps présent, différents supports de médiation peuvent être utilisés&nbsp;: les rêves, les sensations corporelles, le dessin ou d’autres supports créatifs, le rêve éveillé, la respiration, l’imaginaire.</p>
+          <p>On parle de médiations corporelles — des propositions concrètes qui mobilisent le corps, comme un parcours tonico-sensoriel, la détente ou la visualisation — et de médiations artistiques.</p>
+          <h3>Le temps de la reprise</h3>
+          <p>Après ces temps d’exploration vient la reprise&nbsp;: le thérapeute et la personne s’appuient sur les matériaux apparus — sensations, images — pour ouvrir un espace de parole, d’élaboration et de symbolisation.</p>
+          <p>C’est là que les liens se tissent&nbsp;: entre les expériences passées et les situations de vie rencontrées, entre les souffrances et ce qu’elles racontent.</p>
+          <h3>Une posture d’appui, pas de savoir</h3>
+          <p>Le thérapeute ne se place pas dans une posture de sachant. Sa fonction est celle d’un soutien et d’un appui dans l’élaboration de ces liens.</p>
+          <p>L’objectif&nbsp;: aider chacun à découvrir ou redécouvrir ses forces et ses ressources personnelles.</p>
+          <h3>Un cadre professionnel exigeant</h3>
+          <p>Les thérapeutes de l’A.T.P.R. (Association de Thérapeutes en Psychosomatique Relationnelle) travaillent dans un cadre soutenu&nbsp;: la supervision — un temps d’analyse de la pratique, accompagné par des professionnels expérimentés — permet de rester critique, de changer parfois de regard, et d’être toujours le plus ajusté possible dans les accompagnements proposés.</p>
+          <p><span class="badge-fournir">À valider par l’asso</span></p>
+          <p>La psychosomatique relationnelle est par ailleurs reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse), dont elle respecte les exigences éthiques et déontologiques.</p>
+          <p class="fin-article"><a href="#titre-sommaire">Retour à la liste des articles</a></p>
+        </article>
+        <p class="renvoi">Envie d’aller plus loin&nbsp;? <a href="psr.html">Découvrir la PSR en détail</a> ou <a href="annuaire.html">trouver un thérapeute</a>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="vague vague--footer" aria-hidden="true" style="background: var(--c-vert-voile);">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 40 C240 14 480 64 720 38 C960 12 1200 60 1440 32 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+  </div>
+  <footer class="site-footer">
+    <div class="enveloppe">
+      <div class="footer__grille">
+        <div class="footer__identite">
+          <p>Maison de la Psychosomatique Relationnelle</p>
+          <p class="footer__asso">Site porté par l’A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navigation secondaire">
+          <h2>Explorer le site</h2>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="psr.html">La PSR</a></li>
+            <li><a href="cote-pro.html">Côté Pro</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="annuaire.html">Annuaire</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__mentions">
+        <p>La psychosomatique relationnelle est reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse).</p>
+        <p>Mentions légales — <span class="badge-fournir">À fournir par l’asso&nbsp;: responsable de publication, siège social, hébergeur</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

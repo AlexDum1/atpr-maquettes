@@ -1,0 +1,86 @@
+{
+  "_note": "Annuaire 100 % fictif pour la maquette — noms, villes et contacts sont des exemples marqués [EXEMPLE]. La liste réelle sera fournie par l’association avec l’accord RGPD de chaque thérapeute.",
+  "therapeutes": [
+    {
+      "id": "t1",
+      "nom": "[EXEMPLE] Claire Fontaine",
+      "ville": "Montpellier",
+      "region": "Occitanie",
+      "modalites": ["présentiel", "visio"],
+      "publics": "Adultes, adolescents",
+      "contact": "exemple-1@annuaire-fictif.fr"
+    },
+    {
+      "id": "t2",
+      "nom": "[EXEMPLE] Marc Rivière",
+      "ville": "Lyon",
+      "region": "Auvergne-Rhône-Alpes",
+      "modalites": ["présentiel"],
+      "publics": "Adultes",
+      "contact": "exemple-2@annuaire-fictif.fr"
+    },
+    {
+      "id": "t3",
+      "nom": "[EXEMPLE] Sophie Marceau-Blanc",
+      "ville": "Paris 11ᵉ",
+      "region": "Île-de-France",
+      "modalites": ["présentiel", "visio"],
+      "publics": "Adultes, jeunes adultes",
+      "contact": "exemple-3@annuaire-fictif.fr"
+    },
+    {
+      "id": "t4",
+      "nom": "[EXEMPLE] Anne Kerbrat",
+      "ville": "Nantes",
+      "region": "Pays de la Loire",
+      "modalites": ["visio"],
+      "publics": "Adultes",
+      "contact": "exemple-4@annuaire-fictif.fr"
+    },
+    {
+      "id": "t5",
+      "nom": "[EXEMPLE] Julien Soler",
+      "ville": "Toulouse",
+      "region": "Occitanie",
+      "modalites": ["présentiel", "visio"],
+      "publics": "Adultes, adolescents",
+      "contact": "exemple-5@annuaire-fictif.fr"
+    },
+    {
+      "id": "t6",
+      "nom": "[EXEMPLE] Élise Wagner",
+      "ville": "Strasbourg",
+      "region": "Grand Est",
+      "modalites": ["présentiel"],
+      "publics": "Adultes",
+      "contact": "exemple-6@annuaire-fictif.fr"
+    },
+    {
+      "id": "t7",
+      "nom": "[EXEMPLE] Camille Aubry",
+      "ville": "Bordeaux",
+      "region": "Nouvelle-Aquitaine",
+      "modalites": ["présentiel", "visio"],
+      "publics": "Adultes, familles",
+      "contact": "exemple-7@annuaire-fictif.fr"
+    },
+    {
+      "id": "t8",
+      "nom": "[EXEMPLE] Nadia Belkacem",
+      "ville": "Lille",
+      "region": "Hauts-de-France",
+      "modalites": ["visio"],
+      "publics": "Adultes",
+      "contact": "exemple-8@annuaire-fictif.fr"
+    },
+    {
+      "id": "t9",
+      "nom": "[EXEMPLE] Pierre Delmas",
+      "ville": "Annecy",
+      "region": "Auvergne-Rhône-Alpes",
+      "modalites": ["présentiel"],
+      "publics": "Adultes, adolescents",
+      "contact": "exemple-9@annuaire-fictif.fr"
+    }
+  ]
+}

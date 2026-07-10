@@ -1,0 +1,7 @@
+node_modules/
+captures/
+package-lock.json
+.DS_Store
+.claude/
+*.JPG
+Idées Site.pdf

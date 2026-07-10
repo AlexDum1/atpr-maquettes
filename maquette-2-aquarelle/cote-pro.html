@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Côté Pro — l’A.T.P.R.&nbsp;: adhésion, supervision, intervision</title>
+  <meta name="description" content="L’A.T.P.R. réunit des thérapeutes formés à la psychosomatique relationnelle&nbsp;: présentation de l’association, adhésion, supervision et intervision.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ============ Styles propres à la page « Côté Pro » ============
+       (le socle styles.css n'est pas modifié — contrat STYLE-GUIDE §0) */
+
+    /* Filet ondulé sous les titres de section (même dessin que psr.html) */
+    .titre-vague::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 10px;
+      margin-top: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='10' viewBox='0 0 64 10'%3E%3Cpath d='M1 5 C7 1 13 1 19 5 C25 9 31 9 37 5 C43 1 49 1 55 5 C58 7 61 7 63 6' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    /* Badges « À fournir » : coins doux, emphase réduite (pas de capitales criardes) */
+    main .badge-fournir {
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+
+    /* Variantes du filet ondulé (tracés/couleurs alternés d'une section à l'autre) */
+    .titre-vague--violet::after {
+      width: 84px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='10' viewBox='0 0 84 10'%3E%3Cpath d='M1 5 C9 9 17 1 25 5 C33 9 41 1 49 5 C57 9 65 1 73 5 C78 8 81 8 83 5' fill='none' stroke='%23A295C1' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+    .titre-vague--ample::after {
+      width: 56px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='10' viewBox='0 0 56 10'%3E%3Cpath d='M1 6 C8 0 15 10 22 5 C29 0 36 10 43 5 C48 2 52 3 55 6' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    /* Lettrine : marge minimale en mobile pour que le lavis ne soit pas rogné
+       par le bord du viewport (composant identique à l'accueil par ailleurs) */
+    @media (max-width: 639px) {
+      .lettrine { margin-left: 8px; }
+    }
+
+    /* ---- En-tête de page ---- */
+    .entete-pro {
+      position: relative;
+      overflow: visible;
+      padding-block: var(--e-5) var(--e-4);
+    }
+    .entete-pro__lavis {
+      position: absolute;
+      top: -40px;
+      right: -110px;
+      width: clamp(340px, 40vw, 600px);
+      height: auto;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @media (max-width: 639px) {
+      .entete-pro__lavis { top: -20px; right: -60px; }
+    }
+    .entete-pro__fleur { display: none; }
+    @media (min-width: 1024px) {
+      .entete-pro__fleur {
+        display: block;
+        position: absolute;
+        top: clamp(56px, 10vw, 120px);
+        right: clamp(56px, 10vw, 160px);
+        width: clamp(190px, 21vw, 280px);
+        height: auto;
+        color: var(--c-violet);
+        transform: rotate(11deg);
+        z-index: -1;
+        pointer-events: none;
+      }
+    }
+    .entete-pro h1 { max-width: 18em; }
+    .entete-pro__chapeau {
+      font-size: var(--t-lede);
+      line-height: 1.6;
+      max-width: 38rem;
+      margin-block: var(--e-3) 0;
+    }
+    .entete-pro .petales-ponctuation {
+      justify-content: flex-start;
+      margin-top: var(--e-3);
+      padding-block: 0;
+    }
+
+    /* ---- 1. L'A.T.P.R. : prose + encart voilé en vis-à-vis ---- */
+    .section-atpr { padding-block: var(--e-3) var(--e-6); }
+    .section-atpr .prose { max-width: var(--largeur-prose); }
+    .encart-note {
+      position: relative;
+      max-width: 31rem;
+      margin-top: var(--e-4);
+      padding: var(--e-4) clamp(24px, 6vw, 44px);
+      background: #FCF4DC;
+      border-radius: 20px 48px 20px 48px;
+      transform: rotate(-1.2deg);
+      box-shadow: 0 24px 40px -32px rgba(138, 100, 16, 0.35);
+    }
+    .encart-note > * { transform: rotate(1.2deg); }
+    .encart-note__marque {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: var(--e-2);
+    }
+    .encart-note__marque svg {
+      flex: none;
+      width: 34px;
+      height: 34px;
+      color: var(--c-ocre-texte);
+    }
+    .encart-note__titre {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--c-ocre-texte);
+      margin: 0;
+    }
+    .encart-note p:last-child { margin: 0; }
+    @media (min-width: 1024px) {
+      .section-atpr__grille {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        column-gap: clamp(28px, 4vw, 56px);
+        align-items: start;
+      }
+      .encart-note { margin-top: 0; transform: rotate(-1.6deg); }
+      .encart-note > * { transform: rotate(1.6deg); }
+    }
+
+    /* ---- 2. Adhérer : bande lavande recentrée, note discrète en fin de bloc ---- */
+    .section-adherer {
+      background: var(--c-lavande-voile);
+      padding-block: var(--e-5) var(--e-5);
+    }
+    .section-adherer__bloc { max-width: var(--largeur-prose); }
+    @media (min-width: 1024px) {
+      .section-adherer__bloc { margin-inline: auto; }
+      .section-adherer .titre-vague { max-width: var(--largeur-prose); margin-inline: auto; }
+    }
+    .section-adherer .actions { margin-top: var(--e-4); }
+    .note-adhesion {
+      margin-top: var(--e-4);
+      padding-top: var(--e-3);
+      border-top: 1px solid var(--c-filet);
+    }
+    .note-adhesion p:last-child { margin-bottom: 0; }
+
+    /* ---- 3. Supervision / intervision : deux colonnes en quinconce ---- */
+    .section-sup { padding-block: var(--e-6) var(--e-5); }
+    .section-sup .lede-sup {
+      font-size: var(--t-lede);
+      line-height: 1.6;
+      max-width: 38rem;
+      margin-block: 0 var(--e-4);
+    }
+    .sup-grille { display: grid; gap: var(--e-4); }
+    .sup-col { max-width: 34rem; }
+    .sup-col h3 { margin-bottom: var(--e-2); }
+    .sup-col h3 .titre-vague-mini {
+      display: block;
+      width: 48px;
+      height: 10px;
+      margin-top: 10px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='10' viewBox='0 0 48 10'%3E%3Cpath d='M1 5 C6 1 11 1 16 5 C21 9 26 9 31 5 C36 1 41 1 46 5' fill='none' stroke='%2374BFA8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+    @media (min-width: 900px) {
+      .sup-grille {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: clamp(32px, 5vw, 72px);
+      }
+      .sup-col--2 { margin-top: var(--e-4); }
+    }
+    @media (max-width: 639px) {
+      .section-sup { padding-block: var(--e-5) var(--e-5); }
+    }
+    /* La veille : bande teintée pleine largeur sous le quinconce */
+    .section-sup .veille {
+      max-width: none;
+      margin-top: var(--e-5);
+      background: var(--c-vert-voile);
+      padding: var(--e-4) clamp(24px, 5vw, 56px);
+    }
+    .section-sup .veille p { max-width: 62ch; }
+    .section-sup .veille p:last-child { margin-bottom: 0; }
+    /* Note unique de section (placeholders regroupés, en fin de section) */
+    .note-section {
+      margin: var(--e-4) 0 0;
+      max-width: 52rem;
+    }
+
+    /* ---- 4. Bande CTA pleine largeur avant le footer ---- */
+    .section-cta-agenda {
+      background: var(--c-vert-voile);
+      padding-block: var(--e-5);
+    }
+    .section-cta-agenda .chemins { border-top: 0; }
+    .section-cta-agenda .chemin { border-top: 1px solid var(--c-filet); }
+    .section-cta-agenda .petale-respiration { padding-block: var(--e-4) 0; }
+    @media (min-width: 1024px) {
+      .section-cta-agenda .chemin__inner {
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: var(--e-3);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="site-header__inner enveloppe">
+      <a class="site-header__logo" href="index.html">
+        <img src="../assets/logos/logo-maison-alpha-560.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R., retour à l’accueil" width="560" height="198">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle__icone" aria-hidden="true"><span></span><span></span><span></span></span>
+        Menu
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html" aria-current="page">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============ EN-TÊTE DE PAGE ============ -->
+    <section class="entete-pro" aria-labelledby="titre-page">
+      <svg class="entete-pro__lavis" viewBox="0 0 600 520" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="lavis-pro-violet" cx="46%" cy="42%" r="62%">
+            <stop offset="0%" stop-color="#CAA4F9" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#CAA4F9" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lavis-pro-vert" cx="52%" cy="48%" r="64%">
+            <stop offset="0%" stop-color="#74BFA8" stop-opacity="0.44"/>
+            <stop offset="100%" stop-color="#74BFA8" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="lavis-pro-flou" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="24"/>
+          </filter>
+        </defs>
+        <g filter="url(#lavis-pro-flou)">
+          <path d="M300 40 C412 22 516 96 532 204 C548 314 464 392 352 404 C240 416 148 348 138 244 C128 140 188 58 300 40 Z" fill="url(#lavis-pro-violet)" opacity="0.9"/>
+          <path d="M214 190 C318 160 428 212 448 300 C468 390 388 458 280 468 C172 478 82 414 74 322 C66 230 110 220 214 190 Z" fill="url(#lavis-pro-vert)" opacity="0.85"/>
+        </g>
+      </svg>
+      <svg class="entete-pro__fleur" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(60 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(120 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(180 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(240 100 100)"/>
+          <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(300 100 100)"/>
+          <circle cx="100" cy="100" r="5.5"/>
+        </g>
+      </svg>
+      <div class="enveloppe">
+        <span class="eyebrow">Côté Pro</span>
+        <h1 id="titre-page">L’association, côté <em>professionnels</em></h1>
+        <p class="entete-pro__chapeau">Cette page s’adresse aux professionnels&nbsp;: thérapeutes formés à la psychosomatique relationnelle (PSR), praticiens en formation, ou professionnels du soin curieux de&nbsp;l’approche.</p>
+        <div class="petales-ponctuation" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(14 12 12)"/></svg>
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-26 12 12)"/></svg>
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(34 12 12)"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 1. L'A.T.P.R. ============ -->
+    <section class="section-atpr" aria-labelledby="titre-atpr">
+      <div class="enveloppe">
+        <h2 id="titre-atpr" class="titre-vague">L’A.T.P.R.</h2>
+        <div class="section-atpr__grille">
+          <div class="prose">
+            <p><span class="lettrine"><svg class="lettrine__lavis" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><radialGradient id="lavis-lettrine-cote-pro-1" cx="38%" cy="35%" r="72%"><stop offset="0%" stop-color="#CAA4F9" stop-opacity="0.66"/><stop offset="60%" stop-color="#C5EBD6" stop-opacity="0.8"/><stop offset="100%" stop-color="#C5EBD6" stop-opacity="0"/></radialGradient></defs><path d="M50 4 C74 6 96 24 95 50 C94 78 72 97 47 95 C22 93 4 74 5 48 C6 22 26 2 50 4 Z" fill="url(#lavis-lettrine-cote-pro-1)" transform="rotate(26 50 50)"/></svg><span class="lettrine__char">L</span></span>’A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle — réunit des thérapeutes formés à la&nbsp;PSR.</p>
+            <p>L’association porte ce site, la «&nbsp;Maison de la Psychosomatique Relationnelle&nbsp;», avec un double objectif&nbsp;: faire connaître l’approche auprès du public, et soutenir la pratique de ses membres.</p>
+            <p>La psychosomatique relationnelle est reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse)&nbsp;; les membres de l’association inscrivent leur pratique dans le respect de ses exigences éthiques et déontologiques.</p>
+            <p><span class="badge-fournir">À fournir par l’asso&nbsp;: date de création de l’association, composition du bureau, référence des statuts, siège social</span></p>
+          </div>
+          <aside class="encart-note" aria-labelledby="titre-repere" data-reveal>
+            <div class="encart-note__marque">
+              <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <g fill="none" stroke="currentColor" stroke-width="7">
+                  <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z"/>
+                  <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(60 100 100)"/>
+                  <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(120 100 100)"/>
+                  <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(180 100 100)"/>
+                  <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(240 100 100)"/>
+                  <path d="M100 90 C90 64 90 40 100 20 C110 40 110 64 100 90 Z" transform="rotate(300 100 100)"/>
+                  <circle cx="100" cy="100" r="5.5"/>
+                </g>
+              </svg>
+              <p class="encart-note__titre" id="titre-repere">Repère de formation</p>
+            </div>
+            <p>Les documents fournis mentionnent une formation dispensée par le Docteur Pierre Boquel au CRESMEP — organisme référencé au Datadock, qui forme depuis plus de 25&nbsp;ans le personnel soignant du milieu hospitalier et extra-hospitalier.</p>
+            <p><span class="badge-fournir">À valider par l’asso&nbsp;: référence commune, repère historique, ou à écarter&nbsp;? Ne pas publier sans validation.</span></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. Adhérer (bande lavande) ============ -->
+    <div class="vague vague--lavande" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 42 C240 12 480 66 720 40 C960 14 1200 58 1440 34 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+    <section class="section-adherer" aria-labelledby="titre-adherer">
+      <div class="enveloppe">
+        <h2 id="titre-adherer" class="titre-vague titre-vague--violet">Adhérer à <em>l’association</em></h2>
+        <div class="section-adherer__bloc" data-reveal>
+          <div class="prose">
+            <p>L’adhésion s’adresse aux thérapeutes formés à la psychosomatique relationnelle.</p>
+            <p>Pour toute question sur l’adhésion, utilisez le formulaire de la page Contact.</p>
+            <p class="actions"><a class="btn btn--contour" href="contact.html">Nous écrire</a></p>
+          </div>
+          <div class="note-adhesion">
+            <p><span class="badge-fournir">À fournir par l’asso&nbsp;: conditions d’adhésion (formation requise, pièces à fournir), montant de la cotisation, procédure (formulaire, courrier, décision du bureau), avantages liés à l’adhésion (annuaire, supervision, agenda…)</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="vague vague--fond" aria-hidden="true" style="background: var(--c-lavande-voile);">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 36 C260 62 520 10 760 38 C1000 66 1240 20 1440 44 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+
+    <!-- ============ 3. Supervision et intervision ============ -->
+    <section class="section-sup" aria-labelledby="titre-supervision">
+      <div class="enveloppe">
+        <h2 id="titre-supervision" class="titre-vague titre-vague--ample">Supervision et <em>intervision</em></h2>
+        <p class="lede-sup"><span class="lettrine"><svg class="lettrine__lavis" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><radialGradient id="lavis-lettrine-cote-pro-2" cx="42%" cy="38%" r="72%"><stop offset="0%" stop-color="#C5EBD6" stop-opacity="0.8"/><stop offset="60%" stop-color="#CAA4F9" stop-opacity="0.5"/><stop offset="100%" stop-color="#CAA4F9" stop-opacity="0"/></radialGradient></defs><path d="M50 4 C74 6 96 24 95 50 C94 78 72 97 47 95 C22 93 4 74 5 48 C6 22 26 2 50 4 Z" fill="url(#lavis-lettrine-cote-pro-2)" transform="rotate(-24 50 50)"/></svg><span class="lettrine__char">L</span></span>a pratique thérapeutique ne s’exerce pas seul dans son cabinet, une fois la formation terminée. Elle se travaille, se questionne et s’approfondit tout au long de la vie&nbsp;professionnelle.</p>
+        <div class="sup-grille">
+          <div class="sup-col" data-reveal>
+            <h3>La supervision<span class="titre-vague-mini" aria-hidden="true"></span></h3>
+            <p>La supervision est un temps d’analyse de la pratique&nbsp;: le thérapeute y est accompagné par des professionnels ayant une forte expérience, pour continuer de réfléchir sa manière de travailler et approfondir certains sujets en psychosomatique relationnelle.</p>
+            <p>Elle permet de rester critique, de changer parfois de regard, afin d’être toujours le plus ajusté possible dans les accompagnements proposés. Elle peut être individuelle ou collective.</p>
+          </div>
+          <div class="sup-col sup-col--2" data-reveal>
+            <h3>L’intervision<span class="titre-vague-mini" aria-hidden="true"></span></h3>
+            <p>L’intervision est un temps d’échange entre pairs&nbsp;: des thérapeutes de niveau d’expérience comparable y réfléchissent ensemble à leurs pratiques, sans superviseur attitré.</p>
+            <p>L’association organise des temps de supervision et d’intervision pour ses membres.</p>
+          </div>
+        </div>
+        <div class="veille prose panneau-petale" data-reveal>
+          <p>L’association encourage également ses membres à entretenir une veille professionnelle&nbsp;: conférences, lectures, échanges entre thérapeutes, attention portée aux recherches récentes — notamment en neurosciences, en éducation et en sociologie.</p>
+        </div>
+        <p class="note-section"><span class="badge-fournir">À valider par l’asso&nbsp;: fréquence et format des supervisions et intervisions (présentiel, visio), modalités d’inscription, ainsi que la mention de la veille professionnelle</span></p>
+      </div>
+    </section>
+
+    <!-- ============ 4. Bande CTA pleine largeur (fin de page) ============ -->
+    <div class="vague vague--verte" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 34 C230 60 470 12 720 42 C970 66 1210 16 1440 40 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+    </div>
+    <section class="section-cta-agenda" aria-label="Consulter l’agenda">
+      <div class="enveloppe">
+        <div class="chemins" data-reveal>
+          <a class="chemin" href="agenda.html">
+            <span class="chemin__inner">
+              <span class="chemin__titre">Consulter l’agenda
+                <svg class="chemin__fleche" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M0 6 H20 M15 1 L20 6 L15 11"/></svg>
+              </span>
+              <span class="chemin__desc">Les prochaines dates de supervision et d’intervision y sont publiées.</span>
+            </span>
+          </a>
+        </div>
+        <div class="petale-respiration" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(8 12 12)"/></svg>
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-22 12 12)"/></svg>
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3.2 C15.4 6.7 16.8 10 16.8 13.4 A4.8 4.8 0 0 1 7.2 13.4 C7.2 10 8.6 6.7 12 3.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(30 12 12)"/></svg>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="vague vague--footer" aria-hidden="true" style="background: var(--c-vert-voile);">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 40 C240 14 480 64 720 38 C960 12 1200 60 1440 32 L1440 70 L0 70 Z" fill="currentColor"/></svg>
+  </div>
+  <footer class="site-footer">
+    <div class="enveloppe">
+      <div class="footer__grille">
+        <div class="footer__identite">
+          <p>Maison de la Psychosomatique Relationnelle</p>
+          <p class="footer__asso">Site porté par l’A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navigation secondaire">
+          <h2>Explorer le site</h2>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="psr.html">La PSR</a></li>
+            <li><a href="cote-pro.html">Côté Pro</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="annuaire.html">Annuaire</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__mentions">
+        <p>La psychosomatique relationnelle est reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse).</p>
+        <p>Mentions légales — <span class="badge-fournir">À fournir par l’asso&nbsp;: responsable de publication, siège social, hébergeur</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
