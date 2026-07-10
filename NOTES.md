@@ -47,3 +47,10 @@ Journal de production des 3 maquettes (session Claude Code, 9 juillet 2026).
 **Les 3 maquettes sont désormais complètes (7/7 pages chacune), validées accessibilité + QA.** Reste (hors périmètre de cette session) : validation d'Alexis puis publication GitHub Pages (PAUSE prévue par le brief).
 
 *(Ce fichier est mis à jour au fil de la session.)*
+
+## Session du 10 juillet 2026 (assemblage) — SITE PUBLIÉ ✅
+
+21. **Assemblage final** : bandeau inter-pistes « Piste X/3 — Nom · ← Voir les autres pistes » ajouté sur les 21 pages (style neutre identique, nom de piste masqué < 480 px, lien retour toujours accessible) ; index comparatif racine inchangé ; zéro chemin absolu ; QA locale et en ligne PASS (outil `outils/test-assemblage.mjs`).
+22. **Dépôt GitHub** : https://github.com/AlexDum1/atpr-maquettes (public). Exclus du dépôt : `Idées Site.pdf`, JPG source, `captures/`, `node_modules/`, `.claude/`.
+23. **URL FINALE (à transmettre à l'association)** : **https://alexdum1.github.io/atpr-maquettes/**
+    Vérifié en ligne le 10 juillet 2026 : index comparatif, 7 pages de la maquette 2 (QA PASS complet, JSON chargés, menu mobile), pages 1 et 3 + les deux JSON répondent 200.
