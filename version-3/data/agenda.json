@@ -1,0 +1,65 @@
+{
+  "_note": "Données 100 % fictives pour la maquette — chaque entrée est marquée [EXEMPLE]. Contenu réel à fournir par l’association (phase 2 : édition via CMS).",
+  "evenements": [
+    {
+      "id": "sup-2026-09",
+      "type": "supervision",
+      "titre": "[EXEMPLE] Supervision collective de rentrée",
+      "date": "2026-09-18",
+      "heure": "9h30 – 12h30",
+      "modalite": "visio",
+      "lieu": "En visioconférence",
+      "description": "Séance de supervision collective animée par un superviseur expérimenté. Ouverte aux thérapeutes adhérents, sur inscription."
+    },
+    {
+      "id": "int-2026-10",
+      "type": "intervision",
+      "titre": "[EXEMPLE] Intervision régionale Occitanie",
+      "date": "2026-10-09",
+      "heure": "14h00 – 17h00",
+      "modalite": "présentiel",
+      "lieu": "Montpellier",
+      "description": "Rencontre entre pairs autour de situations cliniques. Échanges libres, sans superviseur, dans un cadre de confidentialité partagé."
+    },
+    {
+      "id": "conf-2026-11",
+      "type": "evenement",
+      "titre": "[EXEMPLE] Journée d’étude — Le corps dans la relation thérapeutique",
+      "date": "2026-11-21",
+      "heure": "9h00 – 17h30",
+      "modalite": "présentiel",
+      "lieu": "Lyon",
+      "description": "Conférences et ateliers autour des médiations corporelles en psychosomatique relationnelle. Ouvert aux professionnels du soin."
+    },
+    {
+      "id": "sup-2026-12",
+      "type": "supervision",
+      "titre": "[EXEMPLE] Supervision collective d’hiver",
+      "date": "2026-12-11",
+      "heure": "9h30 – 12h30",
+      "modalite": "visio",
+      "lieu": "En visioconférence",
+      "description": "Séance de supervision collective. Ouverte aux thérapeutes adhérents, sur inscription."
+    },
+    {
+      "id": "int-2027-01",
+      "type": "intervision",
+      "titre": "[EXEMPLE] Intervision régionale Île-de-France",
+      "date": "2027-01-15",
+      "heure": "18h30 – 20h30",
+      "modalite": "présentiel",
+      "lieu": "Paris",
+      "description": "Rencontre entre pairs autour de situations cliniques, dans un cadre de confidentialité partagé."
+    },
+    {
+      "id": "ag-2027-03",
+      "type": "evenement",
+      "titre": "[EXEMPLE] Assemblée générale annuelle de l’A.T.P.R.",
+      "date": "2027-03-20",
+      "heure": "10h00 – 13h00",
+      "modalite": "visio",
+      "lieu": "En visioconférence",
+      "description": "Assemblée générale ouverte à tous les membres : bilan de l’année, orientations et élection du bureau."
+    }
+  ]
+}
