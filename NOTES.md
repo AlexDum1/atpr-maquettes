@@ -66,10 +66,12 @@ Journal de production des 3 maquettes (session Claude Code, 9 juillet 2026).
     vert-bleu `#73C0A8`, bleu `#819EB8`, orangé `#F5BD46` (couleurs du logo). L'aubergine sombre
     `#423A5A` et les bandes inversées foncées sont remplacées par du mauve clair (texte ivoire ≥ 4,78:1) ;
     boutons en orangé (texte encre 6,86:1). Tous les jetons de texte revérifiés WCAG AA.
-26. **Logo « main »** (`assets/logos/logo-main.svg`) : deux mains en coupe accueillant la fleur (côté
-    humain/relationnel, plus de maison « immobilier »). Remplace le pictogramme « maison habitée » dans
-    header/footer/filigrane + favicon SVG. **Proposition à valider / remplaçable** par les fichiers de
-    l'association (image001–004 non transmis au format exploitable).
+26. **Logo** : la proposition SVG « main » a été **abandonnée** à la demande d'Alexis (risque d'un logo
+    inventé présenté comme officiel). Header/footer en **wordmark seul + placeholder** (`.marque__placeholder`,
+    cadre pointillé « logo ») ; favicon = PNG existant ; pictogramme « maison habitée » et filigranes
+    retirés. Le logo définitif (image001.png fourni par l'association) sera intégré ensuite — l'échange est
+    trivial (voir `version-3/STYLE-GUIDE.md` §4). *NB : une image `cid:` d'e-mail n'est pas récupérable ;
+    déposer le fichier dans `assets/logos/`.*
 27. **Accueil** : ajout d'une citation de **Sami-Ali** (`[À valider]` libellé/source), section
     « Pourquoi consulter&nbsp;? » (4 raisons fournies) à la place de « Pour qui&nbsp;? » (déplacé sur La PSR).
 28. **La PSR** : fusion des ex-titres 4 et 5 (« À qui s'adresse&nbsp;? » + « Quand indiquée&nbsp;? ») ;

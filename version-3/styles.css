@@ -217,6 +217,26 @@ ul, ol { margin: 0 0 var(--e-2); padding-left: 1.2em; }
 }
 .marque:hover .marque__picto { color: var(--cb-sauge-texte); transition: color var(--duree) ease; }
 
+/* Placeholder de logo (le logo définitif sera fourni par l'association) */
+.marque__placeholder {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(116, 101, 142, 0.55);
+  border-radius: 6px;
+  font: 600 0.5rem/1 var(--police-corps);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+}
+.site-footer .marque__placeholder {
+  border-color: rgba(246, 244, 238, 0.4);
+  color: var(--cb-sauge-claire);
+}
+
 .marque__wordmark {
   font-family: var(--police-display);
   font-weight: 500;

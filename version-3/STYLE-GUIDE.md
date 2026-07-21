@@ -53,16 +53,15 @@ Règles :
   `Albert+Sans:wght@400;500;600` + `Fraunces:ital,opsz,wght@0,9..144,340..560;1,9..144,340..560`.
 - Échelle `--fs-200` → `--fs-950`. Typo française (`&nbsp;` avant `: ; ? !` et dans « »).
 
-## 4. Le logo « main » (signature — proposition à valider)
+## 4. Logo — à fournir (placeholder)
 
-Fichier : `../assets/logos/logo-main.svg`. Motif : **deux mains en coupe qui accueillent la fleur**
-(côté humain/relationnel ; écho de l'identité aquarelle ; aucune maison). Couleurs de la palette.
-- **Header/footer** (`.marque__picto`, 44 px) : mains en `currentColor` (mauve dans le header,
-  vert-bleu clair dans le footer) + fleur en couleurs fixes.
-- **Filigrane** (accueil) : mains (`.filigrane__enveloppe`, faibles) + fleur (`.filigrane__spirale`).
-- **Favicon** : `logo-main.svg` (SVG) avec repli PNG `favicon-64.png`.
-- Le wordmark garde **« Maison de la Psychosomatique Relationnelle »** — seul le symbole change.
-- ⚠️ **Proposition remplaçable** par les fichiers logo définitifs de l'association.
+**Aucun logo n'est intégré pour l'instant.** Le header et le footer affichent le **wordmark seul**
+« Maison de la Psychosomatique Relationnelle · A.T.P.R. » précédé d'un **placeholder** `.marque__placeholder`
+(cadre pointillé « logo », `aria-hidden`). Favicon = PNG existant `favicon-64.png`.
+- **Intégration du logo définitif** (quand l'association le fournit) : déposer le fichier dans
+  `../assets/logos/`, puis remplacer le `<span class="marque__placeholder">` par un `<img>`/`<svg>` dans
+  le header et le footer des 7 pages (+ carte de l'index racine), et pointer le favicon dessus.
+- Le wordmark **« Maison de la Psychosomatique Relationnelle »** reste le nom de marque.
 
 ## 5. Header / footer
 
@@ -108,7 +107,7 @@ Footer : rappel logo, nav secondaire, mention FF2P (une seule fois), Mentions l�
 - **Médiations** (La PSR) : formulations adaptées d'un texte de praticienne ; une phrase du document
   source est **interrompue** (médiation corporelle) → à compléter.
 - **Auteurs Green & Marty** (fondements) : ajoutés à la demande ; descripteurs à valider.
-- **Logo « main »** : proposition SVG, à remplacer par les fichiers définitifs.
+- **Logo** : à fournir par l'association (placeholder en place) — voir §4 pour l'intégration.
 - **Annuaire** : données réelles (Occitanie) + photos + accords RGPD.
 - **Mentions légales, coordonnées, adhésion** : `[À fournir par l'asso]`.
 - **Nom de domaine cible** : `psychosomatique-relationnelle.fr`.
