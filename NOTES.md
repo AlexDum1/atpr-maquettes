@@ -66,12 +66,12 @@ Journal de production des 3 maquettes (session Claude Code, 9 juillet 2026).
     vert-bleu `#73C0A8`, bleu `#819EB8`, orangé `#F5BD46` (couleurs du logo). L'aubergine sombre
     `#423A5A` et les bandes inversées foncées sont remplacées par du mauve clair (texte ivoire ≥ 4,78:1) ;
     boutons en orangé (texte encre 6,86:1). Tous les jetons de texte revérifiés WCAG AA.
-26. **Logo** : la proposition SVG « main » a été **abandonnée** à la demande d'Alexis (risque d'un logo
-    inventé présenté comme officiel). Header/footer en **wordmark seul + placeholder** (`.marque__placeholder`,
-    cadre pointillé « logo ») ; favicon = PNG existant ; pictogramme « maison habitée » et filigranes
-    retirés. Le logo définitif (image001.png fourni par l'association) sera intégré ensuite — l'échange est
-    trivial (voir `version-3/STYLE-GUIDE.md` §4). *NB : une image `cid:` d'e-mail n'est pas récupérable ;
-    déposer le fichier dans `assets/logos/`.*
+26. **Logo** : la proposition SVG « main » dessinée a été **abandonnée** (risque d'un logo inventé). Le
+    **logo officiel de l'association** a ensuite été fourni et **intégré** : `assets/logos/logo-atpr.png`
+    (original) + `logo-atpr-trim.png` (détouré, fond transparent) dans le header des 7 pages
+    (`.marque__logo`, hauteur 56/46 px). Le logo est un lockup complet (maison + main + wordmark +
+    A.T.P.R.), donc le header n'a plus de wordmark texte séparé ; le footer (fond sombre) garde le
+    wordmark texte. Pictogramme « maison habitée » et filigranes retirés ; favicon = PNG existant.
 27. **Accueil** : ajout d'une citation de **Sami-Ali** (`[À valider]` libellé/source), section
     « Pourquoi consulter&nbsp;? » (4 raisons fournies) à la place de « Pour qui&nbsp;? » (déplacé sur La PSR).
 28. **La PSR** : fusion des ex-titres 4 et 5 (« À qui s'adresse&nbsp;? » + « Quand indiquée&nbsp;? ») ;

@@ -53,15 +53,18 @@ Règles :
   `Albert+Sans:wght@400;500;600` + `Fraunces:ital,opsz,wght@0,9..144,340..560;1,9..144,340..560`.
 - Échelle `--fs-200` → `--fs-950`. Typo française (`&nbsp;` avant `: ; ? !` et dans « »).
 
-## 4. Logo — à fournir (placeholder)
+## 4. Logo officiel A.T.P.R.
 
-**Aucun logo n'est intégré pour l'instant.** Le header et le footer affichent le **wordmark seul**
-« Maison de la Psychosomatique Relationnelle · A.T.P.R. » précédé d'un **placeholder** `.marque__placeholder`
-(cadre pointillé « logo », `aria-hidden`). Favicon = PNG existant `favicon-64.png`.
-- **Intégration du logo définitif** (quand l'association le fournit) : déposer le fichier dans
-  `../assets/logos/`, puis remplacer le `<span class="marque__placeholder">` par un `<img>`/`<svg>` dans
-  le header et le footer des 7 pages (+ carte de l'index racine), et pointer le favicon dessus.
-- Le wordmark **« Maison de la Psychosomatique Relationnelle »** reste le nom de marque.
+Logo fourni par l'association : `../assets/logos/logo-atpr.png` (original 2000×2000) et
+`../assets/logos/logo-atpr-trim.png` (**détouré, fond transparent**, 1965×729 — utilisé dans les pages).
+Le logo est un **lockup complet** : contour de maison + main + wordmark « Maison de la Psychosomatique
+Relationnelle » + « A.T.P.R. » en couleurs.
+- **Header** (`.marque__logo`, `<img>`, hauteur 56 px / 46 px mobile) : le logo porte déjà le texte,
+  donc pas de wordmark séparé. `alt` = « Maison de la Psychosomatique Relationnelle — A.T.P.R. ».
+  Fond transparent → se pose proprement sur l'ivoire.
+- **Footer** (bande mauve foncée) : **wordmark texte** `.marque__wordmark` (le logo à texte foncé ne
+  serait pas lisible sur fond sombre).
+- **Favicon** : PNG existant `favicon-64.png` (peut être régénéré depuis la marque main/maison plus tard).
 
 ## 5. Header / footer
 
@@ -107,7 +110,7 @@ Footer : rappel logo, nav secondaire, mention FF2P (une seule fois), Mentions l�
 - **Médiations** (La PSR) : formulations adaptées d'un texte de praticienne ; une phrase du document
   source est **interrompue** (médiation corporelle) → à compléter.
 - **Auteurs Green & Marty** (fondements) : ajoutés à la demande ; descripteurs à valider.
-- **Logo** : à fournir par l'association (placeholder en place) — voir §4 pour l'intégration.
+- **Logo** : logo officiel intégré (header) ; favicon régénérable depuis la marque plus tard (optionnel).
 - **Annuaire** : données réelles (Occitanie) + photos + accords RGPD.
 - **Mentions légales, coordonnées, adhésion** : `[À fournir par l'asso]`.
 - **Nom de domaine cible** : `psychosomatique-relationnelle.fr`.
