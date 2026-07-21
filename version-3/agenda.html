@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda — supervisions, intervisions, événements</title>
+  <meta name="description" content="Dates de supervision et d’intervision, événements de l’association&nbsp;: l’agenda de la Maison de la Psychosomatique Relationnelle.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,340..560;1,9..144,340..560&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="conteneur site-header__inner">
+      <a class="marque" href="index.html">
+        <img class="marque__logo" src="../assets/logos/logo-atpr-trim.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R." width="1965" height="729">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle__label">Menu</span>
+        <span class="nav-toggle__icone" aria-hidden="true"></span>
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html" aria-current="page">Agenda</a></li>
+          <li><a href="annuaire.html">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- EN-TÊTE DE PAGE -->
+    <div class="page-entete">
+      <div class="conteneur grille-12">
+        <div class="page-entete__bloc">
+          <p class="eyebrow">Les rendez-vous</p>
+          <h1 class="page-entete__titre">L’<em>agenda</em> de l’association</h1>
+          <p class="page-entete__lede">Retrouvez ici les dates de supervision et d’intervision de l’association, ainsi que ses événements&nbsp;: rencontres, conférences, temps de formation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORPS : aside + liste rendue en JS -->
+    <div class="page-corps">
+      <div class="conteneur grille-12">
+
+        <aside class="page-corps__aside est-sticky" aria-label="À propos de l’agenda">
+          <h2 class="aside-titre">À qui s’adresse-t-il&nbsp;?</h2>
+          <p>Les membres de l’A.T.P.R. (Association de Thérapeutes en Psychosomatique Relationnelle) y trouveront les prochains rendez-vous professionnels&nbsp;; le public, les événements ouverts à tous.</p>
+          <p class="note-maquette"><span class="badge-note">Exemple</span> Les événements affichés sur cette page sont des données d’exemple. Le calendrier réel sera alimenté par l’association. <span class="badge-note">À fournir par l’asso&nbsp;: dates réelles</span></p>
+        </aside>
+
+        <div class="page-corps__principal">
+          <div id="agenda-liste">
+            <p class="etat-chargement">Chargement de l’agenda…</p>
+          </div>
+          <noscript><p>Le contenu de cette page nécessite JavaScript. Les dates et l’annuaire
+sont également disponibles auprès de l’association (page Contact).</p></noscript>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur">
+      <div class="site-footer__haut">
+        <a class="marque" href="index.html">
+          <span class="marque__wordmark">Maison de la<br>Psychosomatique Relationnelle
+            <small>A.T.P.R.</small>
+          </span>
+        </a>
+        <nav class="nav-secondaire" aria-label="Navigation secondaire">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="psr.html">La PSR</a></li>
+            <li><a href="cote-pro.html">Côté Pro</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="annuaire.html">Annuaire</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="site-footer__bas">
+        <p>La psychosomatique relationnelle est reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse). Site porté par l’A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+        <p>Mentions légales <span class="badge-note">À fournir par l’asso</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

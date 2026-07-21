@@ -220,6 +220,20 @@
     .carte-1 { --carte-accent: #A295C1; }
     .carte-2 { --carte-accent: #74BFA8; }
     .carte-3 { --carte-accent: #423A5A; }
+    .carte-v3 { --carte-accent: #74658E; }
+    .carte-v3 .vignette {
+      background: #F6F4EE;
+      color: #5A4D72;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      gap: 8px;
+    }
+    .carte-v3 .vignette svg { width: 46px; height: 46px; }
+    .badge-piste.badge-retenu {
+      color: #2c5a4b;
+      background: rgba(115, 192, 168, 0.20);
+      border-color: rgba(45, 120, 103, 0.5);
+    }
     .note-basse {
       border-top: 1px solid var(--filet);
       padding: 18px 0 8px;
@@ -254,11 +268,30 @@
         <p class="intro-eyebrow">A.T.P.R. — Site vitrine · Phase 1 · Maquettes</p>
         <h1>Maison de la Psychosomatique Relationnelle <span class="sous-titre">trois directions artistiques</span></h1>
       </div>
-      <p class="intro-note"><strong>Même site, trois écritures visuelles.</strong> Les trois maquettes partagent les mêmes 7 pages et les mêmes textes — seule la direction artistique change. Chacune est navigable, sur ordinateur comme sur téléphone.</p>
+      <p class="intro-note"><strong>Version 3 est la direction retenue</strong> — logo officiel A.T.P.R., couleurs claires du logo, contenu enrichi. Les trois maquettes initiales restent consultables en archive ci-dessous. Toutes sont navigables, sur ordinateur comme sur téléphone.</p>
     </header>
 
     <main>
       <ul class="cartes">
+        <li class="carte carte-v3">
+          <a href="./version-3/index.html">
+            <div class="vignette" aria-hidden="true">
+              <img src="./assets/logos/logo-atpr-trim.png" alt="" style="height:74px;width:auto">
+            </div>
+            <div class="carte-corps">
+              <h2><span class="num">V3</span> Version 3 — direction retenue</h2>
+              <span class="badge-piste badge-retenu">Projet</span>
+              <p>La direction consolidée&nbsp;: logo officiel A.T.P.R., couleurs claires inspirées du logo (mauve, vert-bleu, bleu, orangé), contenu enrichi (« pourquoi consulter », médiations, auteurs), annuaire par département d’Occitanie.</p>
+              <div class="pastilles" aria-hidden="true">
+                <span style="background:#74658E"></span>
+                <span style="background:#73C0A8"></span>
+                <span style="background:#819EB8"></span>
+                <span style="background:#F5BD46"></span>
+                <em class="typo">Fraunces · Albert Sans</em>
+              </div>
+            </div>
+          </a>
+        </li>
         <li class="carte carte-1">
           <a href="./maquette-1-maison/index.html">
             <div class="vignette" aria-hidden="true">

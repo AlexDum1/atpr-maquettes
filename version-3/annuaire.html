@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Annuaire des thérapeutes en psychosomatique relationnelle</title>
+  <meta name="description" content="Trouver un thérapeute formé à la psychosomatique relationnelle&nbsp;: l’annuaire des membres de l’A.T.P.R., en cabinet ou en visioconférence.">
+  <link rel="icon" type="image/png" href="../assets/logos/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,340..560;1,9..144,340..560&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="conteneur site-header__inner">
+      <a class="marque" href="index.html">
+        <img class="marque__logo" src="../assets/logos/logo-atpr-trim.png" alt="Maison de la Psychosomatique Relationnelle — A.T.P.R." width="1965" height="729">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principale">
+        <span class="nav-toggle__label">Menu</span>
+        <span class="nav-toggle__icone" aria-hidden="true"></span>
+      </button>
+      <nav id="nav-principale" class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="psr.html">La PSR</a></li>
+          <li><a href="cote-pro.html">Côté Pro</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="annuaire.html" aria-current="page">Annuaire</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- EN-TÊTE DE PAGE -->
+    <div class="page-entete">
+      <div class="conteneur grille-12">
+        <div class="page-entete__bloc">
+          <p class="eyebrow">Trouver un thérapeute</p>
+          <h1 class="page-entete__titre">L’<em>annuaire</em> des thérapeutes</h1>
+          <p class="page-entete__lede">Vous cherchez un thérapeute formé à la psychosomatique relationnelle (PSR)&nbsp;? Cet annuaire présente les thérapeutes membres de l’A.T.P.R. (Association de Thérapeutes en Psychosomatique Relationnelle).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORPS : aside + liste rendue en JS -->
+    <div class="page-corps">
+      <div class="conteneur grille-12">
+
+        <aside class="page-corps__aside est-sticky" aria-label="Comment lire l’annuaire">
+          <h2 class="aside-titre">Comment lire les fiches&nbsp;?</h2>
+          <p>Chaque fiche indique le nom, la ville et le département, la spécialité, les modalités de consultation, l’adresse du cabinet, les liens (site et réseaux) et un moyen de contact. Vous pouvez joindre directement le thérapeute de votre choix.</p>
+          <p>Les thérapeutes sont regroupés par <strong>département d’Occitanie</strong>, puis dans une rubrique «&nbsp;Autres régions&nbsp;».</p>
+          <ul class="legende-modalites">
+            <li>
+              <span class="badge badge--presentiel">Présentiel</span>
+              <p>Le thérapeute reçoit à son cabinet, dans la ville indiquée.</p>
+            </li>
+            <li>
+              <span class="badge badge--visio">Visio</span>
+              <p>Le thérapeute propose des consultations à distance, en visioconférence, quel que soit votre lieu de résidence.</p>
+            </li>
+          </ul>
+          <p>Certains thérapeutes proposent les deux modalités.</p>
+          <h2 class="aside-titre">Données personnelles</h2>
+          <p>Les thérapeutes présentés dans cet annuaire sont membres de l’association et ont donné leur accord explicite pour la publication de leurs nom, ville et coordonnées professionnelles, conformément au Règlement général sur la protection des données (RGPD). Chaque membre peut demander à tout moment la modification ou le retrait de sa fiche.</p>
+          <p class="note-maquette"><span class="badge-note">Exemple</span> Les fiches affichées sont des données 100&nbsp;% fictives, avec des photos génériques uniformisées. <span class="badge-note">À fournir par l’asso</span> Liste réelle des thérapeutes — prénom, nom, ville, département, adresse, spécialité, liens, contact et photo — avec l’accord RGPD écrit de chacun.</p>
+        </aside>
+
+        <div class="page-corps__principal">
+          <div id="annuaire-liste">
+            <p class="etat-chargement">Chargement de l’annuaire…</p>
+          </div>
+          <noscript><p>Le contenu de cette page nécessite JavaScript. Les dates et l’annuaire
+sont également disponibles auprès de l’association (page Contact).</p></noscript>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur">
+      <div class="site-footer__haut">
+        <a class="marque" href="index.html">
+          <span class="marque__wordmark">Maison de la<br>Psychosomatique Relationnelle
+            <small>A.T.P.R.</small>
+          </span>
+        </a>
+        <nav class="nav-secondaire" aria-label="Navigation secondaire">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="psr.html">La PSR</a></li>
+            <li><a href="cote-pro.html">Côté Pro</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="annuaire.html">Annuaire</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="site-footer__bas">
+        <p>La psychosomatique relationnelle est reconnue par la FF2P (Fédération Française de Psychothérapie et Psychanalyse). Site porté par l’A.T.P.R. — Association de Thérapeutes en Psychosomatique Relationnelle.</p>
+        <p>Mentions légales <span class="badge-note">À fournir par l’asso</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

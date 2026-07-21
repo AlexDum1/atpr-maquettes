@@ -1,0 +1,1733 @@
+/* =============================================================
+   VERSION 3 — Site A.T.P.R. (projet)
+   Base éditoriale « Carte blanche » éclaircie.
+   Palette claire inspirée du logo : mauve / vert-bleu / bleu / orangé.
+   Typo Fraunces + Albert Sans. Mobile-first · 640 / 1024 px.
+   Contrastes vérifiés WCAG 2.1 AA — voir STYLE-GUIDE.md §2.
+   ============================================================= */
+
+/* ----------  1. Jetons (custom properties)  ---------- */
+
+:root {
+  /* Couleurs de marque (logo) — décor & aplats. Les noms « aubergine/sauge/ocre »
+     sont conservés pour limiter la charge, mais portent désormais la palette claire. */
+  --cb-aubergine: #74658E;        /* MAUVE — ancre : bandes claires-inversées, marque */
+  --cb-aubergine-profond: #4A3F5E;/* mauve profond — footer, hovers */
+  --cb-ivoire: #F6F4EE;           /* papier chaud (inchangé) */
+  --cb-ivoire-2: #EFECE2;         /* panneau ivoire soutenu (inchangé) */
+  --cb-sauge: #73C0A8;            /* VERT-BLEU — végétal, décor uniquement */
+  --cb-sauge-claire: #A8DAC9;     /* vert-bleu clair — accents décor sur mauve */
+  --cb-sauge-pale: #E4F1EC;       /* fond très pâle vert-bleu */
+  --cb-bleu: #819EB8;             /* BLEU — tertiaire, washes & décor */
+  --cb-bleu-pale: #E7EDF3;        /* fond très pâle bleu */
+  --cb-ocre: #F5BD46;             /* ORANGÉ — filets fins + fond des CTA */
+  --cb-ocre-fonce: #E0A52A;       /* orangé assombri — hover des boutons */
+
+  /* Dérivés accessibles — seuls autorisés pour le TEXTE (ratios : STYLE-GUIDE §2) */
+  --cb-encre: #3A3450;            /* texte courant sur ivoire — 10,7:1 */
+  --cb-titre: #5A4D72;            /* titres (mauve profond) sur ivoire — 6,97:1 */
+  --cb-sauge-texte: #27735F;      /* accents/liens (vert-bleu foncé) sur ivoire — ≥4,7:1 */
+  --cb-ocre-texte: #8A6410;       /* petits libellés type badge — 4,9:1 */
+  --cb-ivoire-texte: #F6F4EE;     /* texte sur mauve/footer — ≥4,8:1 */
+  --cb-lavande-texte: #D8D2E4;    /* texte secondaire sur mauve profond (footer) — 6,6:1 */
+
+  /* Typographie */
+  --police-display: "Fraunces", "Georgia", serif;
+  --police-corps: "Albert Sans", "Helvetica Neue", sans-serif;
+
+  --fs-950: clamp(2.55rem, 1.05rem + 5.7vw, 4.9rem);  /* H1 accueil, jusqu'à 78 px */
+  --fs-800: clamp(2.05rem, 1.35rem + 2.8vw, 3.25rem); /* H1 pages internes */
+  --fs-700: clamp(1.65rem, 1.3rem + 1.4vw, 2.25rem);  /* H2 */
+  --fs-600: clamp(1.3rem, 1.15rem + 0.7vw, 1.625rem); /* H3, grandes phrases */
+  --fs-500: clamp(1.1rem, 1rem + 0.45vw, 1.3rem);     /* lede */
+  --fs-400: 1.0625rem;                                /* corps — 17 px */
+  --fs-300: 0.9375rem;                                /* secondaire — 15 px */
+  --fs-200: 0.8125rem;                                /* libellés, petites capitales */
+
+  /* Échelle d'espacement */
+  --e-1: 8px;
+  --e-2: 16px;
+  --e-3: 24px;
+  --e-4: 40px;
+  --e-5: 64px;
+  --e-6: 96px;
+  --e-7: 160px; /* respiration exceptionnelle (hero) */
+
+  /* Divers */
+  --largeur-max: 1200px;
+  --mesure: 65ch;         /* colonne de lecture */
+  --duree: 200ms;
+  --filet-ocre: 1px solid var(--cb-ocre);
+}
+
+/* ----------  2. Socle  ---------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--cb-ivoire);
+  color: var(--cb-encre);
+  font-family: var(--police-corps);
+  font-size: var(--fs-400);
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--police-display);
+  font-weight: 420;
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 30; /* « soft » : optical size volontairement bas */
+  color: var(--cb-titre);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--e-3);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-800); }
+h2 { font-size: var(--fs-700); }
+h3 { font-size: var(--fs-600); font-weight: 480; line-height: 1.25; }
+
+p { margin: 0 0 var(--e-2); max-width: var(--mesure); }
+p:last-child { margin-bottom: 0; }
+
+em { font-style: italic; }
+
+a {
+  color: var(--cb-titre);
+  text-decoration-color: var(--cb-sauge);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--duree) ease, text-decoration-color var(--duree) ease;
+}
+a:hover { color: var(--cb-sauge-texte); text-decoration-color: var(--cb-ocre); }
+
+img, svg { max-width: 100%; height: auto; }
+
+ul, ol { margin: 0 0 var(--e-2); padding-left: 1.2em; }
+
+:focus-visible {
+  outline: 2px solid var(--cb-titre);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+::selection { background: var(--cb-sauge-pale); color: var(--cb-aubergine-profond); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ----------  3. Structure de page  ---------- */
+
+.conteneur {
+  max-width: var(--largeur-max);
+  margin-inline: auto;
+  padding-inline: var(--e-3);
+}
+
+@media (min-width: 640px) {
+  .conteneur { padding-inline: var(--e-4); }
+}
+
+.grille-12 { display: block; }
+
+@media (min-width: 1024px) {
+  .grille-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--e-3);
+  }
+}
+
+/* ----------  4. Skip-link & bandeau « piste créative »  ---------- */
+
+.skip-link {
+  position: absolute;
+  left: var(--e-2);
+  top: -100px;
+  z-index: 100;
+  background: var(--cb-aubergine);
+  color: var(--cb-ivoire-texte);
+  padding: var(--e-1) var(--e-2);
+  text-decoration: none;
+  transition: top var(--duree) ease;
+}
+.skip-link:focus { top: var(--e-2); color: var(--cb-ivoire-texte); }
+
+.bandeau-piste {
+  margin: 0;
+  padding: 7px var(--e-3);
+  max-width: none;
+  background: var(--cb-ivoire-2);
+  border-bottom: var(--filet-ocre);
+  font-size: var(--fs-200);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--cb-titre);
+}
+
+/* ----------  5. Header & navigation  ---------- */
+
+.site-header {
+  position: relative;
+  border-bottom: 1px solid rgba(116, 101, 142, 0.14);
+  background: var(--cb-ivoire);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding-block: var(--e-2);
+}
+
+.marque {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--cb-titre);
+}
+.marque:hover { color: var(--cb-titre); }
+
+.marque__picto {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  color: var(--cb-aubergine);
+}
+.marque:hover .marque__picto { color: var(--cb-sauge-texte); transition: color var(--duree) ease; }
+
+/* Logo officiel A.T.P.R. (header) */
+.marque__logo {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+@media (max-width: 640px) {
+  .marque__logo { height: 46px; }
+}
+
+.marque__wordmark {
+  font-family: var(--police-display);
+  font-weight: 500;
+  font-variation-settings: "opsz" 18;
+  font-size: 0.98rem;
+  line-height: 1.22;
+  letter-spacing: 0.005em;
+}
+.marque__wordmark small {
+  display: block;
+  font-family: var(--police-corps);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+  margin-top: 3px;
+}
+
+/* Bouton menu (mobile) */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--cb-aubergine);
+  background: transparent;
+  color: var(--cb-titre);
+  font: 600 var(--fs-200) var(--police-corps);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  cursor: pointer;
+  min-height: 44px;
+}
+.nav-toggle__icone {
+  position: relative;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  transition: background var(--duree) ease;
+}
+.nav-toggle__icone::before,
+.nav-toggle__icone::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--duree) ease;
+}
+.nav-toggle__icone::before { top: -6px; }
+.nav-toggle__icone::after { top: 6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone { background: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone::before { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone::after { transform: translateY(-6px) rotate(-45deg); }
+
+.nav-principale ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-principale a {
+  display: block;
+  text-decoration: none;
+  font-size: var(--fs-300);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--cb-encre);
+  padding: 10px 2px;
+  background-image: linear-gradient(var(--cb-ocre), var(--cb-ocre));
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  background-position: 2px calc(100% - 6px);
+  transition: background-size var(--duree) ease, color var(--duree) ease;
+}
+.nav-principale a:hover { color: var(--cb-titre); background-size: calc(100% - 4px) 1px; }
+.nav-principale a[aria-current="page"] {
+  color: var(--cb-titre);
+  font-weight: 600;
+  background-size: calc(100% - 4px) 1px;
+}
+
+/* Mobile : panneau déroulant */
+@media (max-width: 1023.98px) {
+  .nav-principale {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: var(--cb-ivoire);
+    border-bottom: var(--filet-ocre);
+    box-shadow: 0 18px 30px -22px rgba(51, 44, 71, 0.35);
+  }
+  .nav-principale.est-ouverte { display: block; }
+  .nav-principale ul { padding: var(--e-2) var(--e-3) var(--e-3); }
+  .nav-principale li + li { border-top: 1px solid rgba(116, 101, 142, 0.1); }
+  .nav-principale a { padding: 13px 2px; font-size: var(--fs-400); }
+}
+
+@media (min-width: 1024px) {
+  .nav-toggle { display: none; }
+  .nav-principale ul {
+    display: flex;
+    gap: clamp(var(--e-2), 2.2vw, 34px);
+  }
+}
+
+/* ----------  6. Composants transverses  ---------- */
+
+/* Eyebrow : petites capitales précédées d'un filet ocre */
+.eyebrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0 0 var(--e-3);
+  max-width: none;
+  font-size: var(--fs-200);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+}
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: 28px;
+  height: 1px;
+  margin-top: 0.55em; /* aligné sur la première ligne */
+  background: var(--cb-ocre);
+}
+
+@media (min-width: 640px) {
+  .eyebrow::before { width: 44px; }
+}
+
+/* Boutons — CTA orangé (texte encre foncé : 6,86:1) */
+.bouton {
+  display: inline-block;
+  background: var(--cb-ocre);
+  color: var(--cb-encre);
+  font: 600 var(--fs-300) var(--police-corps);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  padding: 15px 30px;
+  border: 1px solid var(--cb-ocre);
+  border-radius: 2px;
+  transition: background var(--duree) ease, border-color var(--duree) ease, transform var(--duree) ease;
+}
+.bouton:hover {
+  background: var(--cb-ocre-fonce);
+  border-color: var(--cb-ocre-fonce);
+  color: var(--cb-encre);
+}
+
+.bouton--inverse {
+  background: var(--cb-ivoire);
+  color: var(--cb-titre);
+  border-color: var(--cb-ivoire);
+}
+.bouton--inverse:hover { background: var(--cb-ivoire-2); color: var(--cb-titre); }
+/* Sur bande aubergine, la règle .bande-aubergine a est plus spécifique
+   que .bouton--inverse : on restaure la couleur du bouton inversé. */
+.bande-aubergine a.bouton--inverse { color: var(--cb-titre); }
+.bande-aubergine a.bouton--inverse:hover { color: var(--cb-titre); }
+
+/* Lien éditorial : filet ocre qui s'étend au survol */
+.lien-filet {
+  display: inline-block;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--cb-titre);
+  padding-bottom: 6px;
+  background-image: linear-gradient(var(--cb-ocre), var(--cb-ocre));
+  background-repeat: no-repeat;
+  background-size: 28px 1px;
+  background-position: 0 100%;
+  transition: background-size var(--duree) ease, color var(--duree) ease;
+}
+.lien-filet:hover {
+  background-size: 100% 1px;
+  color: var(--cb-sauge-texte);
+}
+.lien-filet .fleche { display: inline-block; transition: transform var(--duree) ease; }
+.lien-filet:hover .fleche { transform: translateX(4px); }
+
+/* Badge de placeholder [EXEMPLE] / [À FOURNIR PAR L'ASSO] */
+.badge-note {
+  display: inline-block;
+  vertical-align: 0.14em;
+  font: 600 0.6875rem/1.3 var(--police-corps);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cb-ocre-texte);
+  border: 1px solid var(--cb-ocre);
+  border-radius: 2px;
+  padding: 3px 8px;
+  background: rgba(245, 189, 70, 0.07);
+}
+.inverse .badge-note,
+.bande-aubergine .badge-note,
+.site-footer .badge-note {
+  color: #E9CE93;
+  background: rgba(245, 189, 70, 0.12);
+}
+
+/* Badges Agenda / Annuaire (type & modalité) */
+.badge {
+  display: inline-block;
+  font: 600 0.6875rem/1.3 var(--police-corps);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+.badge--supervision { background: var(--cb-sauge-pale); color: var(--cb-sauge-texte); }
+.badge--intervision { background: #E4E0EE; color: var(--cb-titre); }
+.badge--evenement   { background: var(--cb-aubergine); color: var(--cb-ivoire-texte); }
+.badge--presentiel  { border-color: var(--cb-sauge); color: var(--cb-sauge-texte); background: transparent; }
+.badge--visio       { border-color: rgba(116, 101, 142, 0.45); color: var(--cb-titre); background: transparent; }
+
+/* État de chargement discret (agenda / annuaire) */
+.etat-chargement {
+  font-size: var(--fs-300);
+  color: var(--cb-sauge-texte);
+  font-style: italic;
+  padding-block: var(--e-3);
+}
+
+/* Note en marge, style revue */
+.marge-note {
+  font-size: var(--fs-200);
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+}
+
+/* ----------  7. Sections & rythme vertical  ---------- */
+
+.section { padding-block: var(--e-5); }
+
+@media (min-width: 1024px) {
+  .section { padding-block: var(--e-6); }
+}
+
+/* Bande inversée aubergine */
+.bande-aubergine {
+  background: var(--cb-aubergine);
+  color: var(--cb-ivoire-texte);
+}
+.bande-aubergine h2,
+.bande-aubergine h3 { color: var(--cb-ivoire-texte); }
+.bande-aubergine .eyebrow { color: var(--cb-ivoire-texte); }
+.bande-aubergine .eyebrow::before { background: var(--cb-ocre); }
+.bande-aubergine a { color: var(--cb-ivoire-texte); text-decoration-color: var(--cb-sauge-claire); }
+.bande-aubergine a:hover { color: var(--cb-sauge-claire); text-decoration-color: var(--cb-ocre); }
+.bande-aubergine :focus-visible { outline-color: var(--cb-ivoire); }
+
+/* ----------  8. Hero (accueil)  ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--e-5) var(--e-6);
+}
+
+@media (min-width: 1024px) {
+  .hero { padding-block: var(--e-6) var(--e-7); }
+}
+
+/* Filigrane « maison habitée » deux tons : enveloppe discrète,
+   spirale (l'intériorité) légèrement rehaussée — traits fins non
+   scalés (vector-effect) pour un dessin crisp, jamais une tache. */
+.filigrane { pointer-events: none; }
+.filigrane__enveloppe { stroke: var(--cb-aubergine); opacity: 0.14; }
+.filigrane__spirale   { fill: var(--cb-sauge); opacity: 0.45; }
+
+.hero__filigrane {
+  position: absolute;
+  top: -34px;
+  right: -64px;
+  width: 300px;
+}
+
+@media (min-width: 640px) {
+  .hero__filigrane { width: 460px; right: -80px; }
+}
+
+@media (min-width: 1024px) {
+  .hero__filigrane { width: 640px; top: -80px; right: -56px; }
+  .hero__filigrane .filigrane__enveloppe { opacity: 0.17; }
+  .hero__filigrane .filigrane__spirale { opacity: 0.6; }
+}
+
+.hero__contenu { position: relative; }
+
+.hero__titre {
+  font-size: var(--fs-950);
+  font-weight: 370;
+  font-variation-settings: "opsz" 42;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  max-width: 17ch;
+  margin-bottom: var(--e-4);
+}
+
+/* Composition contrôlée sur 3 lignes dès que la place le permet */
+@media (min-width: 640px) {
+  .hero__titre { max-width: none; }
+  .hero__ligne { display: block; }
+}
+.hero__titre em {
+  font-style: italic;
+  font-weight: 430;
+  color: var(--cb-sauge-texte);
+}
+
+.hero__lede {
+  font-size: var(--fs-500);
+  line-height: 1.6;
+  color: var(--cb-encre);
+  max-width: 46ch;
+  margin-bottom: var(--e-4);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-3) var(--e-4);
+}
+
+@media (min-width: 1024px) {
+  .hero__eyebrow { grid-column: 1 / 9; }
+  .hero__titre { grid-column: 1 / 13; }
+  .hero__decale {
+    grid-column: 4 / 11; /* lede + actions décalés : l'entonnoir */
+  }
+}
+
+/* Apparition douce au chargement (désactivée si reduced-motion) */
+.hero__eyebrow,
+.hero__titre,
+.hero__decale > * {
+  animation: cb-apparition 640ms ease-out both;
+}
+.hero__titre { animation-delay: 90ms; }
+.hero__decale > * { animation-delay: 200ms; }
+
+@keyframes cb-apparition {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ----------  9. « La PSR en trois phrases » (quinconce)  ---------- */
+
+.trois-phrases {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--e-5);
+}
+
+@media (min-width: 1024px) {
+  .trois-phrases { padding-block: var(--e-6); }
+}
+
+/* Le glyphe habite le coin droit de la bande (écho du hero) */
+.trois-phrases__glyphe {
+  position: absolute;
+  right: -54px;
+  bottom: -64px;
+  width: 210px;
+}
+.trois-phrases__glyphe .filigrane__enveloppe { stroke: var(--cb-ivoire); opacity: 0.16; }
+.trois-phrases__glyphe .filigrane__spirale   { fill: var(--cb-sauge-claire); opacity: 0.55; }
+
+@media (min-width: 1024px) {
+  .trois-phrases__glyphe { width: 400px; right: -30px; bottom: -96px; }
+}
+
+.trois-phrases__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.phrase {
+  position: relative;
+  padding: var(--e-3) 0 var(--e-3) 42px;
+}
+
+@media (min-width: 640px) {
+  .phrase { padding-left: 56px; }
+}
+.phrase + .phrase { border-top: 1px solid rgba(246, 244, 238, 0.22); }
+
+.phrase__numero {
+  position: absolute;
+  left: 0;
+  top: var(--e-3);
+  font-family: var(--police-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--fs-600);
+  line-height: 1.3;
+  color: var(--cb-sauge-claire);
+}
+
+.phrase p {
+  font-family: var(--police-display);
+  font-weight: 380;
+  font-variation-settings: "opsz" 22;
+  font-size: var(--fs-600);
+  line-height: 1.42;
+  letter-spacing: -0.005em;
+  color: var(--cb-ivoire-texte);
+  max-width: 34ch;
+}
+
+@media (min-width: 1024px) {
+  .phrase { padding-block: var(--e-4); }
+  .phrase__numero { top: var(--e-4); }
+  /* Escalier franc, progressif vers la droite (vers le glyphe) */
+  .phrase:nth-child(1) { margin-left: 0; }
+  .phrase:nth-child(2) { margin-left: 18%; }
+  .phrase:nth-child(3) { margin-left: 36%; }
+  .phrase:nth-child(2) p { max-width: 42ch; }
+}
+
+/* ----------  10. « Pour qui ? » (colonne éditoriale)  ---------- */
+
+.publics { padding-block: var(--e-6) var(--e-5); }
+
+@media (min-width: 1024px) {
+  .publics { padding-block: 128px var(--e-6); }
+  .publics__entete { grid-column: 1 / 5; }
+  .publics__liste { grid-column: 5 / 13; }
+  .publics__entete .publics__sticky { position: sticky; top: var(--e-4); }
+}
+
+.publics__entete h2 { max-width: 12ch; }
+
+.publics__entete p {
+  color: var(--cb-sauge-texte);
+  font-size: var(--fs-300);
+  max-width: 30ch;
+}
+
+.publics__liste {
+  list-style: none;
+  margin: var(--e-4) 0 0;
+  padding: 0;
+  counter-reset: public;
+}
+
+@media (min-width: 1024px) {
+  .publics__liste { margin-top: 0; }
+}
+
+.bloc-public {
+  counter-increment: public;
+  border-top: var(--filet-ocre);
+  padding-block: var(--e-4);
+}
+.bloc-public:last-child { border-bottom: var(--filet-ocre); }
+
+/* Numéro en marge, style revue (01–04) */
+.bloc-public::before {
+  content: counter(public, decimal-leading-zero) / "";
+  display: block;
+  font: 600 0.6875rem/1 var(--police-corps);
+  letter-spacing: 0.14em;
+  color: var(--cb-sauge-texte);
+  margin-bottom: var(--e-2);
+}
+
+.bloc-public h3 { margin-bottom: var(--e-2); }
+.bloc-public p { max-width: 58ch; }
+
+@media (min-width: 640px) {
+  .bloc-public {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: var(--e-2);
+  }
+  .bloc-public::before {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    padding-top: 9px; /* calé sur la capitale du h3 */
+  }
+  .bloc-public h3,
+  .bloc-public p { grid-column: 2; }
+}
+
+@media (min-width: 1024px) {
+  /* Décalage par la marge : les filets ocre suivent (escalier),
+     en écho à la bande aubergine */
+  .bloc-public:nth-child(even) { margin-left: 88px; }
+}
+
+/* ----------  10bis. Citation (pull-quote)  ---------- */
+
+.citation-bande {
+  background: var(--cb-bleu-pale);
+  border-top: var(--filet-ocre);
+  border-bottom: var(--filet-ocre);
+  padding-block: var(--e-5);
+}
+
+@media (min-width: 1024px) {
+  .citation-bande { padding-block: var(--e-6); }
+}
+
+.citation {
+  margin: 0 auto;
+  max-width: 46ch;
+  text-align: center;
+}
+.citation__texte { margin: 0; }
+.citation__texte p {
+  font-family: var(--police-display);
+  font-weight: 380;
+  font-variation-settings: "opsz" 40;
+  font-size: var(--fs-700);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  color: var(--cb-titre);
+  max-width: none;
+}
+.citation__texte em { color: var(--cb-titre); }
+.citation__source {
+  margin-top: var(--e-3);
+  font-size: var(--fs-200);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+}
+.citation__source .badge-note { text-transform: none; letter-spacing: 0.04em; margin-left: 8px; vertical-align: 0.1em; }
+
+/* ----------  11. Bande FF2P  ---------- */
+
+.bande-ff2p {
+  background: var(--cb-ivoire-2);
+  border-top: var(--filet-ocre);
+  border-bottom: var(--filet-ocre);
+  padding-block: var(--e-5);
+}
+
+.bande-ff2p__glyphe {
+  width: 72px;
+  color: var(--cb-sauge-texte);
+  margin-bottom: var(--e-3);
+}
+
+@media (min-width: 1024px) {
+  .bande-ff2p__glyphe {
+    grid-column: 2 / 4;
+    width: 96px;
+    margin-bottom: 0;
+    margin-top: 6px;
+  }
+  .bande-ff2p__texte { grid-column: 4 / 11; }
+}
+
+/* ----------  12. Appels à l'action en lignes de revue  ---------- */
+
+.liste-cta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cta-ligne {
+  border-top: 1px solid rgba(116, 101, 142, 0.22);
+}
+.cta-ligne:last-child { border-bottom: 1px solid rgba(116, 101, 142, 0.22); }
+
+.cta-ligne a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--e-3);
+  align-items: baseline;
+  text-decoration: none;
+  color: inherit;
+  padding-block: var(--e-4);
+  background-image: linear-gradient(var(--cb-ocre), var(--cb-ocre));
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  background-position: 0 0;
+  transition: background-size 260ms ease;
+}
+.cta-ligne a:hover { background-size: 100% 1px; color: inherit; }
+
+.cta-ligne__titre {
+  display: block;
+  font-family: var(--police-display);
+  font-weight: 420;
+  font-variation-settings: "opsz" 30;
+  font-size: var(--fs-700);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--cb-titre);
+  transition: font-style var(--duree) ease;
+}
+.cta-ligne a:hover .cta-ligne__titre { font-style: italic; }
+
+.cta-ligne__desc {
+  grid-column: 1 / -1;
+  color: var(--cb-encre);
+  font-size: var(--fs-300);
+  max-width: 52ch;
+  margin: var(--e-1) 0 0;
+}
+
+.cta-ligne__fleche {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: var(--police-display);
+  font-size: var(--fs-600);
+  line-height: 1;
+  color: var(--cb-sauge-texte);
+  transition: transform 260ms ease;
+}
+.cta-ligne a:hover .cta-ligne__fleche { transform: translateX(8px); }
+
+@media (min-width: 1024px) {
+  .cta-ligne a {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) auto;
+    column-gap: var(--e-4);
+  }
+  .cta-ligne__desc { grid-column: 2; grid-row: 1; margin: 0; }
+  .cta-ligne__fleche { grid-column: 3; }
+}
+
+/* ----------  13. Sommaire (page « La PSR »)  ---------- */
+
+.sommaire { font-size: var(--fs-300); }
+
+.sommaire ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: sommaire;
+}
+
+.sommaire li { counter-increment: sommaire; }
+
+.sommaire a {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  text-decoration: none;
+  color: var(--cb-encre);
+  padding: 9px 0 9px 14px;
+  border-left: 1px solid rgba(116, 101, 142, 0.18);
+  transition: border-color var(--duree) ease, color var(--duree) ease;
+}
+.sommaire a::before {
+  content: counter(sommaire, decimal-leading-zero);
+  font: 600 0.6875rem/1.6 var(--police-corps);
+  letter-spacing: 0.08em;
+  color: var(--cb-sauge-texte);
+}
+.sommaire a:hover { color: var(--cb-titre); border-left-color: var(--cb-sauge); }
+.sommaire a[aria-current="true"],
+.sommaire a.est-active {
+  color: var(--cb-titre);
+  font-weight: 500;
+  border-left: 2px solid var(--cb-ocre);
+  padding-left: 13px;
+}
+
+@media (min-width: 1024px) {
+  .sommaire--lateral {
+    position: sticky;
+    top: var(--e-4);
+    align-self: start;
+  }
+}
+
+/* ----------  13bis. Page « La PSR » (long-format)  ---------- */
+
+/* En-tête de page interne : hero typographique, lede décalé (entonnoir) */
+.page-entete {
+  padding-block: var(--e-5) var(--e-4);
+  border-bottom: var(--filet-ocre);
+}
+
+@media (min-width: 1024px) {
+  .page-entete { padding-block: var(--e-6) var(--e-5); }
+  .page-entete__bloc { grid-column: 1 / 12; }
+}
+
+.page-entete__titre {
+  font-size: var(--fs-800);
+  font-weight: 380;
+  font-variation-settings: "opsz" 38;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--e-3);
+}
+.page-entete__titre em {
+  font-style: italic;
+  font-weight: 430;
+  color: var(--cb-sauge-texte);
+}
+
+.page-entete__lede {
+  font-size: var(--fs-500);
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+@media (min-width: 1024px) {
+  .page-entete__lede { margin-left: 88px; } /* écho de l'entonnoir de l'accueil */
+}
+
+/* Corps : sommaire latéral + colonne article */
+.psr-corps { padding-block: var(--e-4) var(--e-6); }
+
+@media (min-width: 1024px) {
+  .psr-corps { padding-block: var(--e-5) var(--e-6); }
+  .psr-corps__sommaire { grid-column: 1 / 4; }
+  .psr-corps__article { grid-column: 5 / 13; min-width: 0; }
+}
+
+.sommaire__titre { margin: 0 0 var(--e-2); max-width: none; }
+
+/* Mobile : sommaire compact en tête d'article, entre filets ocre */
+@media (max-width: 1023.98px) {
+  .psr-corps__sommaire {
+    border-block: var(--filet-ocre);
+    padding-block: var(--e-3);
+    margin-bottom: var(--e-4);
+  }
+}
+
+/* Sections de l'article : hairlines aubergine, respiration régulière */
+.section-psr {
+  padding-block: var(--e-4);
+  scroll-margin-top: var(--e-3);
+}
+.section-psr:first-child { padding-top: 0; }
+.section-psr:last-child { padding-bottom: 0; }
+.section-psr + .section-psr { border-top: 1px solid rgba(116, 101, 142, 0.14); }
+
+@media (min-width: 1024px) {
+  .section-psr { padding-block: var(--e-5); }
+}
+
+.section-psr h2 { max-width: 24ch; margin-bottom: var(--e-3); }
+
+/* Premier paragraphe mis en avant */
+.para-lede {
+  font-size: var(--fs-500);
+  line-height: 1.6;
+  max-width: 58ch;
+}
+
+/* Contrepoint « ce que ce n'est pas » : panneau aubergine débordant */
+.section-psr.contrepoint {
+  border-top: 0;
+  margin-inline: calc(-1 * var(--e-3));
+  padding: var(--e-4) var(--e-3);
+}
+.section-psr.contrepoint + .section-psr { border-top: 0; }
+
+@media (min-width: 640px) {
+  .section-psr.contrepoint {
+    margin-inline: calc(-1 * var(--e-4));
+    padding: var(--e-5) var(--e-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Débordement intentionnel vers le bord droit du conteneur */
+  .section-psr.contrepoint {
+    margin-left: 0;
+    margin-right: calc(-1 * var(--e-4));
+    padding: var(--e-5);
+  }
+}
+
+.contrepoint__liste {
+  list-style: none;
+  margin: var(--e-4) 0 0;
+  padding: 0;
+}
+
+.contrepoint__item {
+  padding-block: var(--e-3);
+  border-top: 1px solid rgba(246, 244, 238, 0.22);
+}
+.contrepoint__item:last-child { padding-bottom: 0; }
+
+.contrepoint__item h3 {
+  font-style: italic;
+  font-weight: 420;
+  font-variation-settings: "opsz" 24;
+  color: var(--cb-ivoire-texte);
+  margin-bottom: var(--e-1);
+  max-width: 18ch;
+}
+
+.contrepoint__item p {
+  color: var(--cb-lavande-texte);
+  max-width: 52ch;
+}
+
+@media (min-width: 1024px) {
+  .contrepoint__item {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    column-gap: var(--e-4);
+    padding-block: var(--e-4);
+  }
+  .contrepoint__item h3 { margin-bottom: 0; }
+}
+
+/* Liste à tirets ocre (puces de la DA) */
+.liste-tiret {
+  list-style: none;
+  margin: var(--e-3) 0;
+  padding: 0;
+}
+.liste-tiret li {
+  position: relative;
+  padding-left: 36px;
+  max-width: 58ch;
+}
+.liste-tiret li + li { margin-top: var(--e-2); }
+.liste-tiret li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.78em;
+  width: 20px;
+  height: 2px; /* 2 px : reste net quel que soit l'arrondi de sous-pixel */
+  background: var(--cb-ocre);
+}
+
+/* Indications : grandes lignes Fraunces numérotées entre hairlines */
+.liste-indications {
+  list-style: none;
+  margin: var(--e-2) 0 0;
+  padding: 0;
+  counter-reset: indication;
+}
+.liste-indications li {
+  counter-increment: indication;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: var(--e-2);
+  border-top: 1px solid rgba(116, 101, 142, 0.14);
+  padding-block: var(--e-3);
+  max-width: 40rem;
+  font-family: var(--police-display);
+  font-weight: 390;
+  font-variation-settings: "opsz" 22;
+  font-size: var(--fs-600);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--cb-titre);
+}
+.liste-indications li:last-child { border-bottom: 1px solid rgba(116, 101, 142, 0.14); }
+.liste-indications li::before {
+  content: counter(indication, decimal-leading-zero);
+  font: 600 0.6875rem/1 var(--police-corps);
+  letter-spacing: 0.14em;
+  color: var(--cb-sauge-texte);
+  padding-top: 0.65em;
+}
+
+/* Fondements : paragraphes avec notes en marge façon revue */
+.avec-marge + .avec-marge { margin-top: var(--e-3); }
+.avec-marge .marge-note {
+  display: block;
+  margin: 0 0 6px;
+  max-width: none;
+  letter-spacing: 0.09em;
+}
+.avec-marge > p:last-child { margin-bottom: 0; }
+
+@media (min-width: 1024px) {
+  .avec-marge {
+    display: grid;
+    grid-template-columns: 148px minmax(0, 1fr);
+    column-gap: var(--e-3);
+  }
+  .avec-marge .marge-note {
+    margin: 0;
+    padding-top: 7px;
+    line-height: 1.7;
+  }
+}
+
+/* Encart « Le saviez-vous ? » : objet éditorial entre doubles filets ocre */
+.encart-saviez {
+  position: relative;
+  margin-top: var(--e-4);
+  padding: var(--e-4) var(--e-3);
+  background: var(--cb-ivoire-2);
+  border-top: var(--filet-ocre);
+  border-bottom: var(--filet-ocre);
+}
+.encart-saviez::before,
+.encart-saviez::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--cb-ocre);
+}
+.encart-saviez::before { top: 3px; }
+.encart-saviez::after { bottom: 3px; }
+
+.encart-saviez__titre {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-style: italic;
+  font-weight: 430;
+  font-variation-settings: "opsz" 24;
+  font-size: var(--fs-600);
+  margin-bottom: var(--e-2);
+}
+.encart-saviez__glyphe {
+  width: 24px;
+  flex: none;
+  color: var(--cb-sauge-texte);
+}
+.encart-saviez p {
+  font-size: var(--fs-300);
+  max-width: 56ch;
+}
+
+@media (min-width: 1024px) {
+  .encart-saviez {
+    /* aligné sur la colonne de texte des fondements, débordant à droite */
+    margin-left: calc(148px + var(--e-3));
+    margin-right: calc(-1 * var(--e-4));
+    padding: var(--e-4);
+  }
+}
+
+/* Renvoi éditorial (lien croisé) */
+.renvoi { margin-top: var(--e-3); }
+
+/* Marque de fin d'article : micro-glyphe + filet ocre */
+.fin-article {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  margin-top: var(--e-4);
+}
+.fin-article::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--cb-ocre);
+}
+.fin-article__glyphe {
+  width: 40px;
+  flex: none;
+  color: var(--cb-sauge-texte);
+}
+
+/* ----------  13ter. Médiations, auteurs (page La PSR)  ---------- */
+
+.mediations { list-style: none; margin: var(--e-3) 0 0; padding: 0; }
+.mediations > li { border-top: var(--filet-ocre); padding-block: var(--e-4); }
+.mediations > li:last-child { border-bottom: var(--filet-ocre); }
+.mediations h3 {
+  font-style: italic;
+  font-weight: 430;
+  font-variation-settings: "opsz" 24;
+  margin-bottom: var(--e-2);
+}
+.mediations__corps > p:last-child { margin-bottom: 0; }
+
+@media (min-width: 1024px) {
+  .mediations > li {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    column-gap: var(--e-4);
+  }
+  .mediations h3 { margin-bottom: 0; }
+}
+
+/* Auteurs de référence, en pastilles (fondements) */
+.auteurs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-1);
+  margin: 0 0 var(--e-4);
+  padding: 0;
+  max-width: none;
+}
+.auteurs li {
+  font: 600 var(--fs-200) var(--police-corps);
+  letter-spacing: 0.04em;
+  color: var(--cb-titre);
+  border: 1px solid var(--cb-ocre);
+  border-radius: 999px;
+  padding: 5px 12px;
+  background: rgba(245, 189, 70, 0.10);
+}
+
+/* Sous-titre de la section fusionnée « À qui s'adresse la PSR ? » */
+.pour-qui__sous-titre {
+  font-style: italic;
+  font-weight: 430;
+  font-variation-settings: "opsz" 24;
+  margin-top: var(--e-4);
+}
+
+/* ----------  14. Agenda (rendu JS)  ---------- */
+
+.groupe-mois { margin-bottom: var(--e-5); }
+.groupe-mois:last-child { margin-bottom: 0; }
+
+.groupe-mois__titre {
+  font-size: var(--fs-600);
+  font-style: italic;
+  font-weight: 420;
+  color: var(--cb-sauge-texte);
+  border-bottom: var(--filet-ocre);
+  padding-bottom: var(--e-1);
+  margin-bottom: 0;
+}
+
+.evenement {
+  border-bottom: 1px solid rgba(116, 101, 142, 0.14);
+  padding-block: var(--e-3);
+}
+
+.evenement__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-1);
+  margin-bottom: var(--e-1);
+}
+
+.evenement__titre { margin-bottom: 6px; }
+
+.evenement__meta {
+  font-size: var(--fs-300);
+  color: var(--cb-sauge-texte);
+  margin-bottom: var(--e-1);
+  max-width: none;
+}
+.evenement__meta strong { color: var(--cb-titre); font-weight: 500; }
+
+.evenement__desc { font-size: var(--fs-300); max-width: 58ch; }
+
+@media (min-width: 1024px) {
+  .evenement {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    column-gap: var(--e-4);
+    padding-block: var(--e-4);
+  }
+  .evenement__date-col { padding-top: 4px; }
+}
+
+/* ----------  15. Annuaire (rendu JS) — fiches enrichies  ---------- */
+
+.annuaire-region { margin-bottom: var(--e-5); }
+.annuaire-region:last-child { margin-bottom: 0; }
+
+.annuaire-region__titre {
+  font-size: var(--fs-600);
+  font-style: italic;
+  font-weight: 420;
+  color: var(--cb-sauge-texte);
+  border-bottom: var(--filet-ocre);
+  padding-bottom: var(--e-1);
+  margin-bottom: var(--e-3);
+}
+
+.annuaire-region__fiches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-3);
+}
+
+@media (min-width: 760px) {
+  .annuaire-region__fiches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.fiche {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--e-3);
+  height: 100%;
+  border: 1px solid rgba(116, 101, 142, 0.18);
+  border-radius: 6px;
+  padding: var(--e-3);
+  background: var(--cb-ivoire);
+}
+
+/* Photo uniformisée : cercle 72 px, même cadrage pour toutes */
+.fiche__avatar {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(116, 101, 142, 0.18);
+}
+.fiche__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fiche__avatar--initiales {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cb-sauge-pale);
+  color: var(--cb-sauge-texte);
+  font-family: var(--police-display);
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.fiche__corps { min-width: 0; }
+.fiche__nom { font-size: var(--fs-500); margin-bottom: 4px; }
+.fiche__lieu {
+  font-size: var(--fs-300);
+  color: var(--cb-sauge-texte);
+  margin-bottom: var(--e-1);
+  max-width: none;
+}
+.fiche__spe { font-size: var(--fs-300); margin-bottom: var(--e-2); max-width: none; }
+.fiche__badges { display: flex; flex-wrap: wrap; gap: var(--e-1); margin-bottom: var(--e-2); }
+
+.fiche__adresse,
+.fiche__contact { font-size: var(--fs-300); max-width: none; margin-bottom: var(--e-1); }
+.fiche__label {
+  display: block;
+  font: 600 0.6875rem/1.4 var(--police-corps);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+}
+.fiche__contact a { overflow-wrap: anywhere; }
+
+.fiche__liens {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-1) var(--e-3);
+  margin: 0 0 var(--e-2);
+  padding: 0;
+}
+.fiche__liens a { font-size: var(--fs-300); font-weight: 500; overflow-wrap: anywhere; }
+
+/* ----------  15bis. Corps de page interne générique (aside + colonne)  ---------- */
+
+.page-corps { padding-block: var(--e-4) var(--e-6); }
+
+@media (min-width: 1024px) {
+  .page-corps { padding-block: var(--e-5) var(--e-6); }
+  .page-corps__aside { grid-column: 1 / 4; align-self: start; }
+  .page-corps__aside.est-sticky { position: sticky; top: var(--e-4); }
+  .page-corps__principal { grid-column: 4 / 13; min-width: 0; }
+}
+
+@media (max-width: 1023.98px) {
+  .page-corps__aside {
+    border-block: var(--filet-ocre);
+    padding-block: var(--e-3);
+    margin-bottom: var(--e-4);
+  }
+}
+
+/* Titre d'aside : heading discret, style note de marge */
+.aside-titre {
+  font-family: var(--police-corps);
+  font-size: var(--fs-200);
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--cb-sauge-texte);
+  margin: 0 0 var(--e-2);
+}
+.aside-titre + .aside-titre,
+p + .aside-titre { margin-top: var(--e-4); }
+
+.page-corps__aside p {
+  font-size: var(--fs-300);
+  max-width: 34ch;
+}
+
+/* Légende des modalités (annuaire) */
+.legende-modalites {
+  list-style: none;
+  margin: 0 0 var(--e-2);
+  padding: 0;
+}
+.legende-modalites li + li { margin-top: var(--e-2); }
+.legende-modalites .badge { margin-bottom: 6px; }
+.legende-modalites p { margin: 4px 0 0; }
+
+/* Note de maquette dé-emphasée */
+.note-maquette {
+  font-size: var(--fs-200);
+  color: var(--cb-sauge-texte);
+  border-top: 1px solid rgba(116, 101, 142, 0.14);
+  padding-top: var(--e-2);
+  margin-top: var(--e-4);
+  max-width: 34ch;
+}
+.note-maquette .badge-note { margin-right: 6px; }
+
+/* ----------  15ter. Encart de note interne (à fournir / à valider)  ---------- */
+
+.encart-attente {
+  border-left: 2px solid var(--cb-ocre);
+  padding: var(--e-2) 0 var(--e-2) var(--e-3);
+  margin-block: var(--e-3);
+  max-width: 58ch;
+}
+.encart-attente p {
+  font-size: var(--fs-300);
+  color: var(--cb-encre);
+  max-width: none;
+}
+.encart-attente .badge-note { margin-bottom: var(--e-1); }
+
+.bande-aubergine .encart-attente { border-left-color: rgba(245, 189, 70, 0.65); }
+.bande-aubergine .encart-attente p { color: var(--cb-lavande-texte); }
+
+/* ----------  15quater. Page Côté Pro  ---------- */
+
+@media (min-width: 1024px) {
+  .pro-section__entete { grid-column: 1 / 5; }
+  .pro-section__corps { grid-column: 5 / 13; min-width: 0; }
+  .pro-section__entete .est-sticky { position: sticky; top: var(--e-4); }
+}
+
+.pro-section__entete h2 { max-width: 14ch; }
+.pro-section__entete .marge-note { max-width: 26ch; }
+
+/* Définitions supervision / intervision : objets éditoriaux jumeaux */
+.duo-definitions {
+  list-style: none;
+  margin: var(--e-4) 0 0;
+  padding: 0;
+}
+.duo-definitions li {
+  border-top: var(--filet-ocre);
+  padding-block: var(--e-3);
+}
+.duo-definitions li:last-child { border-bottom: var(--filet-ocre); }
+.duo-definitions h3 {
+  font-style: italic;
+  font-weight: 430;
+  font-variation-settings: "opsz" 24;
+  margin-bottom: var(--e-1);
+}
+.duo-definitions p { max-width: 56ch; }
+
+@media (min-width: 1024px) {
+  .duo-definitions li {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    column-gap: var(--e-4);
+    padding-block: var(--e-4);
+  }
+  .duo-definitions h3 { margin-bottom: 0; }
+}
+
+/* ----------  15quinquies. Page Articles (longs formats)  ---------- */
+
+.articles-sommaire { padding-block: var(--e-4) var(--e-5); }
+
+.article-long {
+  padding-block: var(--e-5);
+  border-top: 1px solid rgba(116, 101, 142, 0.14);
+  scroll-margin-top: var(--e-3);
+}
+
+@media (min-width: 1024px) {
+  .article-long { padding-block: var(--e-6); }
+}
+
+.article-long__titre {
+  font-size: var(--fs-700);
+  font-weight: 400;
+  font-variation-settings: "opsz" 36;
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  max-width: 22ch;
+}
+.article-long__titre em { font-style: italic; color: var(--cb-sauge-texte); }
+
+.article-long__meta {
+  font-size: var(--fs-200);
+  letter-spacing: 0.06em;
+  color: var(--cb-sauge-texte);
+  margin-bottom: var(--e-3);
+  max-width: none;
+}
+.article-long__meta .badge-note { vertical-align: 0.05em; }
+
+.article-long h3 {
+  font-size: var(--fs-500);
+  font-weight: 480;
+  margin: var(--e-4) 0 var(--e-2);
+  max-width: 30ch;
+}
+
+@media (min-width: 1024px) {
+  .article-long__entete { grid-column: 1 / 5; }
+  .article-long__entete .est-sticky { position: sticky; top: var(--e-4); }
+  .article-long__corps { grid-column: 5 / 13; min-width: 0; }
+  .article-long__corps > h3:first-child { margin-top: 0; }
+}
+
+/* ----------  15sexies. Formulaire (contact — démonstration)  ---------- */
+
+.formulaire { max-width: 620px; }
+
+.champ { margin-bottom: var(--e-3); }
+
+.champ label {
+  display: block;
+  font-size: var(--fs-300);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--cb-titre);
+  margin-bottom: 8px;
+}
+.champ label .champ__optionnel {
+  font-weight: 400;
+  color: var(--cb-sauge-texte);
+}
+
+.champ input[type="text"],
+.champ input[type="email"],
+.champ select,
+.champ textarea {
+  display: block;
+  width: 100%;
+  font: 400 var(--fs-400)/1.5 var(--police-corps);
+  color: var(--cb-encre);
+  background: var(--cb-ivoire);
+  border: 1px solid #6E678A; /* 3,9:1 sur ivoire */
+  border-radius: 2px;
+  padding: 12px 14px;
+  min-height: 48px;
+  transition: border-color var(--duree) ease;
+}
+.champ textarea { min-height: 160px; resize: vertical; }
+.champ input:focus-visible,
+.champ select:focus-visible,
+.champ textarea:focus-visible {
+  outline: 2px solid var(--cb-titre);
+  outline-offset: 1px;
+  border-color: var(--cb-aubergine);
+}
+
+.champ-consentement {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+  margin-block: var(--e-3);
+}
+.champ-consentement input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 3px 0 0;
+  accent-color: var(--cb-aubergine);
+}
+.champ-consentement label {
+  font-size: var(--fs-300);
+  line-height: 1.6;
+}
+
+.formulaire__rgpd {
+  font-size: var(--fs-200);
+  color: var(--cb-sauge-texte);
+  max-width: 58ch;
+}
+
+.formulaire__envoi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-2) var(--e-3);
+  margin-top: var(--e-3);
+}
+.bouton[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.formulaire__demo-note {
+  font-size: var(--fs-200);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--cb-ocre-texte);
+  margin: 0;
+}
+
+/* Coordonnées (aside contact) */
+.coordonnees {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.coordonnees li {
+  border-top: 1px solid rgba(116, 101, 142, 0.14);
+  padding-block: var(--e-2);
+  font-size: var(--fs-300);
+}
+.coordonnees li:last-child { border-bottom: 1px solid rgba(116, 101, 142, 0.14); }
+.coordonnees .marge-note {
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 0.09em;
+}
+
+/* ----------  16. Footer  ---------- */
+
+.site-footer {
+  background: var(--cb-aubergine-profond);
+  color: var(--cb-lavande-texte);
+  padding-block: var(--e-5) var(--e-4);
+  font-size: var(--fs-300);
+}
+
+.site-footer a { color: var(--cb-ivoire-texte); text-decoration-color: rgba(246, 244, 238, 0.35); }
+.site-footer a:hover { color: var(--cb-sauge-claire); text-decoration-color: var(--cb-ocre); }
+.site-footer :focus-visible { outline-color: var(--cb-ivoire); }
+
+.site-footer .marque { color: var(--cb-ivoire-texte); }
+.site-footer .marque__picto { color: var(--cb-sauge-claire); }
+.site-footer .marque__wordmark small { color: var(--cb-sauge-claire); }
+
+.site-footer__haut {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-4) var(--e-6);
+  justify-content: space-between;
+  padding-bottom: var(--e-4);
+  border-bottom: 1px solid rgba(245, 189, 70, 0.45); /* filet ocre atténué */
+}
+
+.nav-secondaire ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px var(--e-3);
+}
+.nav-secondaire a {
+  display: inline-block;
+  padding-block: 8px; /* cible tactile confortable */
+  text-decoration: none;
+}
+.nav-secondaire a:hover { text-decoration: underline; text-decoration-color: var(--cb-ocre); text-underline-offset: 4px; }
+
+.site-footer__bas {
+  padding-top: var(--e-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2) var(--e-4);
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.site-footer__bas p { max-width: 58ch; margin: 0; }
+
+.site-footer__mention-piste {
+  font-size: var(--fs-200);
+  letter-spacing: 0.06em;
+  color: var(--cb-lavande-texte);
+}
+
+/* ----------  17. Mouvement réduit  ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

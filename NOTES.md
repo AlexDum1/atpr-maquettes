@@ -54,3 +54,40 @@ Journal de production des 3 maquettes (session Claude Code, 9 juillet 2026).
 22. **Dépôt GitHub** : https://github.com/AlexDum1/atpr-maquettes (public). Exclus du dépôt : `Idées Site.pdf`, JPG source, `captures/`, `node_modules/`, `.claude/`.
 23. **URL FINALE (à transmettre à l'association)** : **https://alexdum1.github.io/atpr-maquettes/**
     Vérifié en ligne le 10 juillet 2026 : index comparatif, 7 pages de la maquette 2 (QA PASS complet, JSON chargés, menu mobile), pages 1 et 3 + les deux JSON répondent 200.
+
+## Session « Version 3 » (21 juillet 2026) — passage maquette → projet
+
+24. **Direction retenue** : la piste 3 « Carte blanche » sert de base, **éclaircie**. Nouveau dossier
+    auto-portant `version-3/` (7 pages + `styles.css` + `script.js` + `STYLE-GUIDE.md` + `data/`). Les
+    3 maquettes initiales restent en archive. Le site devient le **projet réel** de l'association
+    (cible : `psychosomatique-relationnelle.fr`) : retrait du bandeau inter-piste, du bandeau « Piste
+    créative » et de la mention de pied de page correspondante.
+25. **Palette claire (référence couleur)** consignée dans `version-3/STYLE-GUIDE.md` §2 : mauve `#74658E`,
+    vert-bleu `#73C0A8`, bleu `#819EB8`, orangé `#F5BD46` (couleurs du logo). L'aubergine sombre
+    `#423A5A` et les bandes inversées foncées sont remplacées par du mauve clair (texte ivoire ≥ 4,78:1) ;
+    boutons en orangé (texte encre 6,86:1). Tous les jetons de texte revérifiés WCAG AA.
+26. **Logo** : la proposition SVG « main » dessinée a été **abandonnée** (risque d'un logo inventé). Le
+    **logo officiel de l'association** a ensuite été fourni et **intégré** : `assets/logos/logo-atpr.png`
+    (original) + `logo-atpr-trim.png` (détouré, fond transparent) dans le header des 7 pages
+    (`.marque__logo`, hauteur 56/46 px). Le logo est un lockup complet (maison + main + wordmark +
+    A.T.P.R.), donc le header n'a plus de wordmark texte séparé ; le footer (fond sombre) garde le
+    wordmark texte. Pictogramme « maison habitée » et filigranes retirés ; favicon = PNG existant.
+27. **Accueil** : ajout d'une citation de **Sami-Ali** (`[À valider]` libellé/source), section
+    « Pourquoi consulter&nbsp;? » (4 raisons fournies) à la place de « Pour qui&nbsp;? » (déplacé sur La PSR).
+28. **La PSR** : fusion des ex-titres 4 et 5 (« À qui s'adresse&nbsp;? » + « Quand indiquée&nbsp;? ») ;
+    nouvelle section **« Les médiations »** (rêve, corporelle, artistique, marche — transposées en voix
+    institutionnelle, une phrase source tronquée marquée `[À compléter]`) ; **fondements** enrichis, auteurs
+    mis en avant (Sami-Ali, Roussillon, **Green**, Winnicott, Anzieu, **Marty** — Green/Marty `[À valider]`) ;
+    dé-duplication FF2P (retirée de l'encart « Le saviez-vous&nbsp;? »). Séance et différence
+    psychanalyse/PSR conservées.
+29. **Annuaire** : schéma enrichi (`version-3/data/annuaire.json` : prénom, nom, ville, **département**,
+    adresse, **photo**, **spécialité**, **liens** site + réseaux). Rendu `initAnnuaire` refait :
+    regroupement **par département d'Occitanie** puis « Autres régions » ; **photos uniformisées** (avatar
+    initiales à défaut). Données `[EXEMPLE]` recentrées sur l'Occitanie.
+30. **Chemins de données** : `version-3` étant auto-portant, les `fetch` pointent vers `./data/…`
+    (et non `../data/…`) ; `agenda.json` copié dans `version-3/data/`.
+31. **Articles** conservés ; **Côté Pro / Agenda / Contact** portés sur la palette claire + logo « main »,
+    sans chrome « piste ». Carte « Version 3 — direction retenue » ajoutée à l'index comparatif racine.
+32. **À valider par l'asso** (récap `STYLE-GUIDE.md` §9) : citation Sami-Ali, phrase médiation corporelle
+    tronquée, descripteurs Green/Marty, fichiers logo définitifs, données réelles annuaire + RGPD,
+    mentions légales / coordonnées / adhésion, nom de domaine.

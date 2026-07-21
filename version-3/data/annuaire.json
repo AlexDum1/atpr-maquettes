@@ -1,0 +1,167 @@
+{
+  "_note": "Annuaire 100 % fictif (projet). Prénoms, noms, villes, adresses, liens et contacts sont des exemples marqués \"exemple\": true. Photos génériques uniformisées (initiales) en attendant les vraies. La liste réelle sera fournie par l'association avec l'accord RGPD de chaque thérapeute.",
+  "therapeutes": [
+    {
+      "id": "t1",
+      "exemple": true,
+      "prenom": "Claire",
+      "nom": "Fontaine",
+      "ville": "Montpellier",
+      "departement": "Hérault (34)",
+      "region": "Occitanie",
+      "modalites": ["présentiel", "visio"],
+      "adresse": "12 rue des Écoles, 34000 Montpellier",
+      "photo": "",
+      "specialite": "Adultes et adolescents · travail du rêve, médiation artistique",
+      "liens": {
+        "site": "https://exemple-claire-fontaine.fr",
+        "reseaux": [{ "type": "Instagram", "url": "https://instagram.com/exemple" }]
+      },
+      "contact": "exemple-1@annuaire-fictif.fr"
+    },
+    {
+      "id": "t2",
+      "exemple": true,
+      "prenom": "Anne",
+      "nom": "Kerbrat",
+      "ville": "Béziers",
+      "departement": "Hérault (34)",
+      "region": "Occitanie",
+      "modalites": ["visio"],
+      "adresse": "Consultations en visioconférence",
+      "photo": "",
+      "specialite": "Adultes · douleurs chroniques, périnatalité",
+      "liens": {
+        "site": "",
+        "reseaux": []
+      },
+      "contact": "exemple-2@annuaire-fictif.fr"
+    },
+    {
+      "id": "t3",
+      "exemple": true,
+      "prenom": "Julien",
+      "nom": "Soler",
+      "ville": "Toulouse",
+      "departement": "Haute-Garonne (31)",
+      "region": "Occitanie",
+      "modalites": ["présentiel", "visio"],
+      "adresse": "5 place du Capitole, 31000 Toulouse",
+      "photo": "",
+      "specialite": "Adultes et adolescents · marche thérapeutique",
+      "liens": {
+        "site": "https://exemple-julien-soler.fr",
+        "reseaux": [{ "type": "LinkedIn", "url": "https://linkedin.com/in/exemple" }]
+      },
+      "contact": "exemple-3@annuaire-fictif.fr"
+    },
+    {
+      "id": "t4",
+      "exemple": true,
+      "prenom": "Sophie",
+      "nom": "Marceau-Blanc",
+      "ville": "Nîmes",
+      "departement": "Gard (30)",
+      "region": "Occitanie",
+      "modalites": ["présentiel"],
+      "adresse": "8 boulevard Gambetta, 30000 Nîmes",
+      "photo": "",
+      "specialite": "Adultes · trauma, médiation corporelle",
+      "liens": {
+        "site": "https://exemple-sophie-mb.fr",
+        "reseaux": [{ "type": "Facebook", "url": "https://facebook.com/exemple" }]
+      },
+      "contact": "exemple-4@annuaire-fictif.fr"
+    },
+    {
+      "id": "t5",
+      "exemple": true,
+      "prenom": "Camille",
+      "nom": "Aubry",
+      "ville": "Perpignan",
+      "departement": "Pyrénées-Orientales (66)",
+      "region": "Occitanie",
+      "modalites": ["présentiel", "visio"],
+      "adresse": "22 avenue du Général de Gaulle, 66000 Perpignan",
+      "photo": "",
+      "specialite": "Adultes et familles · médiation artistique",
+      "liens": {
+        "site": "",
+        "reseaux": [{ "type": "Instagram", "url": "https://instagram.com/exemple" }]
+      },
+      "contact": "exemple-5@annuaire-fictif.fr"
+    },
+    {
+      "id": "t6",
+      "exemple": true,
+      "prenom": "Élise",
+      "nom": "Wagner",
+      "ville": "Albi",
+      "departement": "Tarn (81)",
+      "region": "Occitanie",
+      "modalites": ["présentiel"],
+      "adresse": "3 rue Sainte-Cécile, 81000 Albi",
+      "photo": "",
+      "specialite": "Adultes · psychosomatique et maladie chronique",
+      "liens": {
+        "site": "https://exemple-elise-wagner.fr",
+        "reseaux": []
+      },
+      "contact": "exemple-6@annuaire-fictif.fr"
+    },
+    {
+      "id": "t7",
+      "exemple": true,
+      "prenom": "Marc",
+      "nom": "Rivière",
+      "ville": "Carcassonne",
+      "departement": "Aude (11)",
+      "region": "Occitanie",
+      "modalites": ["présentiel", "visio"],
+      "adresse": "17 rue de Verdun, 11000 Carcassonne",
+      "photo": "",
+      "specialite": "Adultes · rêve éveillé, respiration",
+      "liens": {
+        "site": "",
+        "reseaux": []
+      },
+      "contact": "exemple-7@annuaire-fictif.fr"
+    },
+    {
+      "id": "t8",
+      "exemple": true,
+      "prenom": "Nadia",
+      "nom": "Belkacem",
+      "ville": "Paris 11ᵉ",
+      "departement": "Paris (75)",
+      "region": "Autres régions",
+      "modalites": ["visio"],
+      "adresse": "Consultations en visioconférence",
+      "photo": "",
+      "specialite": "Adultes · alexithymie, troubles fonctionnels",
+      "liens": {
+        "site": "https://exemple-nadia-belkacem.fr",
+        "reseaux": []
+      },
+      "contact": "exemple-8@annuaire-fictif.fr"
+    },
+    {
+      "id": "t9",
+      "exemple": true,
+      "prenom": "Pierre",
+      "nom": "Delmas",
+      "ville": "Lyon",
+      "departement": "Rhône (69)",
+      "region": "Autres régions",
+      "modalites": ["présentiel", "visio"],
+      "adresse": "9 quai Saint-Antoine, 69002 Lyon",
+      "photo": "",
+      "specialite": "Adultes et adolescents · médiation corporelle",
+      "liens": {
+        "site": "",
+        "reseaux": [{ "type": "Instagram", "url": "https://instagram.com/exemple" }]
+      },
+      "contact": "exemple-9@annuaire-fictif.fr"
+    }
+  ]
+}
